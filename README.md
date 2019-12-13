@@ -24,11 +24,15 @@ You can install the package via composer:
 composer require coroowicaksono/chart-js-integration
 ```
 
-## Basic Usage
+# Usage
+
+## Stacked Chart
+
+![StackedChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/screenshot-stacked-chart.png)
 
 Include this line to header in your NovaServiceProvider.php
 ```php
-use Coroo\ChartJsIntegration\ChartJsIntegration;
+use Coroowicaksono\ChartJsIntegration\StackedChart;
 ```
 
 Add this line to your cards function:
@@ -37,44 +41,80 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 {
 
     public function cards(Request $request)
-        {
-    
-            return [
-                (new ChartJsIntegration())
-                    ->type('bar')
-                    ->title('Revenue')
-                    ->animations([
-                        'enabled' => true,
-                        'easing' => 'easeinout',
-                    ])
-                    ->series(array([
-                        'type' => 'bar',
-                        'barPercentage' => 0.5,
-                        'label' => 'Average Sales',
-                        'backgroundColor' => '#999',
-                        'data' => [80, 90, 80, 40, 62, 79, 79, 90, 90, 90, 92, 91],
-                    ],[
-                        'type' => 'bar',
-                        'barPercentage' => 0.5,
-                        'label' => 'Average Sales 2',
-                        'backgroundColor' => '#F87900',
-                        'data' => [40, 62, 79, 80, 90, 79, 90, 90, 90, 92, 91, 80],
-                    ]))
-                    ->options([
-                        'stacked' => true,
-                        'xaxis' => [
-                            'categories' => [ 'Jan', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct' ]
-                        ],
-                    ])->width('2/3')
-            ];
-        }
+    {
+        return [
+            (new StackedChart())
+            ->title('Revenue')
+            ->animations([
+                'enabled' => true,
+                'easing' => 'easeinout',
+            ])
+            ->series(array([
+                'barPercentage' => 0.5,
+                'label' => 'Average Sales',
+                'backgroundColor' => '#999',
+                'data' => [80, 90, 80, 40, 62, 79, 79, 90, 90, 90, 92, 91],
+            ],[
+                'barPercentage' => 0.5,
+                'label' => 'Average Sales 2',
+                'backgroundColor' => '#F87900',
+                'data' => [40, 62, 79, 80, 90, 79, 90, 90, 90, 92, 91, 80],
+            ]))
+            ->options([
+                'xaxis' => [
+                    'categories' => [ 'Jan', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct' ]
+                ],
+            ])->width('2/3')
+        ];
+    }
 
 }
 ```
 
-## Stacked Chart
+## Bar Chart
 
-![SliderFilter in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/src/img/screenshot.png)
+![BarChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/screenshot-bar-chart.png)
+
+Include this line to header in your NovaServiceProvider.php
+```php
+use Coroowicaksono\ChartJsIntegration\BarChart;
+```
+
+Add this line to your cards function:
+```php
+class NovaServiceProvider extends NovaApplicationServiceProvider
+{
+
+    public function cards(Request $request)
+    {
+        return [
+            (new BarChart())
+            ->title('Revenue')
+            ->animations([
+                'enabled' => true,
+                'easing' => 'easeinout',
+            ])
+            ->series(array([
+                'barPercentage' => 0.5,
+                'label' => 'Average Sales',
+                'backgroundColor' => '#999',
+                'data' => [80, 90, 80, 40, 62, 79, 79, 90, 90, 90, 92, 91],
+            ],[
+                'barPercentage' => 0.5,
+                'label' => 'Average Sales 2',
+                'backgroundColor' => '#F87900',
+                'data' => [40, 62, 79, 80, 90, 79, 90, 90, 90, 92, 91, 80],
+            ]))
+            ->options([
+                'xaxis' => [
+                    'categories' => [ 'Jan', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct' ]
+                ],
+            ])->width('2/3')
+        ];
+    }
+
+}
+```
 
 ## License
 

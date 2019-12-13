@@ -4,7 +4,7 @@ namespace Coroowicaksono\ChartJsIntegration;
 
 use Laravel\Nova\Card;
 
-class ChartJsIntegration extends Card
+class StackedChart extends Card
 {
     /**
      * The width of the card (1/3, 1/2, or full).
@@ -27,7 +27,7 @@ class ChartJsIntegration extends Card
      */
     public function component()
     {
-        return 'chart-js-integration';
+        return 'stacked-chart';
     }
 
     public function series(array $series): self
