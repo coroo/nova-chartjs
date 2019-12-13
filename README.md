@@ -21,7 +21,7 @@ This Nova Chart JS Integration requires Nova 2.0 or higher.
 You can install the package via composer:
 
 ```bash
-composer require coroo/chart-js-integration
+composer require coroowicaksono/chart-js-integration
 ```
 
 ## Basic Usage
