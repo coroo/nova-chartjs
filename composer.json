@@ -1,0 +1,39 @@
+{
+    "name": "coroowicaksono/chart-js-integration",
+    "description": "A Simple Laravel Nova with Chart JS Integration Package.",
+    "keywords": [
+        "laravel",
+        "nova",
+        "stacked chart",
+        "chart js"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/coroo",
+    "authors": [
+        {
+            "name": "Kuncoro Wicaksono",
+            "email": "coroo.wicaksono@gmail.com",
+            "role": "Software Engineer"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Coroowicaksono\\ChartJsIntegration\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Coroowicaksono\\ChartJsIntegration\\CardServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
