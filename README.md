@@ -1,4 +1,7 @@
-![SliderFilter in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/src/img/header.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/coroo/chart-js-integration/master/src/img/header.png">
+  <hr/>
+</p>
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/coroowicaksono/chart-js-integration)](https://packagist.org/packages/coroowicaksono/chart-js-integration)
 [![Total Downloads](https://img.shields.io/packagist/dt/coroowicaksono/chart-js-integration)](https://packagist.org/packages/coroowicaksono/chart-js-integration)
@@ -9,9 +12,6 @@ A Simple Laravel Nova with Chart JS Integration Package.
 [ChartJS Documentation](https://www.chartjs.org/docs/latest/)
 | [Vue-ChartJS Documentation](https://vue-chartjs.org/guide/)
 
-![SliderFilter in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/src/img/screenshot.png)
-
-
 ## Requirements
 
 This Nova Chart JS Integration requires Nova 2.0 or higher.
@@ -21,7 +21,7 @@ This Nova Chart JS Integration requires Nova 2.0 or higher.
 You can install the package via composer:
 
 ```bash
-composer require coroo/chart-js-integration
+composer require coroowicaksono/chart-js-integration
 ```
 
 ## Basic Usage
@@ -71,6 +71,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
 }
 ```
+
+## Stacked Chart
+
+![SliderFilter in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/src/img/screenshot.png)
 
 ## License
 
