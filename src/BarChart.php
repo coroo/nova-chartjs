@@ -54,4 +54,9 @@ class BarChart extends Card
     {
         return $this->withMeta([ 'title' => $title ]);
     }
+
+    public function model(string $model): self
+    {
+        return $this->withMeta([ 'model' => $model ]);
+    }
 }
