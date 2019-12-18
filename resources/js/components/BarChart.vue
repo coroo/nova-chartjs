@@ -31,22 +31,32 @@
     },
     methods: {
       fillData () {
-        this.title = this.card.title,
-        this.datacollection = {
-          labels: this.card.options.xaxis.categories,
-          datasets: this.card.series,
-        },
-        this.options = {
-          scales: this.card.options.scales,
-          titlep: {
-            display: true,
-            fontSize: '16',
-            fontColor: '#7c858e',
-            fontFamily: "'Nunito'",
-            fontStyle: 'bold',
+        if(this.card.model == 'custom' || this.card.model == undefined){
+          this.title = this.card.title,
+          this.datacollection = {
+            labels: this.card.options.xaxis.categories,
+            datasets: this.card.series,
           }
+        } else {
+          Nova.request().get("/coroowicaksono/check-data/endpoint/", {
+            params: {
+                model: this.card.model,
+                series: this.card.series,
+                options: this.card.options,
+                expires: 0,
+            },
+          })
+          .then(({ data }) => {
+            this.datacollection = {
+              labels: data.dataset.xAxis,
+              datasets: data.dataset.yAxis,
+            };
+          })
+          .catch(({ response }) => {
+            this.$set(this, "errors", response.data.errors)
+          })
         }
-      }
+      },
     },
   }
 </script>
