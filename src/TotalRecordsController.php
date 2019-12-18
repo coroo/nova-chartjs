@@ -42,11 +42,26 @@ class TotalRecordsController extends Controller
                     $seriesSql .= ", SUM(CASE WHEN ".$filter->key." = '".$filter->value."' then 1 else 0 end) as '".$labelList[$seriesKey]."'";
                 }
             }
-            $dataSet = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %y") AS yearmonth, DATE_FORMAT('.$xAxisColumn.', "%y-%m") AS yearmonthorder, count(1) counted'.$seriesSql)
+            $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %y") AS yearmonth, DATE_FORMAT('.$xAxisColumn.', "%y-%m") AS yearmonthorder, count(1) counted'.$seriesSql)
                 ->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonth($dataForLast-1))
                 ->groupBy('yearmonthorder', 'yearmonth')
-                ->orderBy('yearmonthorder', 'asc')
-                ->get();
+                ->orderBy('yearmonthorder', 'asc');
+            
+            if(isset(json_decode($request->options, true)['queryFilter'])){
+                $queryFilter = json_decode($request->options, true)['queryFilter'];
+                foreach($queryFilter as $qF){
+                    if(isset($qF['value'])){
+                        if(isset($qF['operator'])){
+                            $query->where($qF['key'], $qF['operator'], $qF['value']);
+                        } else {
+                            $query->where($qF['key'], $qF['value']);
+                        }
+                    } else {
+                        $query->where($qF['key'], $qF['operator']);
+                    }
+                }
+            }
+            $dataSet = $query->get();
             $xAxis = collect($dataSet)->map(function ($item, $key) {
                 return $item->only(['yearmonth'])['yearmonth'];
             });

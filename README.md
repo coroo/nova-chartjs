@@ -36,6 +36,7 @@ composer require coroowicaksono/chart-js-integration
     - [Show Latest XX Month](#latest-month)
     - [Custom Background Color](#custom-background-color)
     - [Hide Total](#hide-total)
+    - [Adding Filter](#adding-filter)
 
 # Use Custom Data
 
@@ -348,6 +349,69 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             ]))
             ->options([
                 'showTotal' => false // Hide Show Total in Your Chart
+            ])
+            ->width('2/3')
+        ];
+    }
+
+}
+```
+
+## Adding Filter
+
+For adding filter column in your data, please use this `queryFilter` in `options`:
+```php
+->options([
+    'queryFilter' => array([
+        'key' => 'status',
+        'operator' => '=',
+        'value' => 'success'
+    ],[
+        'key' => 'updated_at',
+        'operator' => 'IS NOT NULL',
+    ]
+])
+```
+
+So your card should be like:
+```php
+class NovaServiceProvider extends NovaApplicationServiceProvider
+{
+
+    public function cards(Request $request)
+    {
+        return [
+            (new StackedChart())
+            ->title('Revenue')
+            ->model('\App\Models\Sales') // Use Your Model Here
+            ->series(array([
+                'label' => 'Product A',
+                'filter' => [
+                    'key' => 'product_id', // State Column for Count Calculation Here
+                    'value' => '1'
+                ],
+            ],[
+                'label' => 'Product B',
+                'filter' => [
+                    'key' => 'product_id', // State Column for Count Calculation Here
+                    'value' => '2'
+                ],
+            ],[
+                'label' => 'Product C',
+                'filter' => [
+                    'key' => 'product_id', // State Column for Count Calculation Here
+                    'value' => '3'
+                ],
+            ]))
+            ->options([
+                'queryFilter' => array([    // add array of filter with this format
+                    'key' => 'status',
+                    'operator' => '=',
+                    'value' => 'success'
+                ],[
+                    'key' => 'updated_at',
+                    'operator' => 'IS NOT NULL',
+                ]
             ])
             ->width('2/3')
         ];
