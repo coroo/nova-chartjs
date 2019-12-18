@@ -166,7 +166,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
 Include this line to header in your NovaServiceProvider.php
 ```php
-use Coroowicaksono\ChartJsIntegration\StackedChart;
+use Coroowicaksono\ChartJsIntegration\BarChart;
 ```
 
 Add this line to your cards function:
@@ -177,7 +177,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function cards(Request $request)
     {
         return [
-            (new StackedChart())
+            (new BarChart())
             ->title('Revenue')
             ->model('\App\Models\Sales') // Use Your Model Here
             ->series(array([
@@ -282,6 +282,57 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                     'value' => '1'
                 ],
                 'backgroundColor' => '#F87900', // Add This to change the background color
+            ],[
+                'label' => 'Product B',
+                'filter' => [
+                    'key' => 'product_id', // State Column for Count Calculation Here
+                    'value' => '2'
+                ],
+            ],[
+                'label' => 'Product C',
+                'filter' => [
+                    'key' => 'product_id', // State Column for Count Calculation Here
+                    'value' => '3'
+                ],
+            ]))
+            ->options([
+                'showTotal' => false // Hide Show Total in Your Chart
+            ])
+            ->width('2/3')
+        ];
+    }
+
+}
+```
+
+## Hide Total
+
+![BarChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/hide-show-total.jpg)
+
+For hide total column in your Chart, please use this option:
+```php
+->options([
+    'showTotal' => false
+])
+```
+
+So your card should be like:
+```php
+class NovaServiceProvider extends NovaApplicationServiceProvider
+{
+
+    public function cards(Request $request)
+    {
+        return [
+            (new StackedChart())
+            ->title('Revenue')
+            ->model('\App\Models\Sales') // Use Your Model Here
+            ->series(array([
+                'label' => 'Product A',
+                'filter' => [
+                    'key' => 'product_id', // State Column for Count Calculation Here
+                    'value' => '1'
+                ],
             ],[
                 'label' => 'Product B',
                 'filter' => [
