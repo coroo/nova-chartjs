@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/coroo/chart-js-integration/master/src/img/header.png">
+  <img src="https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/header.png">
   <hr/>
 </p>
 
