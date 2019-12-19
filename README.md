@@ -37,6 +37,7 @@ composer require coroowicaksono/chart-js-integration
     - [Custom Background Color](#custom-background-color)
     - [Hide Total](#hide-total)
     - [Adding Filter](#adding-filter)
+    - [Sum Calculation](#sum-calculation)
 
 # Use Custom Data
 
@@ -419,6 +420,60 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
 }
 ```
+
+## Sum Calculation
+
+By default, chart-js-integration will show count of your data.
+If you need to do sum calculation, please use this `sum` in your `options` with the value is your field:
+```php
+->options([
+    'sum' => 'my_sales_column'
+])
+```
+
+So your card should be like:
+```php
+class NovaServiceProvider extends NovaApplicationServiceProvider
+{
+
+    public function cards(Request $request)
+    {
+        return [
+            (new StackedChart())
+            ->title('Revenue')
+            ->model('\App\Models\Sales') // Use Your Model Here
+            ->series(array([
+                'label' => 'Product A',
+                'filter' => [
+                    'key' => 'product_id', // State Column for Count Calculation Here
+                    'value' => '1'
+                ],
+            ],[
+                'label' => 'Product B',
+                'filter' => [
+                    'key' => 'product_id', // State Column for Count Calculation Here
+                    'value' => '2'
+                ],
+            ],[
+                'label' => 'Product C',
+                'filter' => [
+                    'key' => 'product_id', // State Column for Count Calculation Here
+                    'value' => '3'
+                ],
+            ]))
+            ->options([
+                'sum' => 'my_sales_column' // Add the column you want to calculate
+            ])
+            ->width('2/3')
+        ];
+    }
+
+}
+```
+
+## ChangeLog
+
+Please see [CHANGELOG](https://github.com/coroo/chart-js-integration/blob/master/CHANGELOG.md) for more information on what has changed recently.
 
 ## License
 

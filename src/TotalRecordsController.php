@@ -23,6 +23,7 @@ class TotalRecordsController extends Controller
         }
         $showTotal = isset($request->options) ? json_decode($request->options, true)['showTotal'] ?? true : true;
         $dataForLast = isset($request->options) ? json_decode($request->options, true)['latestData'] ?? 3 : 3;
+        $calculation = isset($request->options) ? json_decode($request->options, true)['sum'] ?? 1 : 1;
         $request->validate(['model'   => ['bail', 'required', 'min:1', 'string']]);
         $model = $request->input('model');
         $xAxisColumn = $request->input('col_xaxis') ?? 'created_at';
@@ -39,7 +40,7 @@ class TotalRecordsController extends Controller
                     $seriesData = json_decode($serieslist);
                     $filter = $seriesData->filter;
                     $labelList[$seriesKey] = $seriesData->label;
-                    $seriesSql .= ", SUM(CASE WHEN ".$filter->key." = '".$filter->value."' then 1 else 0 end) as '".$labelList[$seriesKey]."'";
+                    $seriesSql .= ", SUM(CASE WHEN ".$filter->key." = '".$filter->value."' then ".$calculation." else 0 end) as '".$labelList[$seriesKey]."'";
                 }
             }
             $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %y") AS yearmonth, DATE_FORMAT('.$xAxisColumn.', "%y-%m") AS yearmonthorder, count(1) counted'.$seriesSql)
@@ -57,7 +58,11 @@ class TotalRecordsController extends Controller
                             $query->where($qF['key'], $qF['value']);
                         }
                     } else {
-                        $query->where($qF['key'], $qF['operator']);
+                        if($qF['operator']=='IS NULL'){
+                            $query->whereNull($qF['key']);
+                        } else if($qF['operator']=='IS NOT NULL'){
+                            $query->whereNotNull($qF['key']);
+                        }
                     }
                 }
             }
