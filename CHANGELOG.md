@@ -2,6 +2,12 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## 0.0.6 - 2019-12-19
+
+- fix bug for 0.0.5 release
+    - fix sum calculation for total not changed
+- add number format in chart using M for million and K for thousand.
+
 ## 0.0.5 - 2019-12-19
 
 - add sum calculation instead of count

@@ -12,6 +12,13 @@ export default {
   },
   data: () => ({
     options: {
+      tooltips: {
+          callbacks: {
+              label: function(tooltipItem, data) {
+                  return tooltipItem.yLabel.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+              }
+          }
+      },
       layout: {
         padding: {
             left: 20,
@@ -26,6 +33,18 @@ export default {
           ticks: {
             maxTicksLimit: 5,
             fontSize: 10,
+            callback: function(num, index, values) {
+              if (num >= 1000000000) {
+                 return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
+              }
+              if (num >= 1000000) {
+                 return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+              }
+              if (num >= 1000) {
+                 return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+              }
+              return num;
+            }
           }
         }],
         xAxes: [ {
