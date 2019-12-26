@@ -71,6 +71,6 @@
     font-size: 1rem;
     font-weight: 800;
     margin: 0;
-    padding: 10px 30px 2px;
+    padding: 1rem 1.5rem 2px;
   }
 </style>
