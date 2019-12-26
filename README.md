@@ -30,6 +30,8 @@ composer require coroowicaksono/chart-js-integration
 - [Use Custom Data](#use-custom-data)
     - [Stacked Chart](#stacked-chart)
     - [Bar Chart](#bar-chart)
+    - [Line Chart](#line-chart)
+    - [Area Chart](#area-chart)
 - [Use Data From Model](#use-model)
     - [Simple Chart with Data](#simple-chart-with-data)
     - [Custom Column Calculation](#custom-column-calculation)
@@ -119,6 +121,96 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 'label' => 'Average Sales 2',
                 'backgroundColor' => '#F87900',
                 'data' => [40, 62, 79, 80, 90, 79, 90, 90, 90, 92, 91, 80],
+            ]))
+            ->options([
+                'xaxis' => [
+                    'categories' => [ 'Jan', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct' ]
+                ],
+            ])->width('2/3')
+        ];
+    }
+
+}
+```
+
+## Line Chart
+
+![LineChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/screenshot-line-chart.png)
+
+Include this line to header in your NovaServiceProvider.php
+```php
+use Coroowicaksono\ChartJsIntegration\LineChart;
+```
+
+Add this line to your cards function:
+```php
+class NovaServiceProvider extends NovaApplicationServiceProvider
+{
+
+    public function cards(Request $request)
+    {
+        return [
+            (new LineChart())
+            ->title('Revenue')
+            ->animations([
+                'enabled' => true,
+                'easing' => 'easeinout',
+            ])
+            ->series(array([
+                'barPercentage' => 0.5,
+                'label' => 'Average Sales',
+                'borderColor' => '#f7a35c',
+                'data' => [80, 90, 80, 40, 62, 79, 79, 90, 90, 90, 92, 91],
+            ],[
+                'barPercentage' => 0.5,
+                'label' => 'Average Sales #2',
+                'borderColor' => '#90ed7d',
+                'data' => [90, 80, 40, 22, 79, 129, 30, 40, 90, 92, 91, 80],
+            ]))
+            ->options([
+                'xaxis' => [
+                    'categories' => [ 'Jan', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct' ]
+                ],
+            ])->width('2/3')
+        ];
+    }
+
+}
+```
+
+## Area Chart
+
+![AreaChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/screenshot-area-chart.png)
+
+Include this line to header in your NovaServiceProvider.php
+```php
+use Coroowicaksono\ChartJsIntegration\AreaChart;
+```
+
+Add this line to your cards function:
+```php
+class NovaServiceProvider extends NovaApplicationServiceProvider
+{
+
+    public function cards(Request $request)
+    {
+        return [
+            (new AreaChart())
+            ->title('Revenue')
+            ->animations([
+                'enabled' => true,
+                'easing' => 'easeinout',
+            ])
+            ->series(array([
+                'barPercentage' => 0.5,
+                'label' => 'Average Sales',
+                'backgroundColor' => '#f7a35c',
+                'data' => [80, 90, 80, 40, 62, 79, 79, 90, 90, 90, 92, 91],
+            ],[
+                'barPercentage' => 0.5,
+                'label' => 'Average Sales #2',
+                'backgroundColor' => '#90ed7d',
+                'data' => [90, 80, 40, 22, 79, 129, 30, 40, 90, 92, 91, 80],
             ]))
             ->options([
                 'xaxis' => [
