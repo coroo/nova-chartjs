@@ -2,6 +2,16 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## 0.0.9 - 2019-12-26
+
+- add line chart feature
+- add area chart feature
+
+## 0.0.8 - 2019-12-26
+
+- fix issue style
+    - https://github.com/coroo/chart-js-integration/issues/5
+
 ## 0.0.6 - 2019-12-19
 
 - fix bug for 0.0.5 release
