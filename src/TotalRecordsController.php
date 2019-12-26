@@ -76,7 +76,12 @@ class TotalRecordsController extends Controller
                     $dataSeries = json_decode($sData);
                     $filter = $dataSeries->filter;
                     $yAxis[$sKey]['label'] = $dataSeries->label;
-                    $yAxis[$sKey]['backgroundColor'] = $dataSeries->backgroundColor ?? $defaultColor[$sKey];
+                    if($dataSeries->fill==false){
+                        $yAxis[$sKey]['borderColor'] = $dataSeries->backgroundColor ?? $defaultColor[$sKey];
+                        $yAxis[$sKey]['fill'] = false;
+                    } else {
+                        $yAxis[$sKey]['backgroundColor'] = $dataSeries->backgroundColor ?? $defaultColor[$sKey];
+                    }
                     $yAxis[$sKey]['data'] = collect($dataSet)->map(function ($item, $key) use ($dataSeries){
                         return $item->only([$dataSeries->label])[$dataSeries->label];
                     });
