@@ -70,6 +70,7 @@
     color: #7c858e;
     font-size: 1rem;
     font-weight: 800;
-    margin: 10px 30px 2px;
+    margin: 0;
+    padding: 10px 30px 2px;
   }
 </style>
