@@ -135,7 +135,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
 ## Line Chart
 
-![LineChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/screenshot-line-chart.png)
+![LineChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/screenshot-line-chart.jpg)
 
 Include this line to header in your NovaServiceProvider.php
 ```php
@@ -180,7 +180,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
 ## Area Chart
 
-![AreaChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/screenshot-area-chart.png)
+![AreaChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/screenshot-area-chart.jpg)
 
 Include this line to header in your NovaServiceProvider.php
 ```php
