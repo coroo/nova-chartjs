@@ -34,7 +34,7 @@ class TotalRecordsController extends Controller
             $xAxis = [];
             $yAxis = [];
             $seriesSql = "";
-            $defaultColor = array("#7cb5ec", "#434348", "#90ed7d", "#8085e9", "#f7a35c", "#f15c80", "#e4d354", "#2b908f", "#f45b5b", "#91e8e1", "#E27D60", "#85DCB", "#E8A87C", "#C38D9E", "#41B3A3", "#67c4a7", "#992667", "#ff4040", "#ff7373", "#d2d2d2");
+            $defaultColor = array("#ffcc5c","#91e8e1","#ff6f69","#88d8b0","#b088d8","#d8b088", "#88b0d8", "#6f69ff","#7cb5ec","#434348","#90ed7d","#8085e9","#f7a35c","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1","#E27D60","#85DCB","#E8A87C","#C38D9E","#41B3A3","#67c4a7","#992667","#ff4040","#ff7373","#d2d2d2");
             if(isset($request->series)){
                 foreach($request->series as $seriesKey => $serieslist){
                     $seriesData = json_decode($serieslist);
