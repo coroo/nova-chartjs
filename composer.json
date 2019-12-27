@@ -21,7 +21,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Coroowicaksono\\ChartJsIntegration\\": "src/"
+            "Coroowicaksono\\ChartJsIntegration\\": "src/",
+            "Coroowicaksono\\ChartJsIntegration\\Api\\": "src/api"
         }
     },
     "extra": {

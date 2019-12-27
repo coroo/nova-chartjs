@@ -1,6 +1,6 @@
 <?php
 
-namespace Coroowicaksono\ChartJsIntegration;
+namespace Coroowicaksono\ChartJsIntegration\Api;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller;
@@ -8,7 +8,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class TotalRecordsController extends Controller
+class TotalCircleController extends Controller
 {
     use ValidatesRequests;
     /**
@@ -43,10 +43,8 @@ class TotalRecordsController extends Controller
                     $seriesSql .= ", SUM(CASE WHEN ".$filter->key." = '".$filter->value."' then ".$calculation." else 0 end) as '".$labelList[$seriesKey]."'";
                 }
             }
-            $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %y") AS yearmonth, DATE_FORMAT('.$xAxisColumn.', "%y-%m") AS yearmonthorder, sum('.$calculation.') counted'.$seriesSql)
-                ->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonth($dataForLast-1))
-                ->groupBy('yearmonthorder', 'yearmonth')
-                ->orderBy('yearmonthorder', 'asc');
+            $query = $model::selectRaw('SUM('.$calculation.') counted'.$seriesSql)
+                ->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonth($dataForLast-1));
             
             if(isset(json_decode($request->options, true)['queryFilter'])){
                 $queryFilter = json_decode($request->options, true)['queryFilter'];
@@ -67,35 +65,19 @@ class TotalRecordsController extends Controller
                 }
             }
             $dataSet = $query->get();
-            $xAxis = collect($dataSet)->map(function ($item, $key) {
-                return $item->only(['yearmonth'])['yearmonth'];
-            });
+            $xAxis = collect($labelList);
             if(isset($request->series)){
                 $countKey = 0;
                 foreach($request->series as $sKey => $sData){
                     $dataSeries = json_decode($sData);
-                    $filter = $dataSeries->filter;
-                    $yAxis[$sKey]['label'] = $dataSeries->label;
-                    if(isset($dataSeries->fill)){
-                        if($dataSeries->fill==false){
-                            $yAxis[$sKey]['borderColor'] = $dataSeries->backgroundColor ?? $defaultColor[$sKey];
-                            $yAxis[$sKey]['fill'] = false;
-                        } else {
-                            $yAxis[$sKey]['backgroundColor'] = $dataSeries->backgroundColor ?? $defaultColor[$sKey];
-                        }
-                    } else {
-                        $yAxis[$sKey]['backgroundColor'] = $dataSeries->backgroundColor ?? $defaultColor[$sKey];
+                    foreach($dataSet as $dataDetail){
+                        $yAxis[0]['backgroundColor'][$sKey] = $dataSeries->backgroundColor ?? $defaultColor[$sKey];
+                        $yAxis[0]['data'][$sKey] = $dataDetail[$dataSeries->label];
                     }
-                    $yAxis[$sKey]['data'] = collect($dataSet)->map(function ($item, $key) use ($dataSeries){
-                        return $item->only([$dataSeries->label])[$dataSeries->label];
-                    });
                     $countKey++;
                 }
-                if($showTotal == true){
-                    $yAxis[$countKey] = $this->counted($dataSet, $defaultColor[$countKey], 'line');
-                }
             } else {
-                $yAxis[0] = $this->counted($dataSet, $defaultColor[0]);
+                throw new ThrowError('You need to have at least 1 series parameters for this type of chart. <br/>Check documentation: https://github.com/coroo/chart-js-integration');
             }
             if ($request->input('expires')) {
                 Cache::put($cacheKey, $dataSet, Carbon::parse($request->input('expires')));
@@ -107,18 +89,5 @@ class TotalRecordsController extends Controller
                 'yAxis'  => $yAxis
             ]
         ]);
-    }
-    
-    private function counted($dataSet, $bgColor = "#111", $type = "bar")
-    {
-        $yAxis = [
-            'type'  => $type,
-            'label' => 'Total',
-            'backgroundColor' => $bgColor,
-            'data' => collect($dataSet)->map(function ($item, $key) {
-                return $item->only(['counted'])['counted'];
-            })
-        ];
-        return $yAxis;
     }
 }
