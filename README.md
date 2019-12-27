@@ -231,6 +231,9 @@ We use `created_at` to define the month and year name in categories. So make sur
 
 ![Simple Chart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/simple-with-data.jpg)
 
+> This action available for BarChart, StackedChart, LineChart and StackedChart. 
+> For another chart, please use [Custom Column Calculation](#custom-column-calculation)
+
 Include this line to header in your NovaServiceProvider.php
 ```php
 use Coroowicaksono\ChartJsIntegration\StackedChart;
