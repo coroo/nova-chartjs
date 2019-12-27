@@ -11,4 +11,5 @@ use Illuminate\Support\Facades\Route;
 | as many additional routes to this file as your card may require.
 |
 */
-Route::get('/endpoint', \Coroowicaksono\ChartJsIntegration\TotalRecordsController::class . '@handle');
+Route::get('/endpoint', \Coroowicaksono\ChartJsIntegration\Api\TotalRecordsController::class . '@handle');
+Route::get('/circle-endpoint', \Coroowicaksono\ChartJsIntegration\Api\TotalCircleController::class . '@handle');
