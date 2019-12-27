@@ -2,6 +2,11 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## 0.0.10 - 2019-12-27
+
+- fix issue for bar chart with data after v0.0.9 release
+- remove unlisted console log
+
 ## 0.0.9 - 2019-12-26
 
 - add line chart feature
