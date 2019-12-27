@@ -31,10 +31,6 @@
     },
     methods: {
       fillData () {
-        console.log(this.card.series);
-        this.card.series.forEach(element => { 
-          console.log(element); 
-        }); 
         if(this.card.model == 'custom' || this.card.model == undefined){
           this.title = this.card.title,
           this.datacollection = {
