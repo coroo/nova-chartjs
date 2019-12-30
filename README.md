@@ -32,6 +32,8 @@ composer require coroowicaksono/chart-js-integration
     - [Bar Chart](#bar-chart)
     - [Line Chart](#line-chart)
     - [Area Chart](#area-chart)
+    - [Doughnut Chart](#doughnut-chart)
+    - [Pie Chart](#pie-chart)
 - [Use Data From Model](#use-model)
     - [Simple Chart with Data](#simple-chart-with-data)
     - [Custom Column Calculation](#custom-column-calculation)
@@ -223,6 +225,74 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 }
 ```
 
+## Doughnut Chart
+
+![DoughnutChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/screenshot-doughnut-chart.jpg)
+
+Include this line to header in your NovaServiceProvider.php
+```php
+use Coroowicaksono\ChartJsIntegration\DoughnutChart;
+```
+
+Add this line to your cards function:
+```php
+class NovaServiceProvider extends NovaApplicationServiceProvider
+{
+
+    public function cards(Request $request)
+    {
+        return [
+            (new DoughnutChart())
+            ->title('Revenue')
+            ->series(array([
+                'data' => [10, 10, 10, 10, 10, 10, 10, 10],
+                'backgroundColor' => ["#ffcc5c","#91e8e1","#ff6f69","#88d8b0","#b088d8","#d8b088", "#88b0d8", "#6f69ff"],
+            ]))
+            ->options([
+                'xaxis' => [
+                    'categories' => ['Portion 1','Portion 2','Portion 3','Portion 4','Portion 5','Portion 6','Portion 7','Portion 8']
+                ],
+            ])->width('1/3'),
+        ];
+    }
+
+}
+```
+
+## Pie Chart
+
+![PieChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/screenshot-pie-chart.jpg)
+
+Include this line to header in your NovaServiceProvider.php
+```php
+use Coroowicaksono\ChartJsIntegration\PieChart;
+```
+
+Add this line to your cards function:
+```php
+class NovaServiceProvider extends NovaApplicationServiceProvider
+{
+
+    public function cards(Request $request)
+    {
+        return [
+            (new PieChart())
+            ->title('Revenue')
+            ->series(array([
+                'data' => [10, 20, 10, 10, 10, 10, 10, 10],
+                'backgroundColor' => ["#ffcc5c","#91e8e1","#ff6f69","#88d8b0","#b088d8","#d8b088", "#88b0d8", "#6f69ff"],
+            ]))
+            ->options([
+                'xaxis' => [
+                    'categories' => ['Portion 1','Portion 2','Portion 3','Portion 4','Portion 5','Portion 6','Portion 7','Portion 8']
+                ],
+            ])->width('1/3'),
+        ];
+    }
+
+}
+```
+
 # Use Model
 
 We use `created_at` to define the month and year name in categories. So make sure your data consist of this column.
@@ -230,6 +300,9 @@ We use `created_at` to define the month and year name in categories. So make sur
 ## Simple Chart With Data
 
 ![Simple Chart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/simple-with-data.jpg)
+
+> This action available for BarChart, StackedChart, LineChart and StackedChart. 
+> For another chart, please use [Custom Column Calculation](#custom-column-calculation)
 
 Include this line to header in your NovaServiceProvider.php
 ```php
@@ -257,6 +330,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 ## Custom Column Calculation
 
 ![Custom Column Calculation in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/stacked-chart-with-data.jpg)
+
+> This action available for BarChart, StackedChart, LineChart, StackedChart, Doughnut Chart and Pie Chart.
 
 Include this line to header in your NovaServiceProvider.php
 ```php
