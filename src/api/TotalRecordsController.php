@@ -23,6 +23,10 @@ class TotalRecordsController extends Controller
         }
         $showTotal = isset($request->options) ? json_decode($request->options, true)['showTotal'] ?? true : true;
         $dataForLast = isset($request->options) ? json_decode($request->options, true)['latestData'] ?? 3 : 3;
+        $unitOfMeasurement = isset($request->options) ? json_decode($request->options, true)['uom'] ?? 'month' : 'month';
+        if(!in_array($unitOfMeasurement, ['week', 'month'])){
+            throw new ThrowError('UOM not defined correctly. <br/>Check documentation: https://github.com/coroo/chart-js-integration');
+        }
         $calculation = isset($request->options) ? json_decode($request->options, true)['sum'] ?? 1 : 1;
         $request->validate(['model'   => ['bail', 'required', 'min:1', 'string']]);
         $model = $request->input('model');
@@ -43,10 +47,17 @@ class TotalRecordsController extends Controller
                     $seriesSql .= ", SUM(CASE WHEN ".$filter->key." = '".$filter->value."' then ".$calculation." else 0 end) as '".$labelList[$seriesKey]."'";
                 }
             }
-            $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %y") AS yearmonth, DATE_FORMAT('.$xAxisColumn.', "%y-%m") AS yearmonthorder, sum('.$calculation.') counted'.$seriesSql)
-                ->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonth($dataForLast-1))
-                ->groupBy('yearmonthorder', 'yearmonth')
-                ->orderBy('yearmonthorder', 'asc');
+            if($unitOfMeasurement=='week'){
+                $query = $model::selectRaw('CONCAT("W", WEEK('.$xAxisColumn.'), " ", DATE_FORMAT('.$xAxisColumn.', "%Y")) AS cat, CONCAT("W",WEEK('.$xAxisColumn.'), " ", DATE_FORMAT('.$xAxisColumn.', "%Y")) AS catorder, sum('.$calculation.') counted'.$seriesSql)
+                    ->where($xAxisColumn, '>=', Carbon::now()->startOfWeek()->subWeek($dataForLast-1))
+                    ->groupBy('catorder', 'cat')
+                    ->orderBy('catorder', 'asc');
+            } else {
+                $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %Y") AS cat, DATE_FORMAT('.$xAxisColumn.', "%Y-%m") AS catorder, sum('.$calculation.') counted'.$seriesSql)
+                    ->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonth($dataForLast-1))
+                    ->groupBy('catorder', 'cat')
+                    ->orderBy('catorder', 'asc');
+            }
             
             if(isset(json_decode($request->options, true)['queryFilter'])){
                 $queryFilter = json_decode($request->options, true)['queryFilter'];
@@ -68,7 +79,7 @@ class TotalRecordsController extends Controller
             }
             $dataSet = $query->get();
             $xAxis = collect($dataSet)->map(function ($item, $key) {
-                return $item->only(['yearmonth'])['yearmonth'];
+                return $item->only(['cat'])['cat'];
             });
             if(isset($request->series)){
                 $countKey = 0;
