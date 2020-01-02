@@ -2,6 +2,11 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.0.12 - 2020-01-02
+
+- add weekly base view
+- update documentation
+
 ## v0.0.11 - 2019-12-30
 
 - add doughnut chart feature
