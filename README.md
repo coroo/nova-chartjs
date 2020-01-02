@@ -38,6 +38,7 @@ composer require coroowicaksono/chart-js-integration
     - [Simple Chart with Data](#simple-chart-with-data)
     - [Custom Column Calculation](#custom-column-calculation)
     - [Show Latest XX Month](#latest-month)
+    - [Use Weekly Base View](#use-weekly-view)
     - [Custom Background Color](#custom-background-color)
     - [Hide Total](#hide-total)
     - [Adding Filter](#adding-filter)
@@ -418,6 +419,58 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             ]))
             ->options([
                 'latestData' => 6 // Show last 6 months data
+            ])
+            ->width('2/3')
+        ];
+    }
+
+}
+```
+
+## Use Weekly View
+
+![BarChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/weekly-view.jpg)
+
+By Default, if you using chart with data, the chart will only show your 3 latest month. If you want to use weekly base view, please use:
+```php
+->options([
+    'uom' => 'week' // available in 'week', 'month'
+])
+```
+
+So your card should be like:
+```php
+class NovaServiceProvider extends NovaApplicationServiceProvider
+{
+
+    public function cards(Request $request)
+    {
+        return [
+            (new StackedChart())
+            ->title('Revenue')
+            ->model('\App\Models\Sales') // Use Your Model Here
+            ->series(array([
+                'label' => 'Product A',
+                'filter' => [
+                    'key' => 'product_id', // State Column for Count Calculation Here
+                    'value' => '1'
+                ],
+            ],[
+                'label' => 'Product B',
+                'filter' => [
+                    'key' => 'product_id', // State Column for Count Calculation Here
+                    'value' => '2'
+                ],
+            ],[
+                'label' => 'Product C',
+                'filter' => [
+                    'key' => 'product_id', // State Column for Count Calculation Here
+                    'value' => '3'
+                ],
+            ]))
+            ->options([
+                'latestData' => 6 // Show last 6 weeks data (optional)
+                'uom' => 'week' // available in 'week', 'month'
             ])
             ->width('2/3')
         ];
