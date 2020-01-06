@@ -485,7 +485,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 ],
             ]))
             ->options([
-                'latestData' => 6 // Show last 6 weeks data (optional)
+                'latestData' => 6, // Show last 6 weeks data (optional)
                 'uom' => 'week' // available in 'week', 'month'
             ])
             ->width('2/3')
