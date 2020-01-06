@@ -24,6 +24,7 @@ class TotalRecordsController extends Controller
         $showTotal = isset($request->options) ? json_decode($request->options, true)['showTotal'] ?? true : true;
         $dataForLast = isset($request->options) ? json_decode($request->options, true)['latestData'] ?? 3 : 3;
         $unitOfMeasurement = isset($request->options) ? json_decode($request->options, true)['uom'] ?? 'month' : 'month';
+        $startWeek = isset($request->options) ? json_decode($request->options, true)['startWeek'] ?? '1' : '1';
         if(!in_array($unitOfMeasurement, ['week', 'month'])){
             throw new ThrowError('UOM not defined correctly. <br/>Check documentation: https://github.com/coroo/chart-js-integration');
         }
@@ -48,8 +49,8 @@ class TotalRecordsController extends Controller
                 }
             }
             if($unitOfMeasurement=='week'){
-                $query = $model::selectRaw('CONCAT("W", WEEK('.$xAxisColumn.'), " ", DATE_FORMAT('.$xAxisColumn.', "%Y")) AS cat, CONCAT("W",WEEK('.$xAxisColumn.'), " ", DATE_FORMAT('.$xAxisColumn.', "%Y")) AS catorder, sum('.$calculation.') counted'.$seriesSql)
-                    ->where($xAxisColumn, '>=', Carbon::now()->startOfWeek()->subWeek($dataForLast-1))
+                $query = $model::selectRaw('YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS cat, YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS catorder, sum('.$calculation.') counted'.$seriesSql)
+                    ->where($xAxisColumn, '>=', Carbon::now()->startOfWeek()->subWeek($dataForLast))
                     ->groupBy('catorder', 'cat')
                     ->orderBy('catorder', 'asc');
             } else {
@@ -78,8 +79,14 @@ class TotalRecordsController extends Controller
                 }
             }
             $dataSet = $query->get();
-            $xAxis = collect($dataSet)->map(function ($item, $key) {
-                return $item->only(['cat'])['cat'];
+            $xAxis = collect($dataSet)->map(function ($item, $key) use ($unitOfMeasurement){
+                if($unitOfMeasurement=='week'){
+                    $splitCat = str_split($item->only(['cat'])['cat'], 4);
+                    $cat = "W".$splitCat[1]." ".$splitCat[0];
+                } else {
+                    $cat = $item->only(['cat'])['cat'];
+                }
+                return $cat;
             });
             if(isset($request->series)){
                 $countKey = 0;

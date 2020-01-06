@@ -39,6 +39,7 @@ composer require coroowicaksono/chart-js-integration
     - [Custom Column Calculation](#custom-column-calculation)
     - [Show Latest XX Month](#latest-month)
     - [Use Weekly Base View](#use-weekly-view)
+        - [Set Up Weekly View](#set-up-weekly-view)
     - [Custom Background Color](#custom-background-color)
     - [Hide Total](#hide-total)
     - [Adding Filter](#adding-filter)
@@ -434,9 +435,24 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 By Default, if you using chart with data, the chart will only show your 3 latest month. If you want to use weekly base view, please use:
 ```php
 ->options([
-    'uom' => 'week' // available in 'week', 'month'
+    'uom' => 'week', // available in 'week', 'month'
 ])
-```
+``` 
+
+### Set Up Weekly View
+```php
+->options([
+    'startWeek' => '0', // (optional) by Default, starweek start from 0
+    // startWeek 0 - First day of week is Sunday
+    // startWeek 1 - First day of week is Monday and the first week has more than 3 days
+    // startWeek 2 - First day of week is Sunday
+    // startWeek 3 - First day of week is Monday and the first week has more than 3 days
+    // startWeek 4 - First day of week is Sunday and the first week has more than 3 days
+    // startWeek 5 - First day of week is Monday
+    // startWeek 6 - First day of week is Sunday and the first week has more than 3 days
+    // startWeek 7 - First day of week is Monday
+])
+``` 
 
 So your card should be like:
 ```php
