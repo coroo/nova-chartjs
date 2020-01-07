@@ -25,7 +25,7 @@ class TotalRecordsController extends Controller
         $dataForLast = isset($request->options) ? json_decode($request->options, true)['latestData'] ?? 3 : 3;
         $unitOfMeasurement = isset($request->options) ? json_decode($request->options, true)['uom'] ?? 'month' : 'month';
         $startWeek = isset($request->options) ? json_decode($request->options, true)['startWeek'] ?? '1' : '1';
-        if(!in_array($unitOfMeasurement, ['week', 'month'])){
+        if(!in_array($unitOfMeasurement, ['day', 'week', 'month'])){
             throw new ThrowError('UOM not defined correctly. <br/>Check documentation: https://github.com/coroo/chart-js-integration');
         }
         $calculation = isset($request->options) ? json_decode($request->options, true)['sum'] ?? 1 : 1;
@@ -48,7 +48,12 @@ class TotalRecordsController extends Controller
                     $seriesSql .= ", SUM(CASE WHEN ".$filter->key." = '".$filter->value."' then ".$calculation." else 0 end) as '".$labelList[$seriesKey]."'";
                 }
             }
-            if($unitOfMeasurement=='week'){
+            if($unitOfMeasurement=='day'){
+                $query = $model::selectRaw('DATE('.$xAxisColumn.') AS cat, DATE('.$xAxisColumn.') AS catorder, sum('.$calculation.') counted'.$seriesSql)
+                    ->where($xAxisColumn, '>=', Carbon::now()->subDay($dataForLast+1))
+                    ->groupBy('catorder', 'cat')
+                    ->orderBy('catorder', 'asc');
+            } else if($unitOfMeasurement=='week'){
                 $query = $model::selectRaw('YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS cat, YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS catorder, sum('.$calculation.') counted'.$seriesSql)
                     ->where($xAxisColumn, '>=', Carbon::now()->startOfWeek()->subWeek($dataForLast))
                     ->groupBy('catorder', 'cat')
