@@ -442,6 +442,7 @@ By Default, if you using chart with data, the chart will only show your 3 latest
 ### Set Up Weekly View
 ```php
 ->options([
+    'uom' => 'week',
     'startWeek' => '0', // (optional) by Default, starweek start from 0
     // startWeek 0 - First day of week is Sunday
     // startWeek 1 - First day of week is Monday and the first week has more than 3 days

@@ -2,6 +2,12 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.0.13 - 2020-01-06
+
+- fix weekly base view bug in v0.0.12 release
+- add start week option
+- update documentation
+
 ## v0.0.12 - 2020-01-02
 
 - add weekly base view
