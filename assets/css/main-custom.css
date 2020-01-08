@@ -1,0 +1,93 @@
+:root {
+    --base-font-size    : 14px;
+    --theme-color       : #f15c80;
+    
+    /* Cover ============================================================================= */
+    --cover-color                                      : #999;
+    --cover-blockquote-color                           : #ff6f69;
+    --cover-heading-color                              : #777;
+    --cover-blockquote-font-size                       : var(--font-size-l);
+
+    --cover-button-background--hover                   : #f15c80;
+    --cover-button-color--hover                        : #FFF;
+    --cover-button-primary-background--hover           : #d8758a;
+    --cover-button-padding                             : 1em 4rem;
+    --cover-button-border-radius                       : 2em;
+    
+    --cover-margin                                     : 0 auto;
+    --cover-max-width                                  : 40em;
+    --cover-text-align                                 : center;
+    --cover-background-mask-opacity                    : 0.9;
+    --cover-background-mask-visibility                 : 1;
+    --cover-background-position                        : center center;
+    --cover-background-repeat                          : no-repeat;
+    --cover-background-size                            : cover;
+
+    /* Sidebar ============================================================================= */
+    --sidebar-width                                    : 20rem;
+    
+    /* Content ============================================================================= */
+    --content-max-width                 : 68em;
+
+    /* Blockquote */
+    --blockquote-background             : #FEE;
+
+    /* Code */
+    --code-theme-background             : #f6f8fa;
+    --code-theme-tag                    : #c82829;
+    --code-theme-text                   : #222;
+    --code-theme-selection              : #91e8e1;
+    --code-theme-keyword                : #ff6f69;
+    --code-font-size                    : 12px;
+
+    /* Headings */
+    --heading-h1-color                  : #f15c80;
+    --heading-h2-color                  : #c82829;
+    --heading-h3-color                  : #ff6f69;
+    --heading-font-weight               : 600;
+    --heading-h1-font-family            : -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+    --heading-h1-font-size              : 2em;
+
+    /* Links */
+    --link-color                        : #f15c80;
+    --link-color--hover                 : purple;
+    --link-text-decoration              : underline;
+
+    /* Example ============================================================================= */
+    /* Document */
+    --docsify-example-panels-document-width: 90%;
+
+    /* Wrapper */
+    --docsify-example-panels-wrapper-width: 100%;
+
+    /* Standards */
+    --docsify-example-panels-padding-inner : 0px 16px;
+    --docsify-example-panels-padding-surroundings : 0px;
+
+    /* Panel Left */
+    --docsify-example-panels-left-panel-background : transparent;
+    --docsify-example-panels-left-panel-width : 50%;
+
+    /* Panel Right */
+    --docsify-example-panels-right-panel-background : transparent;
+    --docsify-example-panels-right-panel-width : 50%;
+
+    /* Titles */
+    --docsify-example-panels-title-background: transparent;    
+
+}
+
+img {
+    border-radius: 0.5em;
+    box-shadow: rgba(0, 0, 0, 0.55) 0px 7px 26px;
+}
+/* .markdown-section code,
+.markdown-section pre,
+.markdown-section pre > code {
+    color: #eee; 
+    background-color: #353544; 
+}
+
+.markdown-section code {
+    color: #eccb84; 
+} */

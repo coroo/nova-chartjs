@@ -1,24 +1,12 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/header.png">
-  <hr/>
-</p>
-
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/coroowicaksono/chart-js-integration)](https://packagist.org/packages/coroowicaksono/chart-js-integration)
-[![Total Downloads](https://img.shields.io/packagist/dt/coroowicaksono/chart-js-integration)](https://packagist.org/packages/coroowicaksono/chart-js-integration)
-[![License](https://img.shields.io/packagist/l/coroowicaksono/chart-js-integration)](https://github.com/coroo/chart-js-integration/blob/master/LICENSE)
-
-A Simple Dashboard Laravel Nova using Chart JS. 
-
-[ChartJS Documentation](https://www.chartjs.org/docs/latest/)
-| [Vue-ChartJS Documentation](https://vue-chartjs.org/guide/)
+# Getting Started
 
 ## Requirements
 
-This Nova Chart JS Integration requires Nova 2.0 or higher.
+This Nova Chart JS Integration requires `Nova 2.0 or higher`
 
 ![Chart JS Integration in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/chart-js-integration.gif)
 
-# Installation
+## Installation
 
 You can install the package via composer:
 
@@ -26,26 +14,54 @@ You can install the package via composer:
 composer require coroowicaksono/chart-js-integration
 ```
 
-# In this tutorial
-- [Use Custom Data](#use-custom-data)
-    - [Stacked Chart](#stacked-chart)
-    - [Bar Chart](#bar-chart)
-    - [Line Chart](#line-chart)
-    - [Area Chart](#area-chart)
-    - [Doughnut Chart](#doughnut-chart)
-    - [Pie Chart](#pie-chart)
-- [Use Data From Model](#use-model)
-    - [Simple Chart with Data](#simple-chart-with-data)
-    - [Custom Column Calculation](#custom-column-calculation)
-    - [Show Latest XX Month](#latest-month)
-    - [Use Weekly Base View](#use-weekly-view)
-        - [Set Up Weekly View](#set-up-weekly-view)
-    - [Custom Background Color](#custom-background-color)
-    - [Hide Total](#hide-total)
-    - [Adding Filter](#adding-filter)
-    - [Sum Calculation](#sum-calculation)
+<!-- panels:start -->
 
-# Use Custom Data
+<!-- div:title-panel -->
+
+## Basic Usage
+
+Open your `App\Providers\NovaServiceProvider.php` as a default dashboard for Laravel Nova and edit `cards` function:
+
+<!-- div:left-panel -->
+
+
+![code-chart-bar](assets/img/code-chart-bar.png)
+
+Result :
+
+![code-chart-bar](assets/img/chart-bar.png)
+
+<!-- div:right-panel -->
+
+```php
+use Coroowicaksono\ChartJsIntegration\StackedChart;
+```
+
+```php
+(new StackedChart())
+    ->title('Revenue')
+    ->series(array([
+        'barPercentage' => 0.5,
+        'label' => 'Product #1',
+        'backgroundColor' => '#ffcc5c',
+        'data' => [30, 70, 80],
+    ],[
+        'barPercentage' => 0.5,
+        'label' => 'Product #2',
+        'backgroundColor' => '#ff6f69',
+        'data' => [40, 62, 79],
+    ]))
+    ->options([
+        'xaxis' => [
+            'categories' => [ 'Jan', 'Feb', 'Mar' ]       
+        ],
+    ])
+    ->width('1/3'),
+```
+
+<!-- panels:end -->
+
+# Custom Chart
 
 ## Stacked Chart
 
@@ -56,40 +72,32 @@ Include this line to header in your NovaServiceProvider.php
 use Coroowicaksono\ChartJsIntegration\StackedChart;
 ```
 
-Add this line to your cards function:
+Add this line as return for your `cards` function:
+
 ```php
-class NovaServiceProvider extends NovaApplicationServiceProvider
-{
-
-    public function cards(Request $request)
-    {
-        return [
-            (new StackedChart())
-            ->title('Revenue')
-            ->animations([
-                'enabled' => true,
-                'easing' => 'easeinout',
-            ])
-            ->series(array([
-                'barPercentage' => 0.5,
-                'label' => 'Average Sales',
-                'backgroundColor' => '#999',
-                'data' => [80, 90, 80, 40, 62, 79, 79, 90, 90, 90, 92, 91],
-            ],[
-                'barPercentage' => 0.5,
-                'label' => 'Average Sales 2',
-                'backgroundColor' => '#F87900',
-                'data' => [40, 62, 79, 80, 90, 79, 90, 90, 90, 92, 91, 80],
-            ]))
-            ->options([
-                'xaxis' => [
-                    'categories' => [ 'Jan', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct' ]
-                ],
-            ])->width('2/3')
-        ];
-    }
-
-}
+(new StackedChart())
+    ->title('Revenue')
+    ->animations([
+        'enabled' => true,
+        'easing' => 'easeinout',
+    ])
+    ->series(array([
+        'barPercentage' => 0.5,
+        'label' => 'Average Sales',
+        'backgroundColor' => '#999',
+        'data' => [80, 90, 80, 40, 62, 79, 79, 90, 90, 90, 92, 91],
+    ],[
+        'barPercentage' => 0.5,
+        'label' => 'Average Sales 2',
+        'backgroundColor' => '#F87900',
+        'data' => [40, 62, 79, 80, 90, 79, 90, 90, 90, 92, 91, 80],
+    ]))
+    ->options([
+        'xaxis' => [
+            'categories' => [ 'Jan', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct' ]
+        ],
+    ])
+    ->width('2/3'),
 ```
 
 ## Bar Chart
@@ -101,40 +109,31 @@ Include this line to header in your NovaServiceProvider.php
 use Coroowicaksono\ChartJsIntegration\BarChart;
 ```
 
-Add this line to your cards function:
+Add this line as return for your `cards` function:
 ```php
-class NovaServiceProvider extends NovaApplicationServiceProvider
-{
-
-    public function cards(Request $request)
-    {
-        return [
-            (new BarChart())
-            ->title('Revenue')
-            ->animations([
-                'enabled' => true,
-                'easing' => 'easeinout',
-            ])
-            ->series(array([
-                'barPercentage' => 0.5,
-                'label' => 'Average Sales',
-                'backgroundColor' => '#999',
-                'data' => [80, 90, 80, 40, 62, 79, 79, 90, 90, 90, 92, 91],
-            ],[
-                'barPercentage' => 0.5,
-                'label' => 'Average Sales 2',
-                'backgroundColor' => '#F87900',
-                'data' => [40, 62, 79, 80, 90, 79, 90, 90, 90, 92, 91, 80],
-            ]))
-            ->options([
-                'xaxis' => [
-                    'categories' => [ 'Jan', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct' ]
-                ],
-            ])->width('2/3')
-        ];
-    }
-
-}
+(new BarChart())
+    ->title('Revenue')
+    ->animations([
+        'enabled' => true,
+        'easing' => 'easeinout',
+    ])
+    ->series(array([
+        'barPercentage' => 0.5,
+        'label' => 'Average Sales',
+        'backgroundColor' => '#999',
+        'data' => [80, 90, 80, 40, 62, 79, 79, 90, 90, 90, 92, 91],
+    ],[
+        'barPercentage' => 0.5,
+        'label' => 'Average Sales 2',
+        'backgroundColor' => '#F87900',
+        'data' => [40, 62, 79, 80, 90, 79, 90, 90, 90, 92, 91, 80],
+    ]))
+    ->options([
+        'xaxis' => [
+            'categories' => [ 'Jan', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct' ]
+        ],
+    ])
+    ->width('2/3'),
 ```
 
 ## Line Chart
@@ -146,40 +145,31 @@ Include this line to header in your NovaServiceProvider.php
 use Coroowicaksono\ChartJsIntegration\LineChart;
 ```
 
-Add this line to your cards function:
+Add this line as return for your `cards` function:
 ```php
-class NovaServiceProvider extends NovaApplicationServiceProvider
-{
-
-    public function cards(Request $request)
-    {
-        return [
-            (new LineChart())
-            ->title('Revenue')
-            ->animations([
-                'enabled' => true,
-                'easing' => 'easeinout',
-            ])
-            ->series(array([
-                'barPercentage' => 0.5,
-                'label' => 'Average Sales',
-                'borderColor' => '#f7a35c',
-                'data' => [80, 90, 80, 40, 62, 79, 79, 90, 90, 90, 92, 91],
-            ],[
-                'barPercentage' => 0.5,
-                'label' => 'Average Sales #2',
-                'borderColor' => '#90ed7d',
-                'data' => [90, 80, 40, 22, 79, 129, 30, 40, 90, 92, 91, 80],
-            ]))
-            ->options([
-                'xaxis' => [
-                    'categories' => [ 'Jan', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct' ]
-                ],
-            ])->width('2/3')
-        ];
-    }
-
-}
+(new LineChart())
+    ->title('Revenue')
+    ->animations([
+        'enabled' => true,
+        'easing' => 'easeinout',
+    ])
+    ->series(array([
+        'barPercentage' => 0.5,
+        'label' => 'Average Sales',
+        'borderColor' => '#f7a35c',
+        'data' => [80, 90, 80, 40, 62, 79, 79, 90, 90, 90, 92, 91],
+    ],[
+        'barPercentage' => 0.5,
+        'label' => 'Average Sales #2',
+        'borderColor' => '#90ed7d',
+        'data' => [90, 80, 40, 22, 79, 129, 30, 40, 90, 92, 91, 80],
+    ]))
+    ->options([
+        'xaxis' => [
+            'categories' => [ 'Jan', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct' ]
+        ],
+    ])
+    ->width('2/3'),
 ```
 
 ## Area Chart
@@ -191,40 +181,31 @@ Include this line to header in your NovaServiceProvider.php
 use Coroowicaksono\ChartJsIntegration\AreaChart;
 ```
 
-Add this line to your cards function:
+Add this line as return for your `cards` function:
 ```php
-class NovaServiceProvider extends NovaApplicationServiceProvider
-{
-
-    public function cards(Request $request)
-    {
-        return [
-            (new AreaChart())
-            ->title('Revenue')
-            ->animations([
-                'enabled' => true,
-                'easing' => 'easeinout',
-            ])
-            ->series(array([
-                'barPercentage' => 0.5,
-                'label' => 'Average Sales',
-                'backgroundColor' => '#f7a35c',
-                'data' => [80, 90, 80, 40, 62, 79, 79, 90, 90, 90, 92, 91],
-            ],[
-                'barPercentage' => 0.5,
-                'label' => 'Average Sales #2',
-                'backgroundColor' => '#90ed7d',
-                'data' => [90, 80, 40, 22, 79, 129, 30, 40, 90, 92, 91, 80],
-            ]))
-            ->options([
-                'xaxis' => [
-                    'categories' => [ 'Jan', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct' ]
-                ],
-            ])->width('2/3')
-        ];
-    }
-
-}
+(new AreaChart())
+    ->title('Revenue')
+    ->animations([
+        'enabled' => true,
+        'easing' => 'easeinout',
+    ])
+    ->series(array([
+        'barPercentage' => 0.5,
+        'label' => 'Average Sales',
+        'backgroundColor' => '#f7a35c',
+        'data' => [80, 90, 80, 40, 62, 79, 79, 90, 90, 90, 92, 91],
+    ],[
+        'barPercentage' => 0.5,
+        'label' => 'Average Sales #2',
+        'backgroundColor' => '#90ed7d',
+        'data' => [90, 80, 40, 22, 79, 129, 30, 40, 90, 92, 91, 80],
+    ]))
+    ->options([
+        'xaxis' => [
+            'categories' => [ 'Jan', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct' ]
+        ],
+    ])
+    ->width('2/3'),
 ```
 
 ## Doughnut Chart
@@ -236,29 +217,19 @@ Include this line to header in your NovaServiceProvider.php
 use Coroowicaksono\ChartJsIntegration\DoughnutChart;
 ```
 
-Add this line to your cards function:
+Add this line as return for your `cards` function:
 ```php
-class NovaServiceProvider extends NovaApplicationServiceProvider
-{
-
-    public function cards(Request $request)
-    {
-        return [
-            (new DoughnutChart())
-            ->title('Revenue')
-            ->series(array([
-                'data' => [10, 10, 10, 10, 10, 10, 10, 10],
-                'backgroundColor' => ["#ffcc5c","#91e8e1","#ff6f69","#88d8b0","#b088d8","#d8b088", "#88b0d8", "#6f69ff"],
-            ]))
-            ->options([
-                'xaxis' => [
-                    'categories' => ['Portion 1','Portion 2','Portion 3','Portion 4','Portion 5','Portion 6','Portion 7','Portion 8']
-                ],
-            ])->width('1/3'),
-        ];
-    }
-
-}
+(new DoughnutChart())
+    ->title('Revenue')
+    ->series(array([
+        'data' => [10, 10, 10, 10, 10, 10, 10, 10],
+        'backgroundColor' => ["#ffcc5c","#91e8e1","#ff6f69","#88d8b0","#b088d8","#d8b088", "#88b0d8", "#6f69ff"],
+    ]))
+    ->options([
+        'xaxis' => [
+            'categories' => ['Portion 1','Portion 2','Portion 3','Portion 4','Portion 5','Portion 6','Portion 7','Portion 8']
+        ],
+    ])->width('1/3'),
 ```
 
 ## Pie Chart
@@ -270,32 +241,22 @@ Include this line to header in your NovaServiceProvider.php
 use Coroowicaksono\ChartJsIntegration\PieChart;
 ```
 
-Add this line to your cards function:
+Add this line as return for your `cards` function:
 ```php
-class NovaServiceProvider extends NovaApplicationServiceProvider
-{
-
-    public function cards(Request $request)
-    {
-        return [
-            (new PieChart())
-            ->title('Revenue')
-            ->series(array([
-                'data' => [10, 20, 10, 10, 10, 10, 10, 10],
-                'backgroundColor' => ["#ffcc5c","#91e8e1","#ff6f69","#88d8b0","#b088d8","#d8b088", "#88b0d8", "#6f69ff"],
-            ]))
-            ->options([
-                'xaxis' => [
-                    'categories' => ['Portion 1','Portion 2','Portion 3','Portion 4','Portion 5','Portion 6','Portion 7','Portion 8']
-                ],
-            ])->width('1/3'),
-        ];
-    }
-
-}
+(new PieChart())
+    ->title('Revenue')
+    ->series(array([
+        'data' => [10, 20, 10, 10, 10, 10, 10, 10],
+        'backgroundColor' => ["#ffcc5c","#91e8e1","#ff6f69","#88d8b0","#b088d8","#d8b088", "#88b0d8", "#6f69ff"],
+    ]))
+    ->options([
+        'xaxis' => [
+            'categories' => ['Portion 1','Portion 2','Portion 3','Portion 4','Portion 5','Portion 6','Portion 7','Portion 8']
+        ],
+    ])->width('1/3'),
 ```
 
-# Use Model
+# Use Laravel Model
 
 We use `created_at` to define the month and year name in categories. So make sure your data consist of this column.
 
@@ -306,27 +267,12 @@ We use `created_at` to define the month and year name in categories. So make sur
 > This action available for BarChart, StackedChart, LineChart and StackedChart. 
 > For another chart, please use [Custom Column Calculation](#custom-column-calculation)
 
-Include this line to header in your NovaServiceProvider.php
-```php
-use Coroowicaksono\ChartJsIntegration\StackedChart;
-```
-
 Add this line to your cards function:
 ```php
-class NovaServiceProvider extends NovaApplicationServiceProvider
-{
-
-    public function cards(Request $request)
-    {
-        return [
-            (new StackedChart())
-            ->title('Revenue')
-            ->model('\App\Models\Sales') // Use Your Model Here
-            ->width('2/3')
-        ];
-    }
-
-}
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->width('2/3'),
 ```
 
 ## Custom Column Calculation
@@ -335,46 +281,31 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
 > This action available for BarChart, StackedChart, LineChart, StackedChart, Doughnut Chart and Pie Chart.
 
-Include this line to header in your NovaServiceProvider.php
-```php
-use Coroowicaksono\ChartJsIntegration\BarChart;
-```
-
 Add this line to your cards function:
 ```php
-class NovaServiceProvider extends NovaApplicationServiceProvider
-{
-
-    public function cards(Request $request)
-    {
-        return [
-            (new BarChart())
-            ->title('Revenue')
-            ->model('\App\Models\Sales') // Use Your Model Here
-            ->series(array([
-                'label' => 'Product A',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '1'
-                ],
-            ],[
-                'label' => 'Product B',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '2'
-                ],
-            ],[
-                'label' => 'Product C',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '3'
-                ],
-            ]))
-            ->width('2/3')
-        ];
-    }
-
-}
+(new BarChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+    'key' => 'product_id', // State Column for Count Calculation Here
+    'value' => '1'
+        ],
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+    'key' => 'product_id', // State Column for Count Calculation Here
+    'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+    'key' => 'product_id', // State Column for Count Calculation Here
+    'value' => '3'
+        ],
+    ]))
+    ->width('2/3'),
 ```
 
 ## Latest Month
@@ -390,42 +321,32 @@ By Default, if you using chart with data, the chart will only show your 3 latest
 
 So your card should be like:
 ```php
-class NovaServiceProvider extends NovaApplicationServiceProvider
-{
-
-    public function cards(Request $request)
-    {
-        return [
-            (new StackedChart())
-            ->title('Revenue')
-            ->model('\App\Models\Sales') // Use Your Model Here
-            ->series(array([
-                'label' => 'Product A',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '1'
-                ],
-            ],[
-                'label' => 'Product B',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '2'
-                ],
-            ],[
-                'label' => 'Product C',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '3'
-                ],
-            ]))
-            ->options([
-                'latestData' => 6 // Show last 6 months data
-            ])
-            ->width('2/3')
-        ];
-    }
-
-}
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+    'key' => 'product_id', // State Column for Count Calculation Here
+    'value' => '1'
+        ],
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+    'key' => 'product_id', // State Column for Count Calculation Here
+    'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+    'key' => 'product_id', // State Column for Count Calculation Here
+    'value' => '3'
+        ],
+    ]))
+    ->options([
+        'latestData' => 6 // Show last 6 months data
+    ])
+    ->width('2/3'),
 ```
 
 ## Use Weekly View
@@ -439,7 +360,7 @@ By Default, if you using chart with data, the chart will only show your 3 latest
 ])
 ``` 
 
-### Set Up Weekly View
+### Set Up Weekly View {docsify-ignore}
 ```php
 ->options([
     'uom' => 'week',
@@ -457,91 +378,71 @@ By Default, if you using chart with data, the chart will only show your 3 latest
 
 So your card should be like:
 ```php
-class NovaServiceProvider extends NovaApplicationServiceProvider
-{
-
-    public function cards(Request $request)
-    {
-        return [
-            (new StackedChart())
-            ->title('Revenue')
-            ->model('\App\Models\Sales') // Use Your Model Here
-            ->series(array([
-                'label' => 'Product A',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '1'
-                ],
-            ],[
-                'label' => 'Product B',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '2'
-                ],
-            ],[
-                'label' => 'Product C',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '3'
-                ],
-            ]))
-            ->options([
-                'latestData' => 6, // Show last 6 weeks data (optional)
-                'uom' => 'week' // available in 'week', 'month'
-            ])
-            ->width('2/3')
-        ];
-    }
-
-}
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '1'
+        ],
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '3'
+        ],
+    ]))
+    ->options([
+        'latestData' => 6, // Show last 6 weeks data (optional)
+        'uom' => 'week' // available in 'week', 'month'
+    ])
+    ->width('2/3'),
 ```
 
 ## Custom Background Color
 
 By default, we already define the color for Chart. But you can easily change the hex code by adding this line to your series:
 ```php
-    'backgroundColor' => '#F87900',
+'backgroundColor' => '#F87900',
 ```
 
 So your card should be like:
 ```php
-class NovaServiceProvider extends NovaApplicationServiceProvider
-{
-
-    public function cards(Request $request)
-    {
-        return [
-            (new StackedChart())
-            ->title('Revenue')
-            ->model('\App\Models\Sales') // Use Your Model Here
-            ->series(array([
-                'label' => 'Product A',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '1'
-                ],
-                'backgroundColor' => '#F87900', // Add This to change the background color
-            ],[
-                'label' => 'Product B',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '2'
-                ],
-            ],[
-                'label' => 'Product C',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '3'
-                ],
-            ]))
-            ->options([
-                'showTotal' => false // Hide Show Total in Your Chart
-            ])
-            ->width('2/3')
-        ];
-    }
-
-}
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '1'
+        ],
+        'backgroundColor' => '#F87900', // Add This to change the background color
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '3'
+        ],
+    ]))
+    ->options([
+        'showTotal' => false // Hide Show Total in Your Chart
+    ])
+    ->width('2/3'),
 ```
 
 ## Hide Total
@@ -557,42 +458,32 @@ For hide total column in your Chart, please use this option:
 
 So your card should be like:
 ```php
-class NovaServiceProvider extends NovaApplicationServiceProvider
-{
-
-    public function cards(Request $request)
-    {
-        return [
-            (new StackedChart())
-            ->title('Revenue')
-            ->model('\App\Models\Sales') // Use Your Model Here
-            ->series(array([
-                'label' => 'Product A',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '1'
-                ],
-            ],[
-                'label' => 'Product B',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '2'
-                ],
-            ],[
-                'label' => 'Product C',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '3'
-                ],
-            ]))
-            ->options([
-                'showTotal' => false // Hide Show Total in Your Chart
-            ])
-            ->width('2/3')
-        ];
-    }
-
-}
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '1'
+        ],
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '3'
+        ],
+    ]))
+    ->options([
+        'showTotal' => false // Hide Show Total in Your Chart
+    ])
+    ->width('2/3'),
 ```
 
 ## Adding Filter
@@ -613,49 +504,39 @@ For adding filter column in your data, please use this `queryFilter` in `options
 
 So your card should be like:
 ```php
-class NovaServiceProvider extends NovaApplicationServiceProvider
-{
-
-    public function cards(Request $request)
-    {
-        return [
-            (new StackedChart())
-            ->title('Revenue')
-            ->model('\App\Models\Sales') // Use Your Model Here
-            ->series(array([
-                'label' => 'Product A',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '1'
-                ],
-            ],[
-                'label' => 'Product B',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '2'
-                ],
-            ],[
-                'label' => 'Product C',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '3'
-                ],
-            ]))
-            ->options([
-                'queryFilter' => array([    // add array of filter with this format
-                    'key' => 'status',
-                    'operator' => '=',
-                    'value' => 'success'
-                ],[
-                    'key' => 'updated_at',
-                    'operator' => 'IS NOT NULL',
-                ]
-            ])
-            ->width('2/3')
-        ];
-    }
-
-}
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '1'
+        ],
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '3'
+        ],
+    ]))
+    ->options([
+        'queryFilter' => array([    // add array of filter with this format
+            'key' => 'status',
+            'operator' => '=',
+            'value' => 'success'
+        ],[
+            'key' => 'updated_at',
+            'operator' => 'IS NOT NULL',
+        ]
+    ])
+    ->width('2/3'),
 ```
 
 ## Sum Calculation
@@ -670,50 +551,48 @@ If you need to do sum calculation, please use this `sum` in your `options` with 
 
 So your card should be like:
 ```php
-class NovaServiceProvider extends NovaApplicationServiceProvider
-{
-
-    public function cards(Request $request)
-    {
-        return [
-            (new StackedChart())
-            ->title('Revenue')
-            ->model('\App\Models\Sales') // Use Your Model Here
-            ->series(array([
-                'label' => 'Product A',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '1'
-                ],
-            ],[
-                'label' => 'Product B',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '2'
-                ],
-            ],[
-                'label' => 'Product C',
-                'filter' => [
-                    'key' => 'product_id', // State Column for Count Calculation Here
-                    'value' => '3'
-                ],
-            ]))
-            ->options([
-                'sum' => 'my_sales_column' // Add the column you want to calculate
-            ])
-            ->width('2/3')
-        ];
-    }
-
-}
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '1'
+        ],
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '3'
+        ],
+    ]))
+    ->options([
+        'sum' => 'my_sales_column' // Add the column you want to calculate
+    ])
+    ->width('2/3'),
 ```
 
-## ChangeLog
+# More Reference 
+
+[ChartJS Documentation](https://www.chartjs.org/docs/latest/)
+| [Vue-ChartJS Documentation](https://vue-chartjs.org/guide/)
+
+# Issue 
+
+For any issue, we capture it in [HERE](https://github.com/coroo/chart-js-integration/issues).
+
+# ChangeLog
 
 Please see [CHANGELOG](https://github.com/coroo/chart-js-integration/blob/master/CHANGELOG.md) for more information on what has changed recently.
 
-## License
+# License
 
 The MIT License (MIT). Please see [License File](https://github.com/coroo/chart-js-integration/blob/master/LICENSE) for more information.
-
 
