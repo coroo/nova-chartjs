@@ -2,10 +2,10 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
-## v0.0.14 - 2020-01-07
+## v0.0.14 - 2020-01-09
 
 - add daily view feature
-- update documentation
+- move documentation to [github page](https://coroo.github.io/chart-js-integration/)
 
 ## v0.0.13 - 2020-01-06
 
