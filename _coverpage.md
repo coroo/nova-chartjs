@@ -1,6 +1,6 @@
 ![logo](assets/logo/chartjs-logo.svg)
 
-# Chart JS Integration
+# Nova ChartJS
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/coroowicaksono/chart-js-integration)](https://packagist.org/packages/coroowicaksono/chart-js-integration)
 [![Total Downloads](https://img.shields.io/packagist/dt/coroowicaksono/chart-js-integration)](https://packagist.org/packages/coroowicaksono/chart-js-integration)
