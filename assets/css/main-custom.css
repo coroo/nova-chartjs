@@ -81,6 +81,15 @@ img {
     border-radius: 0.5em;
     box-shadow: rgba(0, 0, 0, 0.55) 0px 7px 26px;
 }
+
+.loading {
+    color: #999;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 /* .markdown-section code,
 .markdown-section pre,
 .markdown-section pre > code {
