@@ -4,7 +4,7 @@
 
 This Nova Chart JS Integration requires `Nova 2.0 or higher`
 
-![Chart JS Integration in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/chart-js-integration.gif)
+![Chart JS Integration in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/chart-js-integration.gif)
 
 ## Installation
 
@@ -65,7 +65,7 @@ use Coroowicaksono\ChartJsIntegration\StackedChart;
 
 ## Stacked Chart
 
-![StackedChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/screenshot-stacked-chart.png)
+![StackedChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/screenshot-stacked-chart.png)
 
 Include this line to header in your NovaServiceProvider.php
 ```php
@@ -102,7 +102,7 @@ Add this line as return for your `cards` function:
 
 ## Bar Chart
 
-![BarChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/screenshot-bar-chart.png)
+![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/screenshot-bar-chart.png)
 
 Include this line to header in your NovaServiceProvider.php
 ```php
@@ -138,7 +138,7 @@ Add this line as return for your `cards` function:
 
 ## Line Chart
 
-![LineChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/screenshot-line-chart.jpg)
+![LineChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/screenshot-line-chart.jpg)
 
 Include this line to header in your NovaServiceProvider.php
 ```php
@@ -174,7 +174,7 @@ Add this line as return for your `cards` function:
 
 ## Area Chart
 
-![AreaChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/screenshot-area-chart.jpg)
+![AreaChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/screenshot-area-chart.jpg)
 
 Include this line to header in your NovaServiceProvider.php
 ```php
@@ -210,7 +210,7 @@ Add this line as return for your `cards` function:
 
 ## Doughnut Chart
 
-![DoughnutChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/screenshot-doughnut-chart.jpg)
+![DoughnutChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/screenshot-doughnut-chart.jpg)
 
 Include this line to header in your NovaServiceProvider.php
 ```php
@@ -234,7 +234,7 @@ Add this line as return for your `cards` function:
 
 ## Pie Chart
 
-![PieChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/screenshot-pie-chart.jpg)
+![PieChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/screenshot-pie-chart.jpg)
 
 Include this line to header in your NovaServiceProvider.php
 ```php
@@ -262,7 +262,7 @@ We use `created_at` to define the month and year name in categories. So make sur
 
 ## Simple Chart With Data
 
-![Simple Chart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/simple-with-data.jpg)
+![Simple Chart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/simple-with-data.jpg)
 
 > This action available for BarChart, StackedChart, LineChart and StackedChart. 
 > For another chart, please use [Custom Column Calculation](#custom-column-calculation)
@@ -277,7 +277,7 @@ Add this line to your cards function:
 
 ## Custom Column Calculation
 
-![Custom Column Calculation in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/stacked-chart-with-data.jpg)
+![Custom Column Calculation in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/stacked-chart-with-data.jpg)
 
 > This action available for BarChart, StackedChart, LineChart, StackedChart, Doughnut Chart and Pie Chart.
 
@@ -310,7 +310,7 @@ Add this line to your cards function:
 
 ## Latest Month
 
-![BarChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/latest-data.jpg)
+![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/latest-data.jpg)
 
 By Default, if you using chart with data, the chart will only show your 3 latest month. If you want to change count of month that you need to show, use:
 ```php
@@ -351,7 +351,7 @@ So your card should be like:
 
 ## Use Weekly View
 
-![BarChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/weekly-view.jpg)
+![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/weekly-view.jpg)
 
 By Default, if you using chart with data, the chart will only show your 3 latest month. If you want to use weekly base view, please use:
 ```php
@@ -409,7 +409,7 @@ So your card should be like:
 
 ## Use Daily View
 
-![BarChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/daily-view.jpg)
+![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/daily-view.jpg)
 
 For daily base view, please use:
 ```php
@@ -488,7 +488,7 @@ So your card should be like:
 
 ## Hide Total
 
-![BarChart in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/hide-show-total.jpg)
+![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/hide-show-total.jpg)
 
 For hide total column in your Chart, please use this option:
 ```php
@@ -582,7 +582,7 @@ So your card should be like:
 
 ## Sum Calculation
 
-By default, chart-js-integration will show count of your data.
+By default, nova-chart-js will show count of your data.
 If you need to do sum calculation, please use this `sum` in your `options` with the value is your field:
 ```php
 ->options([
@@ -627,13 +627,13 @@ So your card should be like:
 
 # Issue 
 
-For any issue, we capture it in [HERE](https://github.com/coroo/chart-js-integration/issues).
+For any issue, we capture it in [HERE](https://github.com/coroo/nova-chartjs/issues).
 
 # ChangeLog
 
-Please see [CHANGELOG](https://github.com/coroo/chart-js-integration/blob/master/CHANGELOG.md) for more information on what has changed recently.
+Please see [CHANGELOG](https://github.com/coroo/nova-chartjs/blob/master/CHANGELOG.md) for more information on what has changed recently.
 
 # License
 
-The MIT License (MIT). Please see [License File](https://github.com/coroo/chart-js-integration/blob/master/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/coroo/nova-chartjs/blob/master/LICENSE) for more information.
 
