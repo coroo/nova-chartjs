@@ -1,6 +1,6 @@
 # Chart JS Integration - Laravel Nova Package
 
-A Laravel Nova Dashboard with Chart JS | See [:blue_book:Documentation Page](https://coroo.github.io/chart-js-integration/)
+A Laravel Nova Dashboard with Chart JS | See [:blue_book:Documentation Page](https://coroo.github.io/nova-chartjs/)
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/coroowicaksono/chart-js-integration)](https://packagist.org/packages/coroowicaksono/chart-js-integration)
 [![Total Downloads](https://img.shields.io/packagist/dt/coroowicaksono/chart-js-integration)](https://packagist.org/packages/coroowicaksono/chart-js-integration)
@@ -12,7 +12,7 @@ A Laravel Nova Dashboard with Chart JS | See [:blue_book:Documentation Page](htt
 
 ## Installation & Documentation
 
-:mortar_board: For better experiences, we moved documentation to : __https://coroo.github.io/chart-js-integration/__
+:mortar_board: For better experiences, we moved documentation to : __https://coroo.github.io/nova-chartjs/__
 
 ## ChangeLog
 
