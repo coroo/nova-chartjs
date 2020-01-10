@@ -527,9 +527,9 @@ So your card should be like:
     ->width('2/3'),
 ```
 
-## Adding Filter
+## Adding Condition
 
-For adding filter column in your data, please use this `queryFilter` in `options`:
+For adding condition / filter, e.g. `WHERE` for column in your data, please use this `queryFilter` in `options`:
 ```php
 ->options([
     'queryFilter' => array([
@@ -539,7 +539,7 @@ For adding filter column in your data, please use this `queryFilter` in `options
     ],[
         'key' => 'updated_at',
         'operator' => 'IS NOT NULL',
-    ]
+    ])
 ])
 ```
 
@@ -575,7 +575,7 @@ So your card should be like:
         ],[
             'key' => 'updated_at',
             'operator' => 'IS NOT NULL',
-        ]
+        ])
     ])
     ->width('2/3'),
 ```
