@@ -2,6 +2,10 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.0.15 - 2020-01-11
+
+- fix bug for not showing label when hover to stacked chart
+
 ## v0.0.14 - 2020-01-09
 
 - add daily view feature
