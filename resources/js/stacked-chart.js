@@ -12,13 +12,6 @@ export default {
   },
   data: () => ({
     options: {
-      tooltips: {
-          callbacks: {
-              label: function(tooltipItem, data) {
-                  return tooltipItem.yLabel.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-              }
-          }
-      },
       layout: {
         padding: {
             left: 20,
