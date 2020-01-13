@@ -622,7 +622,9 @@ So your card should be like:
 
 ## Add Refresh Button
 
-To add refresh button for refresh only the your expected chart, please use this `btnRefresh` in your `options` with the value is your field:
+![Refresh Button](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/refresh-button.jpg)
+
+To add refresh button for refresh the chart, please use this `btnRefresh` in your `options`:
 ```php
 ->options([
     'btnRefresh' => true // default is false
@@ -655,11 +657,7 @@ Please see [CHANGELOG](https://github.com/coroo/nova-chartjs/blob/master/CHANGEL
 
 # Suport Us
 
-<a href="https://www.buymeacoffee.com/coroowicaksono" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-red.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
-
-Or be a contributor in [CONTRIBUTE TO US](https://github.com/coroo/nova-chartjs/blob/master/CONTRIBUTING.md).
-
-# Contribute
+<a href="https://www.buymeacoffee.com/coroowicaksono" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-red.png" alt="Buy Us A Coffee" style="margin-right:20px; height: 51px !important;width: 217px !important;" ></a> Or be a One of Our [Contributor](https://github.com/coroo/nova-chartjs/blob/master/CONTRIBUTING.md).
 
 # License
 
