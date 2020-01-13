@@ -620,6 +620,26 @@ So your card should be like:
     ->width('2/3'),
 ```
 
+## Add Refresh Button
+
+To add refresh button for refresh only the your expected chart, please use this `btnRefresh` in your `options` with the value is your field:
+```php
+->options([
+    'btnRefresh' => true // default is false
+])
+```
+
+So your card should be like:
+```php
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->options([
+        'btnRefresh' => true
+    ])
+    ->width('2/3'),
+```
+
 # More Reference 
 
 [ChartJS Documentation](https://www.chartjs.org/docs/latest/)
@@ -632,6 +652,14 @@ For any issue, we capture it in [HERE](https://github.com/coroo/nova-chartjs/iss
 # ChangeLog
 
 Please see [CHANGELOG](https://github.com/coroo/nova-chartjs/blob/master/CHANGELOG.md) for more information on what has changed recently.
+
+# Suport Us
+
+<a href="https://www.buymeacoffee.com/coroowicaksono" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-red.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
+
+Or be a contributor in [CONTRIBUTE TO US](https://github.com/coroo/nova-chartjs/blob/master/CONTRIBUTING.md).
+
+# Contribute
 
 # License
 
