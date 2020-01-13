@@ -657,7 +657,7 @@ Please see [CHANGELOG](https://github.com/coroo/nova-chartjs/blob/master/CHANGEL
 
 # Suport Us
 
-<a href="https://www.buymeacoffee.com/coroowicaksono" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-red.png" alt="Buy Us A Coffee" style="margin-right:20px; height: 51px !important;width: 217px !important;" ></a> Or be a One of Our [Contributor](https://github.com/coroo/nova-chartjs/blob/master/CONTRIBUTING.md).
+<a href="https://www.buymeacoffee.com/coroowicaksono" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-red.png" alt="Buy Us A Coffee" style="margin-right:20px; height: 51px !important;width: 217px !important;" ></a> Or be one of our [contributor](https://github.com/coroo/nova-chartjs/blob/master/CONTRIBUTING.md).
 
 # License
 
