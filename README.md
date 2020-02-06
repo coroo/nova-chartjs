@@ -256,6 +256,66 @@ Add this line as return for your `cards` function:
     ])->width('1/3'),
 ```
 
+## Scatter Chart
+
+![ScatterChart in Action](assets/img/scatter-chart.png)
+
+> This scatter chart for now only available in custom data. 
+> For using model, please use another chart.
+
+Include this line to header in your NovaServiceProvider.php
+```php
+use Coroowicaksono\ChartJsIntegration\ScatterChart;
+```
+
+Scatter charts are based on basic line charts with the x axis changed to a linear axis. To use a scatter chart, data must be passed as objects containing X and Y properties. The example below creates random data for scatter chart with 2 label.
+```php
+    $dataChart1 = [];
+    $dataChart2 = [];
+    for($i=0; $i<=50; $i++){
+        $dataChart1[$i] = [
+            'x' => rand(-25,25),
+            'y' => rand(-25,25),
+        ];
+        $dataChart2[$i] = [
+            'x' => rand(-25,25),
+            'y' => rand(-25,25),
+        ];
+    }
+
+    return [
+        (new ScatterChart())
+            ->title('Revenue')
+            ->series(array([
+                'label' => 'Scatter #1',
+                'backgroundColor' => '#ffcc5c',
+                'data' => $dataChart1
+            ],[
+                'label' => 'Scatter #2',
+                'backgroundColor' => '#90ed7d',
+                'data' => $dataChart2
+            ]))
+            ->width('2/3')
+    ];
+```
+
+Unlike previous another chart where xaxis suplied inside `options`, the scatter chart only accepts data in format x and y inside `series`->`data`. This is the simple data structure looks like:
+```php
+    ->series(
+        array([
+            'label' => 'Scatter #3',
+            'backgroundColor' => '#b088d8',
+            'data' => array([
+                'x' => -8,
+                'y' => 3,
+            ],[
+                'x' => 7,
+                'y' => 28,
+            ])
+        ])
+    )
+```
+
 # Use Laravel Model
 
 We use `created_at` to define the month and year name in categories. So make sure your data consist of this column.
@@ -667,3 +727,8 @@ Be one of our contributor at [contributor](https://github.com/coroo/nova-chartjs
 
 The MIT License (MIT). Please see [License File](https://github.com/coroo/nova-chartjs/blob/master/LICENSE) for more information.
 
+# Another Related Products 
+
+<p align="center">
+  <a href="https://coroo.github.io/nova-carousel/"><img width="460" src="https://github.com/coroo/nova-carousel/blob/gh-pages/assets/img/nova-carousel-cover.gif?raw=true"><br/>Nova Carousel</a>
+</p>
