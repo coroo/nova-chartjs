@@ -2,6 +2,11 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.0.17 - 2020-02-06
+
+- add scatter-chart feature
+- update documentation
+
 ## v0.0.16 - 2020-01-13
 
 - add refresh button feature
