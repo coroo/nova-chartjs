@@ -5,6 +5,7 @@ A Laravel Nova Dashboard with Chart JS | See [:blue_book:Documentation Page](htt
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/coroowicaksono/chart-js-integration)](https://packagist.org/packages/coroowicaksono/chart-js-integration)
 [![Total Downloads](https://img.shields.io/packagist/dt/coroowicaksono/chart-js-integration)](https://github.com/coroo/nova-chartjs/stargazers)
 [![License](https://img.shields.io/packagist/l/coroowicaksono/chart-js-integration)](https://github.com/coroo/chart-js-integration/blob/master/LICENSE)
+[![License](https://img.shields.io/github/stars/coroo/nova-chartjs?style=social)](https://github.com/coroo/nova-chartjs/stargazers)
 
 > This Nova Chart JS Integration requires Nova 2.0 or higher.
 
