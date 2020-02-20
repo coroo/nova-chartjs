@@ -27,7 +27,7 @@
         chartLegend: this.card.options.legend != undefined ? this.card.options.legend :
           {
             display: true,
-            position: 'right',
+            position: 'left',
             labels: {
                 fontColor: '#7c858e',
                 fontFamily: "'Nunito'"
