@@ -368,7 +368,185 @@ Add this line to your cards function:
     ->width('2/3'),
 ```
 
-## Latest Month
+# Configuration
+
+The configuration is used to change how the chart behaves. There are properties to control styling, fonts, the legend, etc.
+
+## Hide Total
+
+![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/hide-show-total.jpg)
+
+By default, `nova-chartjs` will showing your Total Calculation in chart. For hide total column in your Chart, please use this option:
+```php
+->options([
+    'showTotal' => false
+])
+```
+
+So your card should be like:
+```php
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '1'
+        ],
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '3'
+        ],
+    ]))
+    ->options([
+        'showTotal' => false // Hide Show Total in Your Chart
+    ])
+    ->width('2/3'),
+```
+
+## Legend
+
+![Legend in Action](assets/img/legend.png)
+
+### Hide Legend
+
+By default, `nova-chartjs` will showing legend in chart. For hide legend in your Chart, please use this option:
+```php
+->options([
+    'legend' => [
+        'display' => false
+    ]
+])
+```
+
+So your card should be like:
+```php
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '1'
+        ],
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '3'
+        ],
+    ]))
+    ->options([
+        'legend' => [
+            'display' => false // Hide Legend
+        ]
+    ])
+    ->width('2/3'),
+```
+
+### Set Legend
+
+![Left Legend in Action](assets/img/left-legend.png)
+
+For set position of legend in your Chart, please use this option:
+```php
+->options([
+    'legend' => [
+        'display' => true,
+        'position' => 'left',
+    ]
+])
+```
+
+So your card should be like:
+```php
+(new PieChart())
+    ->title('Revenue')
+    ->series(array([
+        'data' => [10, 10, 10, 10, 10, 10, 10, 10],
+        'backgroundColor' => ["#ffcc5c","#91e8e1","#ff6f69","#88d8b0","#b088d8","#d8b088", "#88b0d8", "#6f69ff"],
+    ]))
+    ->options([
+        'legend' => [
+            'display' => true,
+            'position' => 'left'
+        ],
+        'xaxis' => [
+            'categories' => ['Portion 1','Portion 2','Portion 3','Portion 4','Portion 5','Portion 6','Portion 7','Portion 8']
+        ],
+    ])->width('1/3'),
+```
+
+## Adding Condition
+
+For adding condition / filter, e.g. `WHERE` for column in your data, please use this `queryFilter` in `options`:
+```php
+->options([
+    'queryFilter' => array([
+        'key' => 'status',
+        'operator' => '=',
+        'value' => 'success'
+    ],[
+        'key' => 'updated_at',
+        'operator' => 'IS NOT NULL',
+    ])
+])
+```
+
+So your card should be like:
+```php
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '1'
+        ],
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '3'
+        ],
+    ]))
+    ->options([
+        'queryFilter' => array([    // add array of filter with this format
+            'key' => 'status',
+            'operator' => '=',
+            'value' => 'success'
+        ],[
+            'key' => 'updated_at',
+            'operator' => 'IS NOT NULL',
+        ])
+    ])
+    ->width('2/3'),
+```
+
+## Set Latest Month
 
 ![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/latest-data.jpg)
 
@@ -542,100 +720,6 @@ So your card should be like:
     ]))
     ->options([
         'showTotal' => false // Hide Show Total in Your Chart
-    ])
-    ->width('2/3'),
-```
-
-## Hide Total
-
-![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/hide-show-total.jpg)
-
-For hide total column in your Chart, please use this option:
-```php
-->options([
-    'showTotal' => false
-])
-```
-
-So your card should be like:
-```php
-(new StackedChart())
-    ->title('Revenue')
-    ->model('\App\Models\Sales') // Use Your Model Here
-    ->series(array([
-        'label' => 'Product A',
-        'filter' => [
-            'key' => 'product_id', // State Column for Count Calculation Here
-            'value' => '1'
-        ],
-    ],[
-        'label' => 'Product B',
-        'filter' => [
-            'key' => 'product_id', // State Column for Count Calculation Here
-            'value' => '2'
-        ],
-    ],[
-        'label' => 'Product C',
-        'filter' => [
-            'key' => 'product_id', // State Column for Count Calculation Here
-            'value' => '3'
-        ],
-    ]))
-    ->options([
-        'showTotal' => false // Hide Show Total in Your Chart
-    ])
-    ->width('2/3'),
-```
-
-## Adding Condition
-
-For adding condition / filter, e.g. `WHERE` for column in your data, please use this `queryFilter` in `options`:
-```php
-->options([
-    'queryFilter' => array([
-        'key' => 'status',
-        'operator' => '=',
-        'value' => 'success'
-    ],[
-        'key' => 'updated_at',
-        'operator' => 'IS NOT NULL',
-    ])
-])
-```
-
-So your card should be like:
-```php
-(new StackedChart())
-    ->title('Revenue')
-    ->model('\App\Models\Sales') // Use Your Model Here
-    ->series(array([
-        'label' => 'Product A',
-        'filter' => [
-            'key' => 'product_id', // State Column for Count Calculation Here
-            'value' => '1'
-        ],
-    ],[
-        'label' => 'Product B',
-        'filter' => [
-            'key' => 'product_id', // State Column for Count Calculation Here
-            'value' => '2'
-        ],
-    ],[
-        'label' => 'Product C',
-        'filter' => [
-            'key' => 'product_id', // State Column for Count Calculation Here
-            'value' => '3'
-        ],
-    ]))
-    ->options([
-        'queryFilter' => array([    // add array of filter with this format
-            'key' => 'status',
-            'operator' => '=',
-            'value' => 'success'
-        ],[
-            'key' => 'updated_at',
-            'operator' => 'IS NOT NULL',
-        ])
     ])
     ->width('2/3'),
 ```
