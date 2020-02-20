@@ -19,10 +19,20 @@
       LineChart
     },
     data () {
+      this.card.options = this.card.options != undefined ? this.card.options : false;
       return {
         datacollection: null,
         options: null,
         buttonRefresh: this.card.options.btnRefresh,
+        chartLegend: this.card.options.legend != undefined ? this.card.options.legend :
+          {
+            display: true,
+            position: 'right',
+            labels: {
+                fontColor: '#7c858e',
+                fontFamily: "'Nunito'"
+            }
+          },
       }
     },
     computed: {
@@ -34,18 +44,34 @@
         'card'
     ],
     mounted () {
-      this.fillData()
+      this.fillData();
     },
     methods: {
       fillData () {
+        this.options = {
+          layout: {
+            padding: {
+              left: 20,
+              right: 20,
+              top: 0,
+              bottom: 10
+            }
+          },
+          legend: this.chartLegend,
+          responsive: true,
+          maintainAspectRatio: false,
+        };
+
         if(this.card.model == 'custom' || this.card.model == undefined){
+        // Custom Data
           this.title = this.card.title,
           this.datacollection = {
             labels: this.card.options.xaxis.categories,
             datasets: this.card.series,
           }
         } else {
-          Nova.request().get("/coroowicaksono/check-data/circle-endpoint/", {
+        // Use Model
+          Nova.request().get("/coroowicaksono/check-data/endpoint/", {
             params: {
                 model: this.card.model,
                 series: this.card.series,
@@ -58,6 +84,7 @@
               labels: data.dataset.xAxis,
               datasets: data.dataset.yAxis,
             };
+            this.options = this.options;
           })
           .catch(({ response }) => {
             this.$set(this, "errors", response.data.errors)
@@ -68,7 +95,7 @@
   }
 </script>
 
-<style>
+<style> 
   .small {
     max-width: 600px;
     margin:  150px auto;
@@ -78,7 +105,7 @@
     font-size: 1rem;
     font-weight: 800;
     margin: 0;
-    padding: 1rem 1.5rem -10px;
+    padding: 1rem 1.5rem 2px;
   }
   .stay-right {
     text-align: right;

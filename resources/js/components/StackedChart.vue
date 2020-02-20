@@ -12,17 +12,27 @@
 </template>
 
 <script>
-  import LineChart from '../stacked-chart.js'
+  import LineChart from '../bar-chart.js'
 
   export default {
     components: {
       LineChart
     },
     data () {
+      this.card.options = this.card.options != undefined ? this.card.options : false;
       return {
         datacollection: null,
         options: null,
         buttonRefresh: this.card.options.btnRefresh,
+        chartLegend: this.card.options.legend != undefined ? this.card.options.legend :
+          {
+            display: true,
+            position: 'left',
+            labels: {
+                fontColor: '#7c858e',
+                fontFamily: "'Nunito'"
+            }
+          },
       }
     },
     computed: {
@@ -38,13 +48,57 @@
     },
     methods: {
       fillData () {
+        this.options = {
+          layout: {
+            padding: {
+                left: 20,
+                right: 20,
+                top: 0,
+                bottom: 10
+            }
+          },
+          legend: this.chartLegend,
+          scales: {
+            yAxes: [{
+              stacked: true,
+              ticks: {
+                maxTicksLimit: 5,
+                fontSize: 10,
+                callback: function(num, index, values) {
+                  if (num >= 1000000000) {
+                    return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
+                  }
+                  if (num >= 1000000) {
+                    return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+                  }
+                  if (num >= 1000) {
+                    return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+                  }
+                  return num;
+                }
+              }
+            }],
+            xAxes: [ {
+              stacked: true,
+              ticks: {
+                lineHeight: 0.8,
+                fontSize: 10,
+              }
+            }]
+          },
+          responsive: true,
+          maintainAspectRatio: false,
+        };
+
         if(this.card.model == 'custom' || this.card.model == undefined){
+        // Custom Data
           this.title = this.card.title,
           this.datacollection = {
             labels: this.card.options.xaxis.categories,
             datasets: this.card.series,
           }
         } else {
+        // Use Model
           Nova.request().get("/coroowicaksono/check-data/endpoint/", {
             params: {
                 model: this.card.model,
@@ -58,6 +112,7 @@
               labels: data.dataset.xAxis,
               datasets: data.dataset.yAxis,
             };
+            this.options = this.options;
           })
           .catch(({ response }) => {
             this.$set(this, "errors", response.data.errors)
