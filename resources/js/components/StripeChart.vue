@@ -24,6 +24,15 @@
         datacollection: null,
         options: null,
         buttonRefresh: this.card.options.btnRefresh,
+        chartLayout: this.card.options.layout != undefined ? this.card.options.layout :
+          {
+            padding: {
+              left: 20,
+              right: 20,
+              top: 0,
+              bottom: 10
+            }
+          },
         chartLegend: this.card.options.legend != undefined ? this.card.options.legend :
           {
             display: true,
@@ -49,14 +58,7 @@
     methods: {
       fillData () {
         this.options = {
-          layout: {
-            padding: {
-                left: 20,
-                right: 20,
-                top: 0,
-                bottom: 10
-            }
-          },
+          layout: this.chartLayout,
           legend: this.chartLegend,
           scales: {
             yAxes: [{

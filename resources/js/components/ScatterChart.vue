@@ -24,13 +24,22 @@
         datacollection: null,
         options: null,
         buttonRefresh: (this.card.options != undefined) ? this.card.options.btnRefresh : false,
+        chartLayout: this.card.options.layout != undefined ? this.card.options.layout :
+          {
+            padding: {
+              left: 20,
+              right: 20,
+              top: 0,
+              bottom: 10
+            }
+          },
         chartLegend: this.card.options.legend != undefined ? this.card.options.legend :
           {
             display: true,
             position: 'left',
             labels: {
-                fontColor: '#7c858e',
-                fontFamily: "'Nunito'"
+              fontColor: '#7c858e',
+              fontFamily: "'Nunito'"
             }
           },
       }
@@ -49,14 +58,7 @@
     methods: {
       fillData () {
         this.options = {
-          layout: {
-            padding: {
-                left: 20,
-                right: 20,
-                top: 0,
-                bottom: 10
-            }
-          },
+          layout: this.chartLayout,
           legend: this.chartLegend,
           scales: {
             xAxes: [ {
