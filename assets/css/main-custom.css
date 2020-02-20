@@ -90,13 +90,9 @@ img {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-/* .markdown-section code,
-.markdown-section pre,
-.markdown-section pre > code {
-    color: #eee; 
-    background-color: #353544; 
-}
 
-.markdown-section code {
-    color: #eccb84; 
-} */
+.github-corner {
+    position:fixed;
+    top:0;
+    right:0;
+}
