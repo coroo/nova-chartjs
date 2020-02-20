@@ -2,6 +2,14 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.1.1 - 2020-02-20
+
+- major update: change options behavior
+- add legend configuration
+    - set legend
+    - hide legend
+- update documentation
+
 ## v0.0.17 - 2020-02-06
 
 - add scatter-chart feature
