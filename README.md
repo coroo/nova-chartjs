@@ -866,6 +866,6 @@ The MIT License (MIT). Please see [License File](https://github.com/coroo/nova-c
 
 # Another Related Products 
 
-<p align="center">
-  <a href="https://coroo.github.io/nova-carousel/"><img width="460" src="https://github.com/coroo/nova-carousel/blob/gh-pages/assets/img/nova-carousel-cover.gif?raw=true"><br/>Nova Carousel</a>
-</p>
+| Nova Carousel | Awesome ChartJS |
+|:---:|:---:|
+| <a href="https://coroo.github.io/nova-carousel/"><img height="200" src="https://github.com/coroo/nova-carousel/blob/gh-pages/assets/img/nova-carousel-cover.gif?raw=true"></a> | <a href="https://github.com/chartjs/awesome#others"><img height="200" src="https://camo.githubusercontent.com/f9cd5c942fce5f8d2110e147663b0a5fd27f3e1e/68747470733a2f2f7777772e63686172746a732e6f72672f6d656469612f617765736f6d652e737667"></a> |
