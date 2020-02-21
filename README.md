@@ -856,6 +856,13 @@ Please see [CHANGELOG](https://github.com/coroo/nova-chartjs/blob/master/CHANGEL
 
 <a href="https://www.buymeacoffee.com/coroowicaksono" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-red.png" alt="Buy Us A Coffee" style="margin-right:20px; height: 51px !important;width: 217px !important;" ></a> Or rate us <a href="https://github.com/coroo/nova-chartjs/stargazers"><img src="https://img.shields.io/github/stars/coroo/nova-chartjs?style=social" style="margin-left:10px;box-shadow:none;border-radius:0;height:24px"></a>
 
+## Backers
+
+<a href="https://github.com/gmill20" target="_blank"><img src="https://avatars3.githubusercontent.com/u/11597797?s=400&v=4" alt="gmill20" style="width:50px"></a>
+
+<a href="https://www.buymeacoffee.com/coroowicaksono" target="_blank">Became a backers</a>
+
+
 # Contribute
 
 Be one of our contributor at [contributor](https://github.com/coroo/nova-chartjs/blob/master/CONTRIBUTING.md).
