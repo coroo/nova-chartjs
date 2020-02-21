@@ -493,6 +493,59 @@ So your card should be like:
     ])->width('1/3'),
 ```
 
+## Layout
+
+![Layout Configuration in Action](assets/img/layout-configuration.png)
+
+In layout configuration, you can add padding for chart. <br/>More documentation related `layout` also can be found at https://www.chartjs.org/docs/latest/configuration/layout.html
+```php
+->options([
+    'layout' => [
+        'padding' => [
+            'left' => 50,
+            'right' => 50,
+            'top' => 50,
+            'bottom' => 50
+        ],
+    ],
+])
+```
+
+So your card should be like:
+```php
+(new LineChart())
+    ->title('Revenue')
+    ->animations([
+        'enabled' => true,
+        'easing' => 'easeinout',
+    ])
+    ->series(array([
+        'barPercentage' => 0.5,
+        'label' => 'Average Sales',
+        'borderColor' => '#f7a35c',
+        'data' => [80, 90, 80, 40, 62, 79, 79, 90, 90, 90, 92, 91],
+    ],[
+        'barPercentage' => 0.5,
+        'label' => 'Average Sales #2',
+        'borderColor' => '#90ed7d',
+        'data' => [90, 80, 40, 22, 79, 129, 30, 40, 90, 92, 91, 80],
+    ]))
+    ->options([
+        'layout' => [
+            'padding' => [
+                'left' => 50,
+                'right' => 50,
+                'top' => 50,
+                'bottom' => 50
+            ],
+        ],
+        'xaxis' => [
+            'categories' => [ 'Jan', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct' ]
+        ],
+    ])
+    ->width('2/3'),
+```
+
 ## Adding Condition
 
 For adding condition / filter, e.g. `WHERE` for column in your data, please use this `queryFilter` in `options`:
