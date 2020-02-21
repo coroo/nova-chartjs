@@ -2,6 +2,11 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.1.2 - 2020-02-21
+
+- add layout configuration
+- update documentation
+
 ## v0.1.1 - 2020-02-20
 
 - major update: change options behavior
