@@ -4,7 +4,7 @@
 
 This Nova Chart JS Integration requires `Nova 2.0 or higher`
 
-![Chart JS Integration in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/chart-js-integration.gif)
+![Chart JS Integration in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/chart-js-integration.gif)
 
 ## Installation
 
@@ -65,7 +65,7 @@ use Coroowicaksono\ChartJsIntegration\StackedChart;
 
 ## Stacked Chart
 
-![StackedChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/screenshot-stacked-chart.png)
+![StackedChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/screenshot-stacked-chart.png)
 
 Include this line to header in your NovaServiceProvider.php
 ```php
@@ -102,7 +102,7 @@ Add this line as return for your `cards` function:
 
 ## Bar Chart
 
-![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/screenshot-bar-chart.png)
+![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/screenshot-bar-chart.png)
 
 Include this line to header in your NovaServiceProvider.php
 ```php
@@ -138,7 +138,7 @@ Add this line as return for your `cards` function:
 
 ## Line Chart
 
-![LineChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/screenshot-line-chart.jpg)
+![LineChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/screenshot-line-chart.jpg)
 
 Include this line to header in your NovaServiceProvider.php
 ```php
@@ -174,7 +174,7 @@ Add this line as return for your `cards` function:
 
 ## Area Chart
 
-![AreaChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/screenshot-area-chart.jpg)
+![AreaChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/screenshot-area-chart.jpg)
 
 Include this line to header in your NovaServiceProvider.php
 ```php
@@ -210,7 +210,7 @@ Add this line as return for your `cards` function:
 
 ## Doughnut Chart
 
-![DoughnutChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/screenshot-doughnut-chart.jpg)
+![DoughnutChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/screenshot-doughnut-chart.jpg)
 
 Include this line to header in your NovaServiceProvider.php
 ```php
@@ -234,7 +234,7 @@ Add this line as return for your `cards` function:
 
 ## Pie Chart
 
-![PieChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/screenshot-pie-chart.jpg)
+![PieChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/screenshot-pie-chart.jpg)
 
 Include this line to header in your NovaServiceProvider.php
 ```php
@@ -322,7 +322,7 @@ We use `created_at` to define the month and year name in categories. So make sur
 
 ## Simple Chart With Data
 
-![Simple Chart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/simple-with-data.jpg)
+![Simple Chart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/simple-with-data.jpg)
 
 > This action available for BarChart, StackedChart, LineChart and StackedChart. 
 > For another chart, please use [Custom Column Calculation](#custom-column-calculation)
@@ -337,7 +337,7 @@ Add this line to your cards function:
 
 ## Custom Column Calculation
 
-![Custom Column Calculation in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/stacked-chart-with-data.jpg)
+![Custom Column Calculation in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/stacked-chart-with-data.jpg)
 
 > This action available for BarChart, StackedChart, LineChart, StackedChart, Doughnut Chart and Pie Chart.
 
@@ -374,7 +374,7 @@ The configuration is used to change how the chart behaves. There are properties 
 
 ## Hide Total
 
-![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/hide-show-total.jpg)
+![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/hide-show-total.jpg)
 
 By default, `nova-chartjs` will showing your Total Calculation in chart. For hide total column in your Chart, please use this option:
 ```php
@@ -601,7 +601,7 @@ So your card should be like:
 
 ## Set Latest Month
 
-![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/latest-data.jpg)
+![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/latest-data.jpg)
 
 By Default, if you using chart with data, the chart will only show your 3 latest month. If you want to change count of month that you need to show, use:
 ```php
@@ -642,7 +642,7 @@ So your card should be like:
 
 ## Use Weekly View
 
-![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/weekly-view.jpg)
+![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/weekly-view.jpg)
 
 By Default, if you using chart with data, the chart will only show your 3 latest month. If you want to use weekly base view, please use:
 ```php
@@ -700,7 +700,7 @@ So your card should be like:
 
 ## Use Daily View
 
-![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/daily-view.jpg)
+![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/daily-view.jpg)
 
 For daily base view, please use:
 ```php
@@ -819,7 +819,7 @@ So your card should be like:
 
 ## Add Refresh Button
 
-![Refresh Button](https://raw.githubusercontent.com/coroo/nova-chartjs/master/resources/img/refresh-button.jpg)
+![Refresh Button](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/refresh-button.jpg)
 
 To add refresh button for refresh the chart, please use this `btnRefresh` in your `options`:
 ```php
