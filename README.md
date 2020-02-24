@@ -10,7 +10,7 @@ A Laravel Nova Dashboard with Chart JS | See [:blue_book:Documentation Page](htt
 
 > This Nova Chart JS Integration requires Nova 2.0 or higher.
 
-![Chart JS Integration in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/master/resources/img/chart-js-integration.gif)
+![Chart JS Integration in Action](https://raw.githubusercontent.com/coroo/chart-js-integration/gh-pages/resources/img/chart-js-integration.gif)
 
 ## Installation & Documentation
 
