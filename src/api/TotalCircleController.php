@@ -43,8 +43,10 @@ class TotalCircleController extends Controller
                     $seriesSql .= ", SUM(CASE WHEN ".$filter->key." = '".$filter->value."' then ".$calculation." else 0 end) as '".$labelList[$seriesKey]."'";
                 }
             }
-            $query = $model::selectRaw('SUM('.$calculation.') counted'.$seriesSql)
-                ->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonth($dataForLast-1));
+            $query = $model::selectRaw('SUM('.$calculation.') counted'.$seriesSql);
+            if($dataForLast != '*') {
+                $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonth($dataForLast-1));
+            }
             
             if(isset(json_decode($request->options, true)['queryFilter'])){
                 $queryFilter = json_decode($request->options, true)['queryFilter'];

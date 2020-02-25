@@ -59,9 +59,11 @@ class TotalRecordsController extends Controller
                     ->groupBy('catorder', 'cat')
                     ->orderBy('catorder', 'asc');
             } else {
-                $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %Y") AS cat, DATE_FORMAT('.$xAxisColumn.', "%Y-%m") AS catorder, sum('.$calculation.') counted'.$seriesSql)
-                    ->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonth($dataForLast-1))
-                    ->groupBy('catorder', 'cat')
+                $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %Y") AS cat, DATE_FORMAT('.$xAxisColumn.', "%Y-%m") AS catorder, sum('.$calculation.') counted'.$seriesSql);
+                if($dataForLast != '*') {
+                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonth($dataForLast-1));
+                }
+                $query->groupBy('catorder', 'cat')
                     ->orderBy('catorder', 'asc');
             }
             
