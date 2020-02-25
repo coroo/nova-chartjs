@@ -73,7 +73,7 @@
           }
         } else {
         // Use Model
-          Nova.request().get("/coroowicaksono/check-data/endpoint/", {
+          Nova.request().get("/coroowicaksono/check-data/circle-endpoint/", {
             params: {
                 model: this.card.model,
                 series: this.card.series,
