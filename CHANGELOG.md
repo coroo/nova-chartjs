@@ -2,6 +2,10 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.1.3 - 2020-02-25
+
+- fixing bug related pie and doughnut chart with API error
+
 ## v0.1.2 - 2020-02-21
 
 - add layout configuration
