@@ -71,6 +71,20 @@
             labels: this.card.options.xaxis.categories,
             datasets: this.card.series,
           }
+          if( this.card.options.showPercentage != undefined ) {
+            if( this.card.options.showPercentage == true ) {
+              let dataArr = this.card.series[0].data;
+              let sum = 0;
+              sum = dataArr.reduce((a, b) => parseInt(a) + parseInt(b), 0);
+              this.options.tooltips = {
+                callbacks: {
+                  label: function(tooltipItem, data) {
+                    return data['labels'][tooltipItem['index']] + ': ' + '' + data['datasets'][0]['data'][tooltipItem['index']] + ' (' + (data['datasets'][0]['data'][tooltipItem['index']]*100/sum).toFixed(2) + '%)';
+                  }
+                }
+              };
+            }
+          }
         } else {
         // Use Model
           Nova.request().get("/coroowicaksono/check-data/circle-endpoint/", {
@@ -86,7 +100,20 @@
               labels: data.dataset.xAxis,
               datasets: data.dataset.yAxis,
             };
-            this.options = this.options;
+            if( this.card.options.showPercentage != undefined ) {
+              if( this.card.options.showPercentage == true ) {
+                let dataArr = data.dataset.yAxis[0].data;
+                let sum = 0;
+                sum = dataArr.reduce((a, b) => parseInt(a) + parseInt(b), 0);
+                this.options.tooltips = {
+                  callbacks: {
+                    label: function(tooltipItem, data) {
+                      return data['labels'][tooltipItem['index']] + ': ' + '' + data['datasets'][0]['data'][tooltipItem['index']] + ' (' + (data['datasets'][0]['data'][tooltipItem['index']]*100/sum).toFixed(2) + '%)';
+                    }
+                  }
+                };
+              }
+            }
           })
           .catch(({ response }) => {
             this.$set(this, "errors", response.data.errors)
