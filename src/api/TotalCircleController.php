@@ -89,7 +89,7 @@ class TotalCircleController extends Controller
                     $countKey++;
                 }
             } else {
-                throw new ThrowError('You need to have at least 1 series parameters for this type of chart. <br/>Check documentation: https://github.com/coroo/chart-js-integration');
+                throw new ThrowError('You need to have at least 1 series parameters for this type of chart. <br/>Check documentation: https://github.com/coroo/nova-chartjs');
             }
             if ($request->input('expires')) {
                 Cache::put($cacheKey, $dataSet, Carbon::parse($request->input('expires')));

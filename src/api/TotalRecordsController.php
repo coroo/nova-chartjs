@@ -26,7 +26,7 @@ class TotalRecordsController extends Controller
         $unitOfMeasurement = isset($request->options) ? json_decode($request->options, true)['uom'] ?? 'month' : 'month';
         $startWeek = isset($request->options) ? json_decode($request->options, true)['startWeek'] ?? '1' : '1';
         if(!in_array($unitOfMeasurement, ['day', 'week', 'month'])){
-            throw new ThrowError('UOM not defined correctly. <br/>Check documentation: https://github.com/coroo/chart-js-integration');
+            throw new ThrowError('UOM not defined correctly. <br/>Check documentation: https://github.com/coroo/nova-chartjs');
         }
         $calculation = isset($request->options) ? json_decode($request->options, true)['sum'] ?? 1 : 1;
         $request->validate(['model'   => ['bail', 'required', 'min:1', 'string']]);
