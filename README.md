@@ -316,59 +316,7 @@ Unlike previous another chart where xaxis suplied inside `options`, the scatter 
     )
 ```
 
-# Use Laravel Model
-
-We use `created_at` to define the month and year name in categories. So make sure your data consist of this column.
-
-## Simple Chart With Data
-
-![Simple Chart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/simple-with-data.jpg)
-
-> This action available for BarChart, StackedChart, LineChart and StackedChart. 
-> For another chart, please use [Custom Column Calculation](#custom-column-calculation)
-
-Add this line to your cards function:
-```php
-(new StackedChart())
-    ->title('Revenue')
-    ->model('\App\Models\Sales') // Use Your Model Here
-    ->width('2/3'),
-```
-
-## Custom Column Calculation
-
-![Custom Column Calculation in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/stacked-chart-with-data.jpg)
-
-> This action available for BarChart, StackedChart, LineChart, StackedChart, Doughnut Chart and Pie Chart.
-
-Add this line to your cards function:
-```php
-(new BarChart())
-    ->title('Revenue')
-    ->model('\App\Models\Sales') // Use Your Model Here
-    ->series(array([
-        'label' => 'Product A',
-        'filter' => [
-            'key' => 'product_id', // State Column for Count Calculation Here
-            'value' => '1'
-        ],
-    ],[
-        'label' => 'Product B',
-        'filter' => [
-            'key' => 'product_id', // State Column for Count Calculation Here
-            'value' => '2'
-        ],
-    ],[
-        'label' => 'Product C',
-        'filter' => [
-            'key' => 'product_id', // State Column for Count Calculation Here
-            'value' => '3'
-        ],
-    ]))
-    ->width('2/3'),
-```
-
-# Configuration
+# Basic Configuration
 
 The configuration is used to change how the chart behaves. There are properties to control styling, fonts, the legend, etc.
 
@@ -417,7 +365,7 @@ So your card should be like:
 
 ![Legend in Action](assets/img/legend.png)
 
-### Hide Legend
+### Hide Legend {docsify-ignore}
 
 By default, `nova-chartjs` will showing legend in chart. For hide legend in your Chart, please use this option:
 ```php
@@ -460,7 +408,7 @@ So your card should be like:
     ->width('2/3'),
 ```
 
-### Set Legend
+### Set Legend {docsify-ignore}
 
 ![Left Legend in Action](assets/img/left-legend.png)
 
@@ -546,9 +494,121 @@ So your card should be like:
     ->width('2/3'),
 ```
 
-## Adding Condition
+## Refresh Button
 
-For adding condition / filter, e.g. `WHERE` for column in your data, please use this `queryFilter` in `options`:
+![Refresh Button](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/refresh-button.jpg)
+
+To add refresh button for refresh the chart, please use this `btnRefresh` in your `options`:
+```php
+->options([
+    'btnRefresh' => true // default is false
+])
+```
+
+So your card should be like:
+```php
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->options([
+        'btnRefresh' => true
+    ])
+    ->width('2/3'),
+```
+
+## Custom Background Color
+
+By default, we already define the color for Chart. But you can easily change the hex code by adding this line to your series:
+```php
+'backgroundColor' => '#F87900',
+```
+
+So your card should be like:
+```php
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '1'
+        ],
+        'backgroundColor' => '#F87900', // Add This to change the background color
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '3'
+        ],
+    ]))
+    ->options([
+        'showTotal' => false // Hide Show Total in Your Chart
+    ])
+    ->width('2/3'),
+```
+
+# Use Laravel Model
+
+We use `created_at` to define the month and year name in categories. So make sure your data consist of this column.
+
+## Simple Chart With Data
+
+![Simple Chart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/simple-with-data.jpg)
+
+> This action available for BarChart, StackedChart, LineChart and StackedChart. 
+> For another chart, please use [Custom Column Calculation](#custom-column-calculation)
+
+Add this line to your cards function:
+```php
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->width('2/3'),
+```
+
+## Custom Column Calculation
+
+![Custom Column Calculation in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/stacked-chart-with-data.jpg)
+
+> This action available for BarChart, StackedChart, LineChart, StackedChart, Doughnut Chart and Pie Chart.
+
+Add this line to your cards function:
+```php
+(new BarChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '1'
+        ],
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '3'
+        ],
+    ]))
+    ->width('2/3'),
+```
+
+## Extend Custom Condition
+
+For extend custom condition / filter, e.g. `WHERE` for column in your data, please use this `queryFilter` in `options`:
 ```php
 ->options([
     'queryFilter' => array([
@@ -599,7 +659,50 @@ So your card should be like:
     ->width('2/3'),
 ```
 
-## Set Latest Month
+## Latest Data to Show
+
+> By Default, if you using chart with data, the chart <b>will only show your 3 latest month</b>. <br/>If you want to extend it, please refer to below documentation:
+
+### Show All Data
+
+By Default, if you using chart with data, the chart will only show your 3 latest month. If you want to change count of month that you need to show, use:
+```php
+->options([
+    'latestData' => '*' // show all data
+])
+```
+
+So your card should be like:
+```php
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '1'
+        ],
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '3'
+        ],
+    ]))
+    ->options([
+        'latestData' => '*'
+    ])
+    ->width('2/3'),
+```
+
+### Latest Monthly Data
 
 ![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/latest-data.jpg)
 
@@ -640,7 +743,7 @@ So your card should be like:
     ->width('2/3'),
 ```
 
-## Use Weekly View
+### Latest Weekly Data
 
 ![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/weekly-view.jpg)
 
@@ -698,7 +801,7 @@ So your card should be like:
     ->width('2/3'),
 ```
 
-## Use Daily View
+### Latest Daily Data
 
 ![BarChart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/daily-view.jpg)
 
@@ -735,44 +838,6 @@ So your card should be like:
     ]))
     ->options([
         'uom' => 'day' // available in 'day', 'week', 'month'
-    ])
-    ->width('2/3'),
-```
-
-## Custom Background Color
-
-By default, we already define the color for Chart. But you can easily change the hex code by adding this line to your series:
-```php
-'backgroundColor' => '#F87900',
-```
-
-So your card should be like:
-```php
-(new StackedChart())
-    ->title('Revenue')
-    ->model('\App\Models\Sales') // Use Your Model Here
-    ->series(array([
-        'label' => 'Product A',
-        'filter' => [
-            'key' => 'product_id', // State Column for Count Calculation Here
-            'value' => '1'
-        ],
-        'backgroundColor' => '#F87900', // Add This to change the background color
-    ],[
-        'label' => 'Product B',
-        'filter' => [
-            'key' => 'product_id', // State Column for Count Calculation Here
-            'value' => '2'
-        ],
-    ],[
-        'label' => 'Product C',
-        'filter' => [
-            'key' => 'product_id', // State Column for Count Calculation Here
-            'value' => '3'
-        ],
-    ]))
-    ->options([
-        'showTotal' => false // Hide Show Total in Your Chart
     ])
     ->width('2/3'),
 ```
@@ -817,25 +882,49 @@ So your card should be like:
     ->width('2/3'),
 ```
 
-## Add Refresh Button
+## Join Table
 
-![Refresh Button](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/refresh-button.jpg)
-
-To add refresh button for refresh the chart, please use this `btnRefresh` in your `options`:
+For join table, you need to add join query builder after call your model:
 ```php
-->options([
-    'btnRefresh' => true // default is false
-])
+->join('sales as salesData', 'users.id', '=', 'salesData.user_id')
+```
+
+Then you can call your column instead:
+```php
+->series(array([
+    'label' => 'Product A',
+    'filter' => [
+        'key' => 'salesData.product_id', // State Column for Count Calculation Here
+        'value' => '1'
+    ],
+]))
 ```
 
 So your card should be like:
 ```php
 (new StackedChart())
     ->title('Revenue')
-    ->model('\App\Models\Sales') // Use Your Model Here
-    ->options([
-        'btnRefresh' => true
-    ])
+    ->model('\App\Models\Users') // Use Your Model Here
+    ->join('user_profiles as policyHolderDetail', 'user_policies.policy_holder_id', '=', 'policyHolderDetail.user_id')
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+            'key' => 'salesData.product_id', // State Column for Count Calculation Here
+            'value' => '1'
+        ],
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+            'key' => 'salesData.product_id', // State Column for Count Calculation Here
+            'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+            'key' => 'salesData.product_id', // State Column for Count Calculation Here
+            'value' => '3'
+        ],
+    ]))
     ->width('2/3'),
 ```
 
