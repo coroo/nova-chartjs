@@ -31,7 +31,8 @@ class TotalRecordsController extends Controller
         $calculation = isset($request->options) ? json_decode($request->options, true)['sum'] ?? 1 : 1;
         $request->validate(['model'   => ['bail', 'required', 'min:1', 'string']]);
         $model = $request->input('model');
-        $xAxisColumn = $request->input('col_xaxis') ?? 'created_at';
+        $tableName = (new $model)->getTable();
+        $xAxisColumn = $request->input('col_xaxis') ?? $tableName.'.created_at';
         $cacheKey = hash('md4', $model . (int)(bool)$request->input('expires'));
         $dataSet = Cache::get($cacheKey);
         if (!$dataSet) {
@@ -59,17 +60,42 @@ class TotalRecordsController extends Controller
                 }
             }
             if($unitOfMeasurement=='day'){
-                $query = $model::selectRaw('DATE('.$xAxisColumn.') AS cat, DATE('.$xAxisColumn.') AS catorder, sum('.$calculation.') counted'.$seriesSql)
-                    ->where($xAxisColumn, '>=', Carbon::now()->subDay($dataForLast+1))
-                    ->groupBy('catorder', 'cat')
+                if(isset($request->join)){
+                    $joinInformation = json_decode($request->join, true);
+                    $query = $model::selectRaw('DATE('.$xAxisColumn.') AS cat, DATE('.$xAxisColumn.') AS catorder, sum('.$calculation.') counted'.$seriesSql)
+                        ->join($joinInformation['joinTable'], $joinInformation['joinColumnFirst'], $joinInformation['joinEqual'], $joinInformation['joinColumnSecond']);
+                } else {
+                    $query = $model::selectRaw('DATE('.$xAxisColumn.') AS cat, DATE('.$xAxisColumn.') AS catorder, sum('.$calculation.') counted'.$seriesSql);
+                }
+                
+                if($dataForLast != '*') {
+                    $query->where($xAxisColumn, '>=', Carbon::now()->subDay($dataForLast+1));
+                }
+                $query->groupBy('catorder', 'cat')
                     ->orderBy('catorder', 'asc');
             } else if($unitOfMeasurement=='week'){
-                $query = $model::selectRaw('YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS cat, YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS catorder, sum('.$calculation.') counted'.$seriesSql)
-                    ->where($xAxisColumn, '>=', Carbon::now()->startOfWeek()->subWeek($dataForLast))
-                    ->groupBy('catorder', 'cat')
+                if(isset($request->join)){
+                    $joinInformation = json_decode($request->join, true);
+                    $query = $model::selectRaw('YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS cat, YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS catorder, sum('.$calculation.') counted'.$seriesSql)
+                        ->join($joinInformation['joinTable'], $joinInformation['joinColumnFirst'], $joinInformation['joinEqual'], $joinInformation['joinColumnSecond']);
+                } else {
+                    $query = $model::selectRaw('YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS cat, YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS catorder, sum('.$calculation.') counted'.$seriesSql);
+                }
+                
+                if($dataForLast != '*') {
+                    $query->where($xAxisColumn, '>=', Carbon::now()->startOfWeek()->subWeek($dataForLast));
+                }
+                $query->groupBy('catorder', 'cat')
                     ->orderBy('catorder', 'asc');
             } else {
-                $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %Y") AS cat, DATE_FORMAT('.$xAxisColumn.', "%Y-%m") AS catorder, sum('.$calculation.') counted'.$seriesSql);
+                if(isset($request->join)){
+                    $joinInformation = json_decode($request->join, true);
+                    $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %Y") AS cat, DATE_FORMAT('.$xAxisColumn.', "%Y-%m") AS catorder, sum('.$calculation.') counted'.$seriesSql)
+                        ->join($joinInformation['joinTable'], $joinInformation['joinColumnFirst'], $joinInformation['joinEqual'], $joinInformation['joinColumnSecond']);
+                } else {
+                    $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %Y") AS cat, DATE_FORMAT('.$xAxisColumn.', "%Y-%m") AS catorder, sum('.$calculation.') counted'.$seriesSql);
+                }
+                
                 if($dataForLast != '*') {
                     $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonth($dataForLast-1));
                 }

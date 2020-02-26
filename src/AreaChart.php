@@ -87,4 +87,9 @@ class AreaChart extends Card
     
         return $return;
     }
+
+    public function join(string $joinTable, string $joinColumnFirst, string $joinEqual, string $joinColumnSecond): self
+    {
+        return $this->withMeta([ 'join' => ['joinTable' => $joinTable, 'joinColumnFirst' => $joinColumnFirst, 'joinEqual' => $joinEqual, 'joinColumnSecond' => $joinColumnSecond] ]);
+    }
 }

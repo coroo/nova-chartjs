@@ -104,6 +104,7 @@
                 model: this.card.model,
                 series: this.card.series,
                 options: this.card.options,
+                join: this.card.join,
                 expires: 0,
             },
           })
