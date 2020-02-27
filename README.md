@@ -928,6 +928,47 @@ So your card should be like:
     ->width('2/3'),
 ```
 
+## Show Percentage
+
+![Show Percentage in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/show-percentage.png)
+
+For show percentage when hover the chart, you need to add this option:
+```php
+->options([
+    'showPercentage' => true,
+])
+```
+
+So your card should be like:
+```php
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '1'
+        ],
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '3'
+        ],
+    ]))
+    ->options([
+        'showPercentage' => true
+    ])
+    ->width('2/3'),
+```
+
 # More Reference 
 
 [ChartJS Documentation](https://www.chartjs.org/docs/latest/)
