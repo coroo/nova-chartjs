@@ -2,7 +2,7 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
-## v0.1.2 - 2020-02-21
+## v0.1.4 - 2020-02-21
 
 - add new feature: join table
 - change documentation url if any error notification
