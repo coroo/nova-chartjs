@@ -92,6 +92,7 @@ class TotalCircleController extends Controller
                     $dataSeries = json_decode($sData);
                     foreach($dataSet as $dataDetail){
                         $yAxis[0]['backgroundColor'][$sKey] = $dataSeries->backgroundColor ?? $defaultColor[$sKey];
+                        $yAxis[0]['borderColor'][$sKey] = $dataSeries->borderColor ?? '#FFF';
                         $yAxis[0]['data'][$sKey] = $dataDetail[$dataSeries->label];
                     }
                     $countKey++;
