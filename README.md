@@ -554,6 +554,44 @@ So your card should be like:
     ->width('2/3'),
 ```
 
+## Custom Border Color
+
+By default, we already define white color for Doughnut Small Padding in Chart. But you can easily change the hex code by adding this line to your series:
+```php
+'borderColor' => '#F87900',
+```
+
+So your card should be like:
+```php
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '1'
+        ],
+        'borderColor' => '#F87900', // Add This to change the border color
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '3'
+        ],
+    ]))
+    ->options([
+        'showTotal' => false // Hide Show Total in Your Chart
+    ])
+    ->width('2/3'),
+```
+
 # Use Laravel Model
 
 We use `created_at` to define the month and year name in categories. So make sure your data consist of this column.
