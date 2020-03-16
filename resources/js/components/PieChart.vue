@@ -1,10 +1,13 @@
 <template>
     <card class="p-10">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-      <div class="stay-right" v-show="buttonRefresh">
-        <button @click="fillData()" class="btn-refresh">
+      <div class="stay-right">
+        <button @click="fillData()" class="btn-refresh" v-show="buttonRefresh">
           <i class="fas fa-sync"></i>
         </button>
+        <a :href="externalLink" :target="externalLinkIn" class="btn-external" v-show="btnExtLink">
+          <i class="fas fa-external-link-alt"></i>
+        </a>
       </div>
       <h4 class="chart-js-dashboard-title">{{ checkTitle }}</h4>
       <line-chart :chart-data="datacollection" :options="options"></line-chart>
@@ -24,6 +27,9 @@
         datacollection: null,
         options: null,
         buttonRefresh: this.card.options.btnRefresh,
+        btnExtLink: this.card.options.extLink != undefined ? true : false,
+        externalLink: this.card.options.extLink,
+        externalLinkIn: this.card.options.extLinkIn != undefined ? this.card.options.extLinkIn : '_self',
         chartLayout: this.card.options.layout != undefined ? this.card.options.layout :
           {
             padding: {
