@@ -2,6 +2,16 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.1.6 - 2020-03-16
+
+- add new feature: go to external link
+- update documentation
+
+## v0.1.5 - 2020-03-11
+
+- add workaround for change border color for circle chart
+- update documentation
+
 ## v0.1.4 - 2020-02-21
 
 - add new feature: join table
