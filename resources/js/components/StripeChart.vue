@@ -158,6 +158,15 @@
   .btn-refresh:hover {
     color: #111;
   }
+  .btn-external {
+    background-color: #e0e0e0;
+    color: #777;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  .btn-external:hover {
+    color: #111;
+  }
   .fa-sync:hover {
     -webkit-animation: spin 2s infinite linear;
     -moz-animation: spin 2s infinite linear;
