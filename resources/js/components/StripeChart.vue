@@ -146,6 +146,7 @@
     text-align: right;
     width: 100%;
     font-size: 12px;
+    min-height: 35px;
     padding: 5px;
     margin-bottom: -40px;
   }
