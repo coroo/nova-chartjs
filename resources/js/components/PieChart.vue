@@ -98,7 +98,7 @@
               const Swal = require('sweetalert2')
               Swal.fire({
                 title: sweetAlert.title != undefined ? sweetAlert.title : '<strong>'+label+'</strong>',
-                icon: sweetAlert.icon != undefined ? sweetAlert.icon : 'success',
+                icon: sweetAlert.icon != undefined ? sweetAlert.icon : 'info',
                 html: sweetAlert.html != undefined ? sweetAlert.html : 'Percentage: <b>' + percentage.toFixed(2) + '%</b><br/><b>'+value+'</b> data from <b>'+sum+'</b><br/> ',
                 showCloseButton: sweetAlert.showCloseButton != undefined ? sweetAlert.showCloseButton : true,
                 showCancelButton: sweetAlert.showCancelButton != undefined ? sweetAlert.showCancelButton : true,
@@ -167,7 +167,7 @@
                 const Swal = require('sweetalert2')
                 Swal.fire({
                   title: sweetAlert.title != undefined ? sweetAlert.title : '<strong>'+label+'</strong>',
-                  icon: sweetAlert.icon != undefined ? sweetAlert.icon : 'success',
+                  icon: sweetAlert.icon != undefined ? sweetAlert.icon : 'info',
                   html: sweetAlert.html != undefined ? sweetAlert.html : 'Percentage: <b>' + percentage.toFixed(2) + '%</b><br/><b>'+value+'</b> data from <b>'+sum+'</b><br/> ',
                   showCloseButton: sweetAlert.showCloseButton != undefined ? sweetAlert.showCloseButton : true,
                   showCancelButton: sweetAlert.showCancelButton != undefined ? sweetAlert.showCancelButton : true,

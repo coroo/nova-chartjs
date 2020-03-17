@@ -118,7 +118,7 @@
               const Swal = require('sweetalert2')
               Swal.fire({
                 title: sweetAlert.title != undefined ? sweetAlert.title : '<strong>'+value+'</strong>',
-                icon: sweetAlert.icon != undefined ? sweetAlert.icon : 'success',
+                icon: sweetAlert.icon != undefined ? sweetAlert.icon : 'info',
                 html: sweetAlert.html != undefined ? sweetAlert.html : series == undefined ? 'You can see detail by click below button:' : '<b>' + series + '</b> in '+label+'<br/> ',
                 showCloseButton: sweetAlert.showCloseButton != undefined ? sweetAlert.showCloseButton : true,
                 showCancelButton: sweetAlert.showCancelButton != undefined ? sweetAlert.showCancelButton : true,
@@ -167,7 +167,7 @@
                 const Swal = require('sweetalert2')
                 Swal.fire({
                   title: sweetAlert.title != undefined ? sweetAlert.title : '<strong>'+value+'</strong>',
-                  icon: sweetAlert.icon != undefined ? sweetAlert.icon : 'success',
+                  icon: sweetAlert.icon != undefined ? sweetAlert.icon : 'info',
                   html: sweetAlert.html != undefined ? sweetAlert.html : series == undefined ? 'You can see detail by click below button:' : '<b>' + series + '</b> in '+label+'<br/> ',
                   showCloseButton: sweetAlert.showCloseButton != undefined ? sweetAlert.showCloseButton : true,
                   showCancelButton: sweetAlert.showCancelButton != undefined ? sweetAlert.showCancelButton : true,
