@@ -2,9 +2,16 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
-## v0.1.6 - 2020-03-16
+## v0.1.6 - 2020-03-18
 
 - add new feature: go to external link
+- add new feature: clickable chart with sweetalert2
+    - doughnut
+    - pie
+    - bar
+    - stacked
+- add documentation for external link button
+- add documentation for clickable chart with sweetalert2
 - update documentation
 
 ## v0.1.5 - 2020-03-11
