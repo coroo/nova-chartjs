@@ -30,6 +30,7 @@
         btnExtLink: this.card.options.extLink != undefined ? true : false,
         externalLink: this.card.options.extLink,
         externalLinkIn: this.card.options.extLinkIn != undefined ? this.card.options.extLinkIn : '_self',
+        sweetAlert: this.card.options.sweetAlert2 != undefined ? this.card.options.sweetAlert2 : undefined,
         chartLayout: this.card.options.layout != undefined ? this.card.options.layout :
           {
             padding: {
@@ -105,6 +106,39 @@
             labels: this.card.options.xaxis.categories,
             datasets: this.card.series,
           }
+
+          // START == SETUP POPUP
+          const sweetAlert = this.sweetAlert;
+          if(sweetAlert != undefined) {
+            this.options.onClick = function (event) {
+              let element = this.getElementAtEvent(event);
+              if (element.length > 0) {
+              var series= element[0]._model.datasetLabel;
+              var label = element[0]._model.label;
+              var value = this.data.datasets[element[0]._datasetIndex].data[element[0]._index];
+
+              const Swal = require('sweetalert2')
+              Swal.fire({
+                title: sweetAlert.title != undefined ? sweetAlert.title : '<strong>'+value+'</strong>',
+                icon: sweetAlert.icon != undefined ? sweetAlert.icon : 'success',
+                html: sweetAlert.html != undefined ? sweetAlert.html : series == undefined ? 'You can see detail by click below button:' : '<b>' + series + '</b> in '+label+'<br/> ',
+                showCloseButton: sweetAlert.showCloseButton != undefined ? sweetAlert.showCloseButton : true,
+                showCancelButton: sweetAlert.showCancelButton != undefined ? sweetAlert.showCancelButton : true,
+                focusConfirm: sweetAlert.focusConfirm != undefined ? sweetAlert.focusConfirm : false,
+                confirmButtonText: sweetAlert.confirmButtonText != undefined ? sweetAlert.confirmButtonText : '<i class="fas fa-external-link-alt"></i> See Detail',
+                confirmButtonAriaLabel: sweetAlert.confirmButtonAriaLabel != undefined ? sweetAlert.confirmButtonAriaLabel : 'See Detail',
+                cancelButtonAriaLabel: sweetAlert.cancelButtonAriaLabel != undefined ? sweetAlert.cancelButtonAriaLabel : 'Cancel',
+                footer: sweetAlert.footer != undefined ? sweetAlert.footer : '<a href="https://coroo.github.io/nova-chartjs/" target="_blank" style="text-decoration:none; color:#777; font-size:14px">Nova Chart JS © ' + new Date().getFullYear() + '</a>',
+                ...sweetAlert
+              }).then((result) => {
+                if (result.value) {
+                  window.location = sweetAlert.linkTo != undefined ? sweetAlert.linkTo : "https://coroo.github.io/nova-chartjs/";
+                }
+              })}
+            };
+          };
+          // END == SETUP POPUP
+          
         } else {
         // Use Model
           Nova.request().get("/coroowicaksono/check-data/endpoint/", {
@@ -121,7 +155,39 @@
               labels: data.dataset.xAxis,
               datasets: data.dataset.yAxis,
             };
-            this.options = this.options;
+
+            // START == SETUP POPUP
+            const sweetAlert = this.sweetAlert;
+            if(sweetAlert != undefined) {
+              this.options.onClick = function (event) {
+                let element = this.getElementAtEvent(event);
+                if (element.length > 0) {
+                var series= element[0]._model.datasetLabel;
+                var label = element[0]._model.label;
+                var value = this.data.datasets[element[0]._datasetIndex].data[element[0]._index];
+
+                const Swal = require('sweetalert2')
+                Swal.fire({
+                  title: sweetAlert.title != undefined ? sweetAlert.title : '<strong>'+value+'</strong>',
+                  icon: sweetAlert.icon != undefined ? sweetAlert.icon : 'success',
+                  html: sweetAlert.html != undefined ? sweetAlert.html : series == undefined ? 'You can see detail by click below button:' : '<b>' + series + '</b> in '+label+'<br/> ',
+                  showCloseButton: sweetAlert.showCloseButton != undefined ? sweetAlert.showCloseButton : true,
+                  showCancelButton: sweetAlert.showCancelButton != undefined ? sweetAlert.showCancelButton : true,
+                  focusConfirm: sweetAlert.focusConfirm != undefined ? sweetAlert.focusConfirm : false,
+                  confirmButtonText: sweetAlert.confirmButtonText != undefined ? sweetAlert.confirmButtonText : '<i class="fas fa-external-link-alt"></i> See Detail',
+                  confirmButtonAriaLabel: sweetAlert.confirmButtonAriaLabel != undefined ? sweetAlert.confirmButtonAriaLabel : 'See Detail',
+                  cancelButtonAriaLabel: sweetAlert.cancelButtonAriaLabel != undefined ? sweetAlert.cancelButtonAriaLabel : 'Cancel',
+                  footer: sweetAlert.footer != undefined ? sweetAlert.footer : '<a href="https://coroo.github.io/nova-chartjs/" target="_blank" style="text-decoration:none; color:#777; font-size:14px">Nova Chart JS © ' + new Date().getFullYear() + '</a>',
+                  ...sweetAlert
+                }).then((result) => {
+                  if (result.value) {
+                    window.location = sweetAlert.linkTo != undefined ? sweetAlert.linkTo : "https://coroo.github.io/nova-chartjs/";
+                  }
+                })}
+              };
+            };
+            // END == SETUP POPUP
+
           })
           .catch(({ response }) => {
             this.$set(this, "errors", response.data.errors)
