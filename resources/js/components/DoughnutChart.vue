@@ -80,14 +80,17 @@
           }
           
           // START == SETUP POPUP
-          const sweetAlert = this.sweetAlert;
-          if(sweetAlert != undefined) {
+          const sweetAlertWithLink = this.sweetAlert;
+          if(sweetAlertWithLink != undefined) {
             this.options.onClick = function (event) {
               let element = this.getElementAtEvent(event);
               if (element.length > 0) {
               var series= element[0]._model.datasetLabel;
               var label = element[0]._model.label;
               var value = this.data.datasets[element[0]._datasetIndex].data[element[0]._index];
+
+              const toLink = sweetAlertWithLink.linkTo != undefined ? sweetAlertWithLink.linkTo : "https://coroo.github.io/nova-chartjs/";
+              const { linkTo, ...sweetAlert } = sweetAlertWithLink;
 
               // sum data
               let dataArr = this.data.datasets[0].data;
@@ -110,7 +113,7 @@
                 ...sweetAlert
               }).then((result) => {
                 if (result.value) {
-                  window.location = sweetAlert.linkTo != undefined ? sweetAlert.linkTo : "https://coroo.github.io/nova-chartjs/";
+                  window.location = toLink;
                 }
               })}
             };
@@ -149,14 +152,17 @@
             };
           
             // START == SETUP POPUP
-            const sweetAlert = this.sweetAlert;
-            if(sweetAlert != undefined) {
+            const sweetAlertWithLink = this.sweetAlert;
+            if(sweetAlertWithLink != undefined) {
               this.options.onClick = function (event) {
                 let element = this.getElementAtEvent(event);
                 if (element.length > 0) {
                 var series= element[0]._model.datasetLabel;
                 var label = element[0]._model.label;
                 var value = this.data.datasets[element[0]._datasetIndex].data[element[0]._index];
+
+                const toLink = sweetAlertWithLink.linkTo != undefined ? sweetAlertWithLink.linkTo : "https://coroo.github.io/nova-chartjs/";
+                const { linkTo, ...sweetAlert } = sweetAlertWithLink;
 
                 // sum data
                 let dataArr = this.data.datasets[0].data;
@@ -179,7 +185,7 @@
                   ...sweetAlert
                 }).then((result) => {
                   if (result.value) {
-                    window.location = sweetAlert.linkTo != undefined ? sweetAlert.linkTo : "https://coroo.github.io/nova-chartjs/";
+                    window.location = toLink;
                   }
                 })}
               };

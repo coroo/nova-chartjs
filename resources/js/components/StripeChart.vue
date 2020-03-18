@@ -106,8 +106,8 @@
           }
 
           // START == SETUP POPUP
-          const sweetAlert = this.sweetAlert;
-          if(sweetAlert != undefined) {
+          const sweetAlertWithLink = this.sweetAlert;
+          if(sweetAlertWithLink != undefined) {
             this.options.onClick = function (event) {
               let element = this.getElementAtEvent(event);
               if (element.length > 0) {
@@ -116,6 +116,9 @@
               var label = element[0]._model.label;
               var value = this.data.datasets[element[0]._datasetIndex].data[element[0]._index];
 
+              const toLink = sweetAlertWithLink.linkTo != undefined ? sweetAlertWithLink.linkTo : "https://coroo.github.io/nova-chartjs/";
+              const { linkTo, ...sweetAlert } = sweetAlertWithLink;
+              
               const Swal = require('sweetalert2')
               Swal.fire({
                 title: sweetAlert.title != undefined ? sweetAlert.title : '<strong>'+value+'</strong>',
@@ -131,7 +134,7 @@
                 ...sweetAlert
               }).then((result) => {
                 if (result.value) {
-                  window.location = sweetAlert.linkTo != undefined ? sweetAlert.linkTo : "https://coroo.github.io/nova-chartjs/";
+                  window.location = toLink;
                 }
               })}
             };
@@ -156,8 +159,8 @@
             };
 
             // START == SETUP POPUP
-            const sweetAlert = this.sweetAlert;
-            if(sweetAlert != undefined) {
+            const sweetAlertWithLink = this.sweetAlert;
+            if(sweetAlertWithLink != undefined) {
               this.options.onClick = function (event) {
                 let element = this.getElementAtEvent(event);
                 console.log(element[0]);
@@ -165,6 +168,9 @@
                 var series= element[0]._model.datasetLabel;
                 var label = element[0]._model.label;
                 var value = this.data.datasets[element[0]._datasetIndex].data[element[0]._index];
+
+                const toLink = sweetAlertWithLink.linkTo != undefined ? sweetAlertWithLink.linkTo : "https://coroo.github.io/nova-chartjs/";
+                const { linkTo, ...sweetAlert } = sweetAlertWithLink;
 
                 const Swal = require('sweetalert2')
                 Swal.fire({
@@ -181,7 +187,7 @@
                   ...sweetAlert
                 }).then((result) => {
                   if (result.value) {
-                    window.location = sweetAlert.linkTo != undefined ? sweetAlert.linkTo : "https://coroo.github.io/nova-chartjs/";
+                    window.location = toLink;
                   }
                 })}
               };
