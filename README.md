@@ -592,6 +592,80 @@ So your card should be like:
     ->width('2/3'),
 ```
 
+## External Link
+
+![external-link](assets/img/external-link.png)
+
+we can add external button link in chart by using:
+```php
+'extLink' => 'https://example.test',
+'extLinkIn' => '_blank', // available in : _blank, _self, _parent, _top
+```
+
+So your card should be like:
+```php
+(new StackedChart())
+    ->title('Revenue')
+    ->series(array([
+        'barPercentage' => 0.5,
+        'label' => 'Product #1',
+        'backgroundColor' => '#ffcc5c',
+        'data' => [30, 70, 80],
+    ],[
+        'barPercentage' => 0.5,
+        'label' => 'Product #2',
+        'backgroundColor' => '#ff6f69',
+        'data' => [40, 62, 79],
+    ]))
+    ->options([
+        'xaxis' => [
+            'categories' => [ 'Jan', 'Feb', 'Mar' ]       
+        ],
+        'extLink' => 'https://example.test',
+        'extLinkIn' => '_blank', 
+    ])
+    ->width('2/3'),
+```
+
+## Clickable Point
+
+For clickable point in the chart, we using [sweetalert2](https://sweetalert2.github.io/). If you need to have this feature, you need to `sweetalert2` line:
+```php
+'sweetAlert2' => [
+    'linkTo' => 'https://coroo.github.io/nova-chartjs'
+]
+```
+
+So your card should be like:
+```php
+(new PieChart())
+    ->title('Revenue')
+    ->series(array([
+        'data' => [169, 74],
+        'backgroundColor' => ["#ffcc5c","#91e8e1"],
+    ]))
+    ->options([
+        'xaxis' => [
+            'categories' => ['Male','Female']
+        ],
+        'sweetAlert2' => [
+            'linkTo' => 'https://coroo.github.io/nova-chartjs'
+        ]
+    ])->width('1/3'),
+```
+
+<!-- ### Remove Footer in Clickable Point {docsify-ignore} -->
+
+By default we provide default value for sweetAlert, if you want to remove them, you can easily set them up e.g. :
+```php
+'sweetAlert2' => [
+    'footer' => false,
+    'linkTo' => 'https://coroo.github.io/nova-chartjs'
+]
+```
+
+For configuration of your pop-up window, please see this [Sweetalert2 Configuration](https://sweetalert2.github.io/#configuration) and all you need to do is add those variable inside the sweetAlert2 line of object.
+
 # Use Laravel Model
 
 We use `created_at` to define the month and year name in categories. So make sure your data consist of this column.
