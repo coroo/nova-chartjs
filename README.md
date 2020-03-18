@@ -629,7 +629,10 @@ So your card should be like:
 
 ## Clickable Point
 
-For clickable point in the chart, we using [sweetalert2](https://sweetalert2.github.io/). If you need to have this feature, you need to `sweetalert2` line:
+<img src="assets/img/clickable-point.png" alt="clickable-point" style="width:400px;">
+
+For clickable point in the chart, we using [sweetalert2](https://sweetalert2.github.io/). 
+<br/>If you need to have this feature, you need to `sweetalert2` line:
 ```php
 'sweetAlert2' => [
     'linkTo' => 'https://coroo.github.io/nova-chartjs'
