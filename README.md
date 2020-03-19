@@ -662,6 +662,9 @@ So your card should be like:
 By default we provide default value for sweetAlert, if you want to remove them, you can easily set them up e.g. :
 ```php
 'sweetAlert2' => [
+    'title'  => 'my custom title',
+    'showConfirmButton' => false,
+    'showCancelButton' => false,
     'footer' => false,
     'linkTo' => 'https://coroo.github.io/nova-chartjs'
 ]
