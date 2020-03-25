@@ -14,6 +14,10 @@
     </card>
 </template>
 
+<style>
+  @import '../../css/main.css';
+</style>
+
 <script>
   import LineChart from '../doughnut-chart.js'
 
@@ -215,59 +219,3 @@
     },
   }
 </script>
-
-<style> 
-  .small {
-    max-width: 600px;
-    margin:  150px auto;
-  }
-  .chart-js-dashboard-title{
-    color: #7c858e;
-    font-size: 1rem;
-    font-weight: 800;
-    margin: 0;
-    padding: 1rem 1.5rem 2px;
-  }
-  .stay-right {
-    text-align: right;
-    width: 100%;
-    font-size: 12px;
-    min-height: 35px;
-    padding: 10px 5px;
-    margin-bottom: -40px;
-  }
-  .btn-refresh {
-    background-color: #e0e0e0;
-    color: #777;
-    padding: 5px;
-    border-radius: 5px;
-  }
-  .btn-refresh:hover {
-    color: #111;
-  }
-  .btn-external {
-    background-color: #e0e0e0;
-    color: #777;
-    padding: 5px;
-    border-radius: 5px;
-  }
-  .btn-external:hover {
-    color: #111;
-  }
-  .fa-sync:hover {
-    -webkit-animation: spin 2s infinite linear;
-    -moz-animation: spin 2s infinite linear;
-    -o-animation: spin 2s infinite linear;
-    animation: spin 2s infinite linear;
-  }
-
-  @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-</style>
