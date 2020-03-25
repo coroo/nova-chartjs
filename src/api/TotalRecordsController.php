@@ -22,6 +22,7 @@ class TotalRecordsController extends Controller
             $request->merge(['model' => urldecode($request->input('model'))]);
         }
         $showTotal = isset($request->options) ? json_decode($request->options, true)['showTotal'] ?? true : true;
+        $advanceFilterSelected = isset($request->options) ? json_decode($request->options, true)['advanceFilterSelected'] ?? false : false;
         $dataForLast = isset($request->options) ? json_decode($request->options, true)['latestData'] ?? 3 : 3;
         $unitOfMeasurement = isset($request->options) ? json_decode($request->options, true)['uom'] ?? 'month' : 'month';
         $startWeek = isset($request->options) ? json_decode($request->options, true)['startWeek'] ?? '1' : '1';
@@ -68,7 +69,19 @@ class TotalRecordsController extends Controller
                     $query = $model::selectRaw('DATE('.$xAxisColumn.') AS cat, DATE('.$xAxisColumn.') AS catorder, sum('.$calculation.') counted'.$seriesSql);
                 }
                 
-                if($dataForLast != '*') {
+                if(is_numeric($advanceFilterSelected)){
+                    $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
+                }
+                else if($advanceFilterSelected=='YTD'){
+                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subYear(1));
+                }
+                else if($advanceFilterSelected=='QTD'){
+                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonths(2));
+                }
+                else if($advanceFilterSelected=='MTD'){
+                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth());
+                }
+                else if($dataForLast != '*') {
                     $query->where($xAxisColumn, '>=', Carbon::now()->subDay($dataForLast+1));
                 }
                 $query->groupBy('catorder', 'cat')
@@ -82,7 +95,19 @@ class TotalRecordsController extends Controller
                     $query = $model::selectRaw('YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS cat, YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS catorder, sum('.$calculation.') counted'.$seriesSql);
                 }
                 
-                if($dataForLast != '*') {
+                if(is_numeric($advanceFilterSelected)){
+                    $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
+                }
+                else if($advanceFilterSelected=='YTD'){
+                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subYear(1));
+                }
+                else if($advanceFilterSelected=='QTD'){
+                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonths(2));
+                }
+                else if($advanceFilterSelected=='MTD'){
+                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth());
+                }
+                else if($dataForLast != '*') {
                     $query->where($xAxisColumn, '>=', Carbon::now()->startOfWeek()->subWeek($dataForLast));
                 }
                 $query->groupBy('catorder', 'cat')
@@ -96,7 +121,19 @@ class TotalRecordsController extends Controller
                     $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %Y") AS cat, DATE_FORMAT('.$xAxisColumn.', "%Y-%m") AS catorder, sum('.$calculation.') counted'.$seriesSql);
                 }
                 
-                if($dataForLast != '*') {
+                if(is_numeric($advanceFilterSelected)){
+                    $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
+                }
+                else if($advanceFilterSelected=='YTD'){
+                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subYear(1));
+                }
+                else if($advanceFilterSelected=='QTD'){
+                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonths(2));
+                }
+                else if($advanceFilterSelected=='MTD'){
+                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth());
+                }
+                else if($dataForLast != '*') {
                     $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonth($dataForLast-1));
                 }
                 $query->groupBy('catorder', 'cat')
