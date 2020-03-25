@@ -494,28 +494,6 @@ So your card should be like:
     ->width('2/3'),
 ```
 
-## Refresh Button
-
-![Refresh Button](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/refresh-button.jpg)
-
-To add refresh button for refresh the chart, please use this `btnRefresh` in your `options`:
-```php
-->options([
-    'btnRefresh' => true // default is false
-])
-```
-
-So your card should be like:
-```php
-(new StackedChart())
-    ->title('Revenue')
-    ->model('\App\Models\Sales') // Use Your Model Here
-    ->options([
-        'btnRefresh' => true
-    ])
-    ->width('2/3'),
-```
-
 ## Custom Background Color
 
 By default, we already define the color for Chart. But you can easily change the hex code by adding this line to your series:
@@ -592,7 +570,58 @@ So your card should be like:
     ->width('2/3'),
 ```
 
-## External Link
+## Button
+
+### Refresh
+
+![Refresh Button](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/refresh-button.jpg)
+
+To add refresh button for refresh the chart, please use this `btnRefresh` in your `options`:
+```php
+->options([
+    'btnRefresh' => true // default is false
+])
+```
+
+### Metrics Filter
+
+> This action only available if you using **laravel model**. 
+
+![Metrics Filter Button](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/button-filter-metrics.gif)
+
+To add filter button just like filter in laravel nova metrics, you need to add `btnFilter` in your `options`:
+```php
+->options([
+    'btnFilter' => true // default is false
+])
+```
+
+So your card should be like:
+```php
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->options([
+        'btnFilter' => true
+    ])
+    ->width('2/3'),
+```
+
+To change list of those filter, you can easily change with:
+```php
+->options([
+    'btnFilter' => true,
+    'btnFilterList' => [
+        'YTD'   => 'Year to Date',
+        'QTD'   => 'Quarter to Date',
+        'MTD'   => 'Month to Date',
+        '30'   => '30 Days', // numeric key will be set to days
+        '28'   => '28 Days', // numeric key will be set to days
+    ],
+])
+```
+
+### External Link
 
 ![external-link](assets/img/external-link.png)
 
