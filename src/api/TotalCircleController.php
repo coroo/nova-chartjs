@@ -22,6 +22,7 @@ class TotalCircleController extends Controller
             $request->merge(['model' => urldecode($request->input('model'))]);
         }
         $showTotal = isset($request->options) ? json_decode($request->options, true)['showTotal'] ?? true : true;
+        $advanceFilterSelected = isset($request->options) ? json_decode($request->options, true)['advanceFilterSelected'] ?? false : false;
         $dataForLast = isset($request->options) ? json_decode($request->options, true)['latestData'] ?? 3 : 3;
         $calculation = isset($request->options) ? json_decode($request->options, true)['sum'] ?? 1 : 1;
         $request->validate(['model'   => ['bail', 'required', 'min:1', 'string']]);
@@ -61,8 +62,20 @@ class TotalCircleController extends Controller
             } else {
                 $query = $model::selectRaw('SUM('.$calculation.') counted'.$seriesSql);
             }
-
-            if($dataForLast != '*') {
+                
+            if(is_numeric($advanceFilterSelected)){
+                $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
+            }
+            else if($advanceFilterSelected=='YTD'){
+                $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subYear(1));
+            }
+            else if($advanceFilterSelected=='QTD'){
+                $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonths(2));
+            }
+            else if($advanceFilterSelected=='MTD'){
+                $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth());
+            }
+            else if($dataForLast != '*') {
                 $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonth($dataForLast-1));
             }
             

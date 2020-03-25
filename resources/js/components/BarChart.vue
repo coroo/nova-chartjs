@@ -171,7 +171,9 @@
           // END == SETUP POPUP
 
         } else {
-        // Use Model
+          if(this.showAdvanceFilter == true) this.card.options.advanceFilterSelected = this.advanceFilterSelected != undefined ? this.advanceFilterSelected : false;
+
+          // Use Model
           Nova.request().get("/coroowicaksono/check-data/endpoint/", {
             params: {
                 model: this.card.model,

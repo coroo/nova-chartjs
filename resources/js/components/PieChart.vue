@@ -8,6 +8,11 @@
         <a :href="externalLink" :target="externalLinkIn" class="btn-external" v-show="btnExtLink">
           <i class="fas fa-external-link-alt"></i>
         </a>
+        <select @change="fillData()" v-model="advanceFilterSelected" v-show="showAdvanceFilter" class="select-box-sm ml-auto min-w-24 h-6 text-xs appearance-none bg-40 pl-2 pr-6 active:outline-none active:shadow-outline focus:outline-none focus:shadow-outline">
+          <option v-for="filter in advanceFilter" v-bind:value="filter.value" :key="filter.key">
+            {{ filter.text }}
+          </option>
+        </select>
       </div>
       <h4 class="chart-js-dashboard-title">{{ checkTitle }}</h4>
       <line-chart :chart-data="datacollection" :options="options"></line-chart>
@@ -27,6 +32,17 @@
     },
     data () {
       this.card.options = this.card.options != undefined ? this.card.options : false;
+
+      // setup btn filter list
+      const btnFilterList = this.card.options.btnFilterList;
+      let filledAdvancedList = [];
+      let i = 0;
+
+      for ( var index in btnFilterList ) {
+        filledAdvancedList[i] = {value: index, text: btnFilterList[index]};
+        i++;
+      }
+
       return {
         datacollection: null,
         options: null,
@@ -53,6 +69,16 @@
                 fontFamily: "'Nunito'"
             }
           },
+        showAdvanceFilter: this.card.model == 'custom' || this.card.model == undefined ? false : this.card.options.btnFilter == true ? true : false ,
+        advanceFilterSelected: 'QTD',
+        advanceFilter: this.card.options.btnFilterList != undefined ? filledAdvancedList : [
+          { text: 'Year to Date', value: 'YTD' },
+          { text: 'Quarter to Date', value: 'QTD' },
+          { text: 'Month to Date', value: 'MTD' },
+          { text: '30 Days', value: 30 },
+          { text: '60 Days', value: 60 },
+          { text: '365 Days', value: 365 },
+        ],
       }
     },
     computed: {
@@ -139,7 +165,9 @@
             }
           }
         } else {
-        // Use Model
+          if(this.showAdvanceFilter == true) this.card.options.advanceFilterSelected = this.advanceFilterSelected != undefined ? this.advanceFilterSelected : false;
+          
+          // Use Model
           Nova.request().get("/coroowicaksono/check-data/circle-endpoint/", {
             params: {
                 model: this.card.model,
