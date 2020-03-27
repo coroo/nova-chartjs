@@ -611,6 +611,7 @@ To change list of those filter, you can easily change with:
 ```php
 ->options([
     'btnFilter' => true,
+    'btnFilterDefault' => 'YTD',
     'btnFilterList' => [
         'YTD'   => 'Year to Date',
         'QTD'   => 'Quarter to Date',
