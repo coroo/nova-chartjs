@@ -2,6 +2,17 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.2.2 - 2020-03-27
+
+- add default button filter metrics. available for:
+    - doughnut
+    - pie
+    - bar
+    - stacked
+    - line
+    - area
+- update documentation for filter metrics button
+
 ## v0.2.1 - 2020-03-25
 
 - new feature: button filter metrics. available for:
