@@ -70,7 +70,7 @@
             }
           },
         showAdvanceFilter: this.card.model == 'custom' || this.card.model == undefined ? false : this.card.options.btnFilter == true ? true : false ,
-        advanceFilterSelected: 'QTD',
+        advanceFilterSelected: this.card.options.btnFilterDefault != undefined ? this.card.options.btnFilterDefault : 'QTD',
         advanceFilter: this.card.options.btnFilterList != undefined ? filledAdvancedList : [
           { text: 'Year to Date', value: 'YTD' },
           { text: 'Quarter to Date', value: 'QTD' },
