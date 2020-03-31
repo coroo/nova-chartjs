@@ -5,6 +5,9 @@
         <a @click="fillData()" class="btn-refresh" v-show="buttonRefresh">
           <i class="fas fa-sync"></i>
         </a>
+        <a @click="reloadPage()" class="btn-refresh" v-show="buttonReload">
+          <i class="fas fa-sync"></i>
+        </a>
         <a :href="externalLink" :target="externalLinkIn" class="btn-external" v-show="btnExtLink">
           <i class="fas fa-external-link-alt"></i>
         </a>
@@ -47,6 +50,7 @@
         datacollection: null,
         options: null,
         buttonRefresh: this.card.options.btnRefresh,
+        buttonReload: this.card.options.btnReload,
         btnExtLink: this.card.options.extLink != undefined ? true : false,
         externalLink: this.card.options.extLink,
         externalLinkIn: this.card.options.extLinkIn != undefined ? this.card.options.extLinkIn : '_self',
@@ -93,6 +97,9 @@
       this.fillData();
     },
     methods: {
+      reloadPage(){
+        window.location.reload()
+      },
       fillData () {
         this.options = {
           layout: this.chartLayout,
