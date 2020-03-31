@@ -27,7 +27,7 @@ class PolarAreaChart extends Card
      */
     public function component()
     {
-        return 'polararea-chart';
+        return 'polar-area-chart';
     }
 
     public function series(array $series): self
