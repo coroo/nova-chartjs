@@ -256,6 +256,30 @@ Add this line as return for your `cards` function:
     ])->width('1/3'),
 ```
 
+## Polar Area Chart
+
+![Polar Area Chart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/polar-area-chart.png)
+
+Include this line to header in your NovaServiceProvider.php
+```php
+use Coroowicaksono\ChartJsIntegration\PolarAreaChart;
+```
+
+Add this line as return for your `cards` function:
+```php
+(new PolarAreaChart())
+    ->title('Revenue')
+    ->series(array([
+        'data' => [170, 180, 130, 190, 121, 90, 180, 110],
+        'backgroundColor' => ["#ffcc5c","#91e8e1","#ff6f69","#88d8b0","#b088d8","#d8b088", "#88b0d8", "#6f69ff"],
+    ]))
+    ->options([
+        'xaxis' => [
+            'categories' => ['Portion 1','Portion 2','Portion 3','Portion 4','Portion 5','Portion 6','Portion 7','Portion 8']
+        ],
+    ])->width('1/3'),
+```
+
 ## Scatter Chart
 
 ![ScatterChart in Action](assets/img/scatter-chart.png)
@@ -314,6 +338,111 @@ Unlike previous another chart where xaxis suplied inside `options`, the scatter 
             ])
         ])
     )
+```
+
+# Use Laravel Model
+
+We use `created_at` to define the month and year name in categories. So make sure your data consist of this column.
+
+## Simple Chart With Data
+
+![Simple Chart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/simple-with-data.jpg)
+
+> This action available for BarChart, StackedChart, LineChart and StackedChart. 
+> For another chart, please use [Custom Column Calculation](#custom-column-calculation)
+
+Add this line to your cards function:
+```php
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->width('2/3'),
+```
+
+## Custom Column Calculation
+
+![Custom Column Calculation in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/stacked-chart-with-data.jpg)
+
+> This action available for BarChart, StackedChart, LineChart, StackedChart, Doughnut Chart and Pie Chart.
+
+Add this line to your cards function:
+```php
+(new BarChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '1'
+        ],
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '3'
+        ],
+    ]))
+    ->width('2/3'),
+```
+
+## Extend Custom Condition
+
+For extend custom condition / filter, e.g. `WHERE` for column in your data, please use this `queryFilter` in `options`:
+```php
+->options([
+    'queryFilter' => array([
+        'key' => 'status',
+        'operator' => '=',
+        'value' => 'success'
+    ],[
+        'key' => 'updated_at',
+        'operator' => 'IS NOT NULL',
+    ])
+])
+```
+
+So your card should be like:
+```php
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '1'
+        ],
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '3'
+        ],
+    ]))
+    ->options([
+        'queryFilter' => array([    // add array of filter with this format
+            'key' => 'status',
+            'operator' => '=',
+            'value' => 'success'
+        ],[
+            'key' => 'updated_at',
+            'operator' => 'IS NOT NULL',
+        ])
+    ])
+    ->width('2/3'),
 ```
 
 # Basic Configuration
@@ -583,6 +712,16 @@ To add refresh button for refresh the chart, please use this `btnRefresh` in you
 ])
 ```
 
+### Reload
+
+Reload is almost same with refresh button, but it will reload the page instead of each cards.
+To add reload button for reload the page, please use this `btnReload` in your `options`:
+```php
+->options([
+    'btnReload' => true // default is false
+])
+```
+
 ### Metrics Filter
 
 > This action only available if you using **laravel model**. 
@@ -702,110 +841,7 @@ By default we provide default value for sweetAlert, if you want to remove them, 
 
 For configuration of your pop-up window, please see this [Sweetalert2 Configuration](https://sweetalert2.github.io/#configuration) and all you need to do is add those variable inside the sweetAlert2 line of object.
 
-# Use Laravel Model
-
-We use `created_at` to define the month and year name in categories. So make sure your data consist of this column.
-
-## Simple Chart With Data
-
-![Simple Chart in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/simple-with-data.jpg)
-
-> This action available for BarChart, StackedChart, LineChart and StackedChart. 
-> For another chart, please use [Custom Column Calculation](#custom-column-calculation)
-
-Add this line to your cards function:
-```php
-(new StackedChart())
-    ->title('Revenue')
-    ->model('\App\Models\Sales') // Use Your Model Here
-    ->width('2/3'),
-```
-
-## Custom Column Calculation
-
-![Custom Column Calculation in Action](https://raw.githubusercontent.com/coroo/nova-chartjs/gh-pages/assets/img/stacked-chart-with-data.jpg)
-
-> This action available for BarChart, StackedChart, LineChart, StackedChart, Doughnut Chart and Pie Chart.
-
-Add this line to your cards function:
-```php
-(new BarChart())
-    ->title('Revenue')
-    ->model('\App\Models\Sales') // Use Your Model Here
-    ->series(array([
-        'label' => 'Product A',
-        'filter' => [
-            'key' => 'product_id', // State Column for Count Calculation Here
-            'value' => '1'
-        ],
-    ],[
-        'label' => 'Product B',
-        'filter' => [
-            'key' => 'product_id', // State Column for Count Calculation Here
-            'value' => '2'
-        ],
-    ],[
-        'label' => 'Product C',
-        'filter' => [
-            'key' => 'product_id', // State Column for Count Calculation Here
-            'value' => '3'
-        ],
-    ]))
-    ->width('2/3'),
-```
-
-## Extend Custom Condition
-
-For extend custom condition / filter, e.g. `WHERE` for column in your data, please use this `queryFilter` in `options`:
-```php
-->options([
-    'queryFilter' => array([
-        'key' => 'status',
-        'operator' => '=',
-        'value' => 'success'
-    ],[
-        'key' => 'updated_at',
-        'operator' => 'IS NOT NULL',
-    ])
-])
-```
-
-So your card should be like:
-```php
-(new StackedChart())
-    ->title('Revenue')
-    ->model('\App\Models\Sales') // Use Your Model Here
-    ->series(array([
-        'label' => 'Product A',
-        'filter' => [
-            'key' => 'product_id', // State Column for Count Calculation Here
-            'value' => '1'
-        ],
-    ],[
-        'label' => 'Product B',
-        'filter' => [
-            'key' => 'product_id', // State Column for Count Calculation Here
-            'value' => '2'
-        ],
-    ],[
-        'label' => 'Product C',
-        'filter' => [
-            'key' => 'product_id', // State Column for Count Calculation Here
-            'value' => '3'
-        ],
-    ]))
-    ->options([
-        'queryFilter' => array([    // add array of filter with this format
-            'key' => 'status',
-            'operator' => '=',
-            'value' => 'success'
-        ],[
-            'key' => 'updated_at',
-            'operator' => 'IS NOT NULL',
-        ])
-    ])
-    ->width('2/3'),
-```
+# Advanced Configuration
 
 ## Latest Data to Show
 
