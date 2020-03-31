@@ -2,6 +2,12 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.2.3 - 2020-03-31
+
+- add new chart: polar area chart
+- add new feature: reload button
+- update documentation
+
 ## v0.2.2 - 2020-03-27
 
 - add default button filter metrics. available for:
