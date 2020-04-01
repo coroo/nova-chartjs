@@ -13,7 +13,7 @@
 
 - Customizable Chart in Your Dashboard
 - Simple Connection with your <b>Laravel Model</b>
-- Open source with 6 different Chart types
+- Open source with 8 different Chart types
 
 [GitHub](https://github.com/coroo/nova-chartjs/)
 [Get Started](#getting-started)
