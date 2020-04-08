@@ -54,6 +54,7 @@
         btnExtLink: this.card.options.extLink != undefined ? true : false,
         externalLink: this.card.options.extLink,
         externalLinkIn: this.card.options.extLinkIn != undefined ? this.card.options.extLinkIn : '_self',
+        chartTooltips: this.card.options.tooltips != undefined ? this.card.options.tooltips : undefined,
         sweetAlert: this.card.options.sweetAlert2 != undefined ? this.card.options.sweetAlert2 : undefined,
         chartLayout: this.card.options.layout != undefined ? this.card.options.layout :
           {
@@ -107,6 +108,10 @@
           responsive: true,
           maintainAspectRatio: false,
         };
+
+        if(this.chartTooltips !== undefined){
+          this.options.tooltips = this.chartTooltips;
+        }
 
         if(this.card.model == 'custom' || this.card.model == undefined){
         // Custom Data
