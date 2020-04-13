@@ -1,6 +1,5 @@
 <template>
     <card class="p-10">
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
       <div class="stay-right">
         <a @click="fillData()" class="btn-refresh" v-show="buttonRefresh">
           <i class="fas fa-sync"></i>
