@@ -841,6 +841,205 @@ By default we provide default value for sweetAlert, if you want to remove them, 
 
 For configuration of your pop-up window, please see this [Sweetalert2 Configuration](https://sweetalert2.github.io/#configuration) and all you need to do is add those variable inside the sweetAlert2 line of object.
 
+## Tooltips
+
+The tooltip configuration is passed into `options.tooltips` namespace. 
+<br/>Here some list you can have in tooltips:
+
+| Name    |   Type    |  Default | Description |
+| ------- | --------- | -------- | ----------- |
+| enabled |   boolean |  true    | Are on-canvas tooltips enabled? |
+| custom  |   function    |  null    | See custom tooltip section. |
+| mode    |   string  |  'nearest'   | Sets which elements appear in the tooltip. more.... |
+| intersect   |   boolean |  true    | If true, the tooltip mode applies only when the mouse position intersects with an element. If false, the mode will be applied at all times. |
+| position    |   string  |  'average'   | The mode for positioning the tooltip. more... |
+| callbacks   |   object  |      | See the callbacks section. |
+| itemSort    |   function    |      | Sort tooltip items. more... |
+| filter  |   function    |      | Filter tooltip items. more... |
+| backgroundColor |   Color   |  'rgba(0, 0, 0, 0.8)'    | Background color of the tooltip. |
+| titleFontFamily |   string  |  "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif" Title font. |
+| titleFontSize   |   number  |  12  | Title font size. |
+| titleFontStyle  |   string  |  'bold'  | Title font style. |
+| titleFontColor  |   Color   |  '#fff'  | Title font color. |
+| titleAlign  |   string  |  'left'  | Horizontal alignment of the title text lines. more... |
+| titleSpacing    |   number  |  2   | Spacing to add to top and bottom of each title line. |
+| titleMarginBottom   |   number  |  6   | Margin to add on bottom of title section. |
+| bodyFontFamily  |   string  |  "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"Body line font. |
+| bodyFontSize    |   number  |  12  | Body font size. |
+| bodyFontStyle   |   string  |  'normal'    | Body font style. |
+| bodyFontColor   |   Color   |  '#fff'  | Body font color. |
+| bodyAlign   |   string  |  'left'  | Horizontal alignment of the body text lines. more... |
+| bodySpacing |   number  |  2   | Spacing to add to top and bottom of each tooltip item. |
+| footerFontFamily    |   string  |  "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif" Footer font. |
+| footerFontSize  |   number  |  12  | Footer font size. |
+| footerFontStyle |   string  |  'bold'  | Footer font style. |
+| footerFontColor |   Color   |  '#fff'  | Footer font color. |
+| footerAlign |   string  |  'left'  | Horizontal alignment of the footer text lines. more... |
+| footerSpacing   |   number  |  2   | Spacing to add to top and bottom of each footer line. |
+| footerMarginTop |   number  |  6   | Margin to add before drawing the footer. |
+| xPadding    |   number  |  6   | Padding to add on left and right of tooltip. |
+| yPadding    |   number  |  6   | Padding to add on top and bottom of tooltip. |
+| caretPadding    |   number  |  2   | Extra distance to move the end of the tooltip arrow away from the tooltip point. |
+| caretSize   |   number  |  5   | Size, in px, of the tooltip arrow. |
+| cornerRadius    |   number  |  6   | Radius of tooltip corner curves. |
+| multiKeyBackground  |   Color   |  '#fff'  | Color to draw behind the colored boxes when multiple items are in the tooltip. |
+| displayColors   |   boolean |  true    | If true, color boxes are shown in the tooltip. |
+| borderColor |   Color   |  'rgba(0, 0, 0, 0)'  | Color of the border. |
+| borderWidth |   number  |  0   | Size of the border. |
+| rtl |   boolean |      | true for rendering the legends from right to left. |
+| textDirection   |   string  |  canvas' default | This will force the text direction `'rtl' |
+
+For using it, you can easily access `tooltips`, here the example.
+
+```php
+'tooltips' => [
+    'backgroundColor' => 'rgba(145, 145, 145, 0.8)',
+]
+```
+
+So your card should be like:
+```php
+(new PieChart())
+    ->title('Revenue')
+    ->series(array([
+        'data' => [169, 74],
+        'backgroundColor' => ["#ffcc5c","#91e8e1"],
+    ]))
+    ->options([
+        'xaxis' => [
+            'categories' => ['Male','Female']
+        ],
+        'tooltips' => [
+            'backgroundColor' => 'rgba(145, 145, 145, 0.8)',
+        ]
+    ])->width('1/3'),
+```
+
+<hr/>
+
+For `function` tooltip, you need to create function in string. 
+<br/>nova-chartjs will make those string into function for you.
+```js
+'tooltips' => [
+    'custom' => "function(tooltipModel) {
+                // Tooltip Element
+                var tooltipEl = document.getElementById('chartjs-tooltip');
+
+                // Create element on first render
+                if (!tooltipEl) {
+                    tooltipEl = document.createElement('div');
+                    tooltipEl.id = 'chartjs-tooltip';
+                    tooltipEl.innerHTML = '<table></table>';
+                    document.body.appendChild(tooltipEl);
+                }
+
+                // Hide if no tooltip
+                if (tooltipModel.opacity === 0) {
+                    tooltipEl.style.opacity = 0;
+                    return;
+                }
+
+                // Set caret Position
+                tooltipEl.classList.remove('above', 'below', 'no-transform');
+                if (tooltipModel.yAlign) {
+                    tooltipEl.classList.add(tooltipModel.yAlign);
+                } else {
+                    tooltipEl.classList.add('no-transform');
+                }
+
+                function getBody(bodyItem) {
+                    return bodyItem.lines;
+                }
+
+                // Set Text
+                if (tooltipModel.body) {
+                    var titleLines = tooltipModel.title || [];
+                    var bodyLines = tooltipModel.body.map(getBody);
+
+                    var innerHtml = '<thead>';
+
+                    titleLines.forEach(function(title) {
+                        innerHtml += '<tr><th>' + title + '</th></tr>';
+                    });
+                    innerHtml += '</thead><tbody>';
+
+                    bodyLines.forEach(function(body, i) {
+                        var colors = tooltipModel.labelColors[i];
+                        var style = 'background:' + colors.backgroundColor;
+                        style += '; border-color:' + colors.borderColor;
+                        style += '; border-width: 2px';
+                        var span = '<span style="' + style + '"></span>';
+                        innerHtml += '<tr><td>' + span + body + '</td></tr>';
+                    });
+                    innerHtml += '</tbody>';
+
+                    var tableRoot = tooltipEl.querySelector('table');
+                    tableRoot.innerHTML = innerHtml;
+                }
+
+                // `this` will be the overall tooltip
+                var position = this._chart.canvas.getBoundingClientRect();
+
+                // Display, position, and set styles for font
+                tooltipEl.style.opacity = 1;
+                tooltipEl.style.position = 'absolute';
+                tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
+                tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
+                tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily;
+                tooltipEl.style.fontSize = tooltipModel.bodyFontSize + 'px';
+                tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle;
+                tooltipEl.style.padding = tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px';
+                tooltipEl.style.pointerEvents = 'none';
+            };"
+],
+```
+
+### Tooltip Callback
+
+The tooltip label configuration is nested below the tooltip configuration using the `options.tooltips.callbacks` key. The tooltip has the following callbacks for providing text. For all functions, this will be the tooltip object created from the Chart.Tooltip constructor.
+
+All functions are called with the same arguments: a tooltip item and the data object passed to the chart. All functions must return either a string or an array of strings. Arrays of strings are treated as multiple lines of text.
+
+Same as tooltip, for every function, we need to parsing it as string first, then nova-chartjs will transform it to be function.
+
+Available Tooltip Callback are:
+
+| Name	| Arguments	| Description |
+| ----- | ---------	| ----------- |
+| beforeTitle	| TooltipItem[], object	| Returns the text to render before the title.|
+| title	| TooltipItem[], object	| Returns text to render as the title of the tooltip.|
+| afterTitle	| TooltipItem[], object	| Returns text to render after the title.|
+| beforeBody	| TooltipItem[], object	| Returns text to render before the body section.|
+| beforeLabel	| TooltipItem, object	| Returns text to render before an individual label. This will be called for each item in the tooltip.|
+| label	| TooltipItem, object	| Returns text to render for an individual item in the tooltip. more...|
+| labelColor	| TooltipItem, Chart	| Returns the colors to render for the tooltip item. more...|
+| labelTextColor	| TooltipItem, Chart	| Returns the colors for the text of the label for the tooltip item.|
+| afterLabel	| TooltipItem, object	| Returns text to render after an individual label.|
+| afterBody	| TooltipItem[], object	| Returns text to render after the body section.|
+| beforeFooter	| TooltipItem[], object	| Returns text to render before the footer section.|
+| footer	| TooltipItem[], object	| Returns text to render as the footer of the tooltip.|
+| afterFooter	| TooltipItem[], object	| Text to render after the footer section.|
+
+Here example of label callback:
+
+```js
+'tooltips' => [
+    'callbacks' => [
+        'label' => "function(tooltipItem, data) {
+                var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                if (label) {
+                    label += ': ';
+                }
+                label += Math.round(tooltipItem.yLabel * 100) / 100;
+                return 'SAY NO';
+            };"
+    ]
+],
+```
+
+For configuration of your pop-up window, please see this [Sweetalert2 Configuration](https://sweetalert2.github.io/#configuration) and all you need to do is add those variable inside the sweetAlert2 line of object.
+
 # Advanced Configuration
 
 ## Latest Data to Show
