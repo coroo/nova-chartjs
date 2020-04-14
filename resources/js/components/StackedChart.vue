@@ -138,6 +138,16 @@
 
         if(this.chartTooltips !== undefined){
           this.options.tooltips = this.chartTooltips;
+          const tooltiplist = ["custom", "itemSort", "filter"];
+          var z;
+          for (z = 0; z < tooltiplist.length; z++) {
+            if(this.options.tooltips[tooltiplist[z]] != undefined){
+              if(this.options.tooltips[tooltiplist[z]].search("function") != -1){
+                eval("this.options.tooltips." + tooltiplist[z] + " = " + this.options.tooltips[tooltiplist[z]]);
+              }
+            }
+          }
+
           if(this.chartTooltips.callbacks !== undefined){
             const callbacklist = ["beforeTitle", "title", "afterTitle", "beforeBody", "beforeLabel", "label", "labelColor", "labelTextColor", "afterLabel", "afterBody", "beforeFooter", "footer", "afterFooter"];
             var i;
