@@ -2,6 +2,12 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.2.4 - 2020-04-14
+
+- add new feature: tooltips
+- :fire: remove unused fontawesome
+- update documentation
+
 ## v0.2.3 - 2020-03-31
 
 - add new chart: polar area chart
