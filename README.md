@@ -849,32 +849,32 @@ The tooltip configuration is passed into `options.tooltips` namespace.
 | Name    |   Type    |  Default | Description |
 | ------- | --------- | -------- | ----------- |
 | enabled |   boolean |  true    | Are on-canvas tooltips enabled? |
-| custom  |   function    |  null    | See custom tooltip section. |
-| mode    |   string  |  'nearest'   | Sets which elements appear in the tooltip. more.... |
+| custom  |   function    |  null    | See [custom tooltip](https://www.chartjs.org/docs/latest/configuration/tooltip.html#external-custom-tooltips) section. |
+| mode    |   string  |  'nearest'   | Sets which elements appear in the tooltip. [more....](https://www.chartjs.org/docs/latest/general/interactions/modes.html#interaction-modes) |
 | intersect   |   boolean |  true    | If true, the tooltip mode applies only when the mouse position intersects with an element. If false, the mode will be applied at all times. |
-| position    |   string  |  'average'   | The mode for positioning the tooltip. more... |
-| callbacks   |   object  |      | See the callbacks section. |
-| itemSort    |   function    |      | Sort tooltip items. more... |
-| filter  |   function    |      | Filter tooltip items. more... |
+| position    |   string  |  'average'   | The mode for positioning the tooltip. [more...](https://www.chartjs.org/docs/latest/configuration/tooltip.html#position-modes) |
+| callbacks   |   object  |      | See the [callbacks section.](http://localhost:3000/#/?id=tooltip-callback) |
+| itemSort    |   function    |      | Sort tooltip items. [more...](https://www.chartjs.org/docs/latest/configuration/tooltip.html#sort-callback) |
+| filter  |   function    |      | Filter tooltip items. [more...](https://www.chartjs.org/docs/latest/configuration/tooltip.html#filter-callback) |
 | backgroundColor |   Color   |  'rgba(0, 0, 0, 0.8)'    | Background color of the tooltip. |
-| titleFontFamily |   string  |  "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif" Title font. |
+| titleFontFamily |   string  |  "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif" | Title font. |
 | titleFontSize   |   number  |  12  | Title font size. |
 | titleFontStyle  |   string  |  'bold'  | Title font style. |
 | titleFontColor  |   Color   |  '#fff'  | Title font color. |
-| titleAlign  |   string  |  'left'  | Horizontal alignment of the title text lines. more... |
+| titleAlign  |   string  |  'left'  | Horizontal alignment of the title text lines. [more...](https://www.chartjs.org/docs/latest/configuration/tooltip.html#alignment) |
 | titleSpacing    |   number  |  2   | Spacing to add to top and bottom of each title line. |
 | titleMarginBottom   |   number  |  6   | Margin to add on bottom of title section. |
-| bodyFontFamily  |   string  |  "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"Body line font. |
+| bodyFontFamily  |   string  |  "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif" | Body line font. |
 | bodyFontSize    |   number  |  12  | Body font size. |
 | bodyFontStyle   |   string  |  'normal'    | Body font style. |
 | bodyFontColor   |   Color   |  '#fff'  | Body font color. |
-| bodyAlign   |   string  |  'left'  | Horizontal alignment of the body text lines. more... |
+| bodyAlign   |   string  |  'left'  | Horizontal alignment of the body text lines. [more...](https://www.chartjs.org/docs/latest/configuration/tooltip.html#alignment) |
 | bodySpacing |   number  |  2   | Spacing to add to top and bottom of each tooltip item. |
-| footerFontFamily    |   string  |  "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif" Footer font. |
+| footerFontFamily    |   string  |  "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif" | Footer font. |
 | footerFontSize  |   number  |  12  | Footer font size. |
 | footerFontStyle |   string  |  'bold'  | Footer font style. |
 | footerFontColor |   Color   |  '#fff'  | Footer font color. |
-| footerAlign |   string  |  'left'  | Horizontal alignment of the footer text lines. more... |
+| footerAlign |   string  |  'left'  | Horizontal alignment of the footer text lines. [more...](https://www.chartjs.org/docs/latest/configuration/tooltip.html#alignment) |
 | footerSpacing   |   number  |  2   | Spacing to add to top and bottom of each footer line. |
 | footerMarginTop |   number  |  6   | Margin to add before drawing the footer. |
 | xPadding    |   number  |  6   | Padding to add on left and right of tooltip. |
@@ -917,10 +917,12 @@ So your card should be like:
 
 <hr/>
 
-For `function` tooltip, you need to create function in string. 
-<br/>nova-chartjs will make those string into function for you.
+For `function` access, you need to create function in string. Nova-chartjs will make those string into function for you.
+
+Here example for using `custom` function in tooltips.
 ```js
 'tooltips' => [
+    'enabled' => false,
     'custom' => "function(tooltipModel) {
                 // Tooltip Element
                 var tooltipEl = document.getElementById('chartjs-tooltip');
@@ -968,7 +970,7 @@ For `function` tooltip, you need to create function in string.
                         var style = 'background:' + colors.backgroundColor;
                         style += '; border-color:' + colors.borderColor;
                         style += '; border-width: 2px';
-                        var span = '<span style="' + style + '"></span>';
+                        var span = '<span style=\"' + style + '\"></span>';
                         innerHtml += '<tr><td>' + span + body + '</td></tr>';
                     });
                     innerHtml += '</tbody>';
@@ -994,6 +996,8 @@ For `function` tooltip, you need to create function in string.
 ],
 ```
 
+For another reference, please find here: https://www.chartjs.org/docs/latest/configuration/tooltip.html.
+
 ### Tooltip Callback
 
 The tooltip label configuration is nested below the tooltip configuration using the `options.tooltips.callbacks` key. The tooltip has the following callbacks for providing text. For all functions, this will be the tooltip object created from the Chart.Tooltip constructor.
@@ -1011,8 +1015,8 @@ Available Tooltip Callback are:
 | afterTitle	| TooltipItem[], object	| Returns text to render after the title.|
 | beforeBody	| TooltipItem[], object	| Returns text to render before the body section.|
 | beforeLabel	| TooltipItem, object	| Returns text to render before an individual label. This will be called for each item in the tooltip.|
-| label	| TooltipItem, object	| Returns text to render for an individual item in the tooltip. more...|
-| labelColor	| TooltipItem, Chart	| Returns the colors to render for the tooltip item. more...|
+| label	| TooltipItem, object	| Returns text to render for an individual item in the tooltip. [more...](https://www.chartjs.org/docs/latest/configuration/tooltip.html#label-callback)|
+| labelColor	| TooltipItem, Chart	| Returns the colors to render for the tooltip item. [more...](https://www.chartjs.org/docs/latest/configuration/tooltip.html#label-color-callback)|
 | labelTextColor	| TooltipItem, Chart	| Returns the colors for the text of the label for the tooltip item.|
 | afterLabel	| TooltipItem, object	| Returns text to render after an individual label.|
 | afterBody	| TooltipItem[], object	| Returns text to render after the body section.|
@@ -1038,7 +1042,7 @@ Here example of label callback:
 ],
 ```
 
-For configuration of your pop-up window, please see this [Sweetalert2 Configuration](https://sweetalert2.github.io/#configuration) and all you need to do is add those variable inside the sweetAlert2 line of object.
+For reference, please find here: https://www.chartjs.org/docs/latest/configuration/tooltip.html#tooltip-callbacks.
 
 # Advanced Configuration
 
