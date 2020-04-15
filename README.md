@@ -917,7 +917,7 @@ So your card should be like:
 
 <hr/>
 
-For `function` access, you need to create function in string. Nova-chartjs will make those string into function for you.
+For `function` access, you need to create javascript function in string. Nova-chartjs will make those string into function for you.
 
 Here example for using `custom` function in tooltips.
 ```js
