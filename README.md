@@ -853,7 +853,7 @@ The tooltip configuration is passed into `options.tooltips` namespace.
 | mode    |   string  |  'nearest'   | Sets which elements appear in the tooltip. [more....](https://www.chartjs.org/docs/latest/general/interactions/modes.html#interaction-modes) |
 | intersect   |   boolean |  true    | If true, the tooltip mode applies only when the mouse position intersects with an element. If false, the mode will be applied at all times. |
 | position    |   string  |  'average'   | The mode for positioning the tooltip. [more...](https://www.chartjs.org/docs/latest/configuration/tooltip.html#position-modes) |
-| callbacks   |   object  |      | See the [callbacks section.](http://localhost:3000/#/?id=tooltip-callback) |
+| callbacks   |   object  |      | See the [callbacks section.](?id=tooltip-callback) |
 | itemSort    |   function    |      | Sort tooltip items. [more...](https://www.chartjs.org/docs/latest/configuration/tooltip.html#sort-callback) |
 | filter  |   function    |      | Filter tooltip items. [more...](https://www.chartjs.org/docs/latest/configuration/tooltip.html#filter-callback) |
 | backgroundColor |   Color   |  'rgba(0, 0, 0, 0.8)'    | Background color of the tooltip. |
