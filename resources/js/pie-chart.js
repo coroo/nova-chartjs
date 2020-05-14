@@ -3,23 +3,26 @@ import { Pie } from 'vue-chartjs'
 export default {
   extends: Pie,
   props: {
-    chartData: 'chartData',
-    options: 'options',
+    chartData: {
+      type: Object,
+      required: true
+    },
+    options:{
+      type: Object,
+      required: true
+    },
     height: {
-      default: '110',
+      default: 110,
       type: Number
     }
   },
-  data: () => ({
-    options: {}
-  }),
   methods: {
     renderStackedChart () {
       this.renderChart(this.chartData, this.options)
     }
   },
   mounted () {
-    this.renderChart(this.chartdata, this.options)
+    this.renderChart(this.chartData, this.options)
   },
   watch: {
     chartData () {
