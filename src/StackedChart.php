@@ -3,6 +3,7 @@
 namespace Coroowicaksono\ChartJsIntegration;
 
 use Laravel\Nova\Card;
+use Illuminate\Support\Str;
 
 class StackedChart extends Card
 {
@@ -52,7 +53,7 @@ class StackedChart extends Card
 
     public function title(string $title): self
     {
-        return $this->withMeta([ 'title' => $title ]);
+        return $this->withMeta([ 'title' => $title, 'uriKey' => Str::slug($title)]);
     }
 
     public function model(string $model): self

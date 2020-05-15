@@ -46,8 +46,8 @@
       }
 
       return {
-        datacollection: null,
-        options: null,
+        datacollection: {},
+        options: {},
         buttonRefresh: this.card.options.btnRefresh,
         buttonReload: this.card.options.btnReload,
         btnExtLink: this.card.options.extLink != undefined ? true : false,
