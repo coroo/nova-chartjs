@@ -34,7 +34,9 @@ class AreaChart extends Card
     {
         foreach($series as $key => $data){
             if(isset($data['backgroundColor'])){
-                $series[$key]['borderColor'] = $this->adjustBrightness($data['backgroundColor'], '-40');
+                if(empty($data['borderColor'])){
+                    $series[$key]['borderColor'] = $this->adjustBrightness($data['backgroundColor'], '-40');
+                }
             }
         }
         return $this->withMeta([ 'series' => $series ]);
