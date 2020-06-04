@@ -2,6 +2,13 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.2.5 - 2020-06-04
+
+- update for some bugs:
+    - #41 Problems getting charts to display
+    - #45 Unable to set fill for linechart
+    - #46 Areachart does not support RGBA color values
+
 ## v0.2.4 - 2020-04-14
 
 - add new feature: tooltips
