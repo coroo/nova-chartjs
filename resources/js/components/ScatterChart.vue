@@ -30,8 +30,8 @@
     data () {
       this.card.options = this.card.options != undefined ? this.card.options : false;
       return {
-        datacollection: null,
-        options: null,
+        datacollection: {},
+        options: {},
         buttonRefresh: (this.card.options != undefined) ? this.card.options.btnRefresh : false,
         buttonReload: this.card.options.btnReload,
         btnExtLink: this.card.options.extLink != undefined ? true : false,
