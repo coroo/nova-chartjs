@@ -1,4 +1,6 @@
 import { Doughnut } from 'vue-chartjs'
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+Chart.plugins.unregister(ChartDataLabels);
 
 export default {
   extends: Doughnut,
@@ -26,6 +28,13 @@ export default {
   },
   watch: {
     chartData () {
+      if(this.options.plugins !== undefined){
+        if(this.options.plugins.ChartDataLabels !== undefined){
+          if(this.options.plugins.ChartDataLabels == true){
+            this.addPlugin(ChartDataLabels);
+          }
+        }
+      }
       this.$data._chart.destroy()
       this.renderStackedChart()
     }
