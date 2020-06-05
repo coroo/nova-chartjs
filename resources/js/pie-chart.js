@@ -29,8 +29,8 @@ export default {
   watch: {
     chartData () {
       if(this.options.plugins !== undefined){
-        if(this.options.plugins.ChartDataLabels !== undefined){
-          if(this.options.plugins.ChartDataLabels == true){
+        if(this.options.plugins.datalabels !== undefined){
+          if(this.options.plugins.datalabels == true){
             this.addPlugin(ChartDataLabels);
           }
         }
