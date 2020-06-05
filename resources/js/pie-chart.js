@@ -30,7 +30,7 @@ export default {
     chartData () {
       if(this.options.plugins !== undefined){
         if(this.options.plugins.datalabels !== undefined){
-          if(this.options.plugins.datalabels == true){
+          if(this.options.plugins.datalabels !== false){
             this.addPlugin(ChartDataLabels);
           }
         }
