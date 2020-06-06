@@ -1399,7 +1399,7 @@ So your card should be like:
 
 We try to do our best to make your life a lot easier to connected with any plugin in [`Awesome ChartJS`](https://github.com/chartjs/awesome#plugins). <br/>Thus, we create our [roadmap](PLUGIN?id=roadmap) for plugin in this nova-chartjs. 
 
-<a class="learn-more btn-learn" href="/#/plugin?id=nova-chartjs-plugin">
+<a class="learn-more btn-learn" href="#/plugin?id=nova-chartjs-plugin">
     <span class="circle" aria-hidden="true">
         <span class="icon arrow"></span>
     </span>
