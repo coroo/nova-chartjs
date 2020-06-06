@@ -1,10 +1,19 @@
+## Homepage
+
+<a class="learn-more btn-learn" href="/#/">
+    <span class="circle" aria-hidden="true">
+        <span class="icon arrow"></span>
+    </span>
+    <span class="button-text">Back to Homepage</span>
+</a>
+
 # Nova-ChartJS Plugin
 
-This Plugin Integration requires `Nova-ChartJS 0.3.0 or higher`
+This Plugin Integration requires [`Nova-ChartJS v0.3.* or higher`](https://packagist.org/packages/coroowicaksono/chart-js-integration)
 
 ## Introduction
 
-We try to do our best to make your life a lot easier to connected with any plugin for chartjs without doing any installation of it. <br/>So, we create our [ROADMAP](PLUGIN?id=roadmap) for plugin in this nova-chartjs. 
+We try to do our best to make your life a lot easier to connected with any plugin in [`Awesome ChartJS`](https://github.com/chartjs/awesome#plugins). <br/>Thus, we create our [roadmap](PLUGIN?id=roadmap) for plugin in this nova-chartjs. 
 
 ## Roadmap
 
@@ -22,7 +31,7 @@ We try to do our best to make your life a lot easier to connected with any plugi
 - [waterfall](https://github.com/everestate/chartjs-plugin-waterfall) - Enables easy use of waterfall charts.
 - [zoom](https://github.com/chartjs/chartjs-plugin-zoom) - Enables zooming and panning on charts.
 
-We use recommendation list from [awesome chartjs plugins](https://github.com/chartjs/awesome#plugins) to make prioritization for our nova-chartjs-plugin roadmap.
+We use recommendation list from [awesome chartjs plugins](https://github.com/chartjs/awesome#plugins) as our prioritization for nova-chartjs-plugin roadmap.
 
 # Datalabels
 Displays labels on data for any type of charts

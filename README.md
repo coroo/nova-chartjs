@@ -1395,6 +1395,17 @@ So your card should be like:
     ->width('2/3'),
 ```
 
+# Plugin
+
+We try to do our best to make your life a lot easier to connected with any plugin in [`Awesome ChartJS`](https://github.com/chartjs/awesome#plugins). <br/>Thus, we create our [roadmap](PLUGIN?id=roadmap) for plugin in this nova-chartjs. 
+
+<a class="learn-more btn-learn" href="/#/plugin?id=nova-chartjs-plugin">
+    <span class="circle" aria-hidden="true">
+        <span class="icon arrow"></span>
+    </span>
+    <span class="button-text">View Plugin List</span>
+</a>
+
 # More Reference 
 
 [ChartJS Documentation](https://www.chartjs.org/docs/latest/)
@@ -1416,7 +1427,12 @@ Please see [CHANGELOG](https://github.com/coroo/nova-chartjs/blob/master/CHANGEL
 
 <a href="https://github.com/gmill20" target="_blank"><img src="https://avatars3.githubusercontent.com/u/11597797?s=400&v=4" alt="gmill20" style="width:50px"></a>
 
-<a href="https://www.buymeacoffee.com/coroowicaksono" target="_blank">Became a backers</a>
+<a class="learn-more btn-learn" href="https://www.buymeacoffee.com/coroowicaksono">
+    <span class="circle" aria-hidden="true">
+        <span class="icon arrow"></span>
+    </span>
+    <span class="button-text">Became a backers</span>
+</a>
 
 
 # Contribute

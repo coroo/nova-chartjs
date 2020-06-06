@@ -5,6 +5,7 @@
     /* Cover ============================================================================= */
     --cover-color                                      : #999;
     --cover-blockquote-color                           : #ff6f69;
+    --blockquote-color                                 : #555;
     --cover-heading-color                              : #777;
     --cover-blockquote-font-size                       : var(--font-size-l);
 
