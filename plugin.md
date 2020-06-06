@@ -13,7 +13,7 @@ This Plugin Integration requires [`Nova-ChartJS v0.3.* or higher`](https://packa
 
 ## Introduction
 
-We try to do our best to make your life a lot easier to connected with any plugin in [`Awesome ChartJS`](https://github.com/chartjs/awesome#plugins). <br/>Thus, we create our [roadmap](PLUGIN?id=roadmap) for plugin in this nova-chartjs. 
+We try to do our best to make your life a lot easier to connected with any plugin in [`Awesome ChartJS`](https://github.com/chartjs/awesome#plugins). <br/>Thus, we create our [roadmap](plugin?id=roadmap) for plugin in this nova-chartjs. 
 
 ## Roadmap
 
