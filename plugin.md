@@ -1,6 +1,6 @@
 ## Homepage
 
-<a class="learn-more btn-learn" href="/#/">
+<a class="learn-more btn-learn" href="#/">
     <span class="circle" aria-hidden="true">
         <span class="icon arrow"></span>
     </span>
