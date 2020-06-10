@@ -2,6 +2,19 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.2.6 - 2020-06-10
+
+- update dependencies in security vulnerability: 
+    - Bump websocket-extensions from 0.1.3 to 0.1.4
+        - 8efd0cd Bump version to 0.1.4
+        - 3dad4ad Remove ReDoS vulnerability in the Sec-WebSocket-Extensions header parser
+        - 4a76c75 Add Node versions 13 and 14 on Travis
+        - 44a677a Formatting change: {...} should have spaces inside the braces
+        - f6c50ab Let npm reformat package.json
+        - 2d211f3 Change markdown formatting of docs.
+        - 0b62083 Update Travis target versions.
+        - 729a465 Switch license to Apache 2.0.
+
 ## v0.2.5 - 2020-06-04
 
 - update for some bugs:
