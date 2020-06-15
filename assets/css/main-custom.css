@@ -107,17 +107,17 @@ img {
 }
 
 .sidebar-toggle-button {
-    width: 60px !important;
-    height: 60px !important;
+    width: 40px !important;
+    height: 40px !important;
     border-radius: 50% !important;
     color: #FFF !important;
     text-align: center !important;
     font-size: 20px !important;
-    line-height: 60px !important;
+    line-height: 40px !important;
     background: var(--cover-button-primary-background, var(--cover-button-background)) !important;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.4) !important;
     position: absolute !important;
-    top: 45px !important;
-    left: -30px !important;
+    top: 55px !important;
+    left: -20px !important;
     cursor: pointer !important;
 }
