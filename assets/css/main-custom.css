@@ -25,7 +25,7 @@
     --cover-background-size                            : cover;
 
     /* Sidebar ============================================================================= */
-    --sidebar-width                                    : 20rem;
+    --sidebar-width                                    : 24rem;
     
     /* Content ============================================================================= */
     --content-max-width                 : 68em;
@@ -117,7 +117,7 @@ img {
     background: var(--cover-button-primary-background, var(--cover-button-background)) !important;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.4) !important;
     position: absolute !important;
-    top: 55px !important;
+    top: 175px !important;
     left: -20px !important;
     cursor: pointer !important;
 }
