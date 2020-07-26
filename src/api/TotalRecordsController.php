@@ -70,7 +70,7 @@ class TotalRecordsController extends Controller
                 } else {
                     $query = $model::selectRaw('DATE('.$xAxisColumn.') AS cat, DATE('.$xAxisColumn.') AS catorder, sum('.$calculation.') counted'.$seriesSql);
                 }
-
+                
                 if(is_numeric($advanceFilterSelected)){
                     $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
                 }
@@ -96,7 +96,7 @@ class TotalRecordsController extends Controller
                 } else {
                     $query = $model::selectRaw('YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS cat, YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS catorder, sum('.$calculation.') counted'.$seriesSql);
                 }
-
+                
                 if(is_numeric($advanceFilterSelected)){
                     $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
                 }
@@ -122,7 +122,7 @@ class TotalRecordsController extends Controller
                 } else {
                     $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %Y") AS cat, DATE_FORMAT('.$xAxisColumn.', "%Y-%m") AS catorder, sum('.$calculation.') counted'.$seriesSql);
                 }
-
+                
                 if(is_numeric($advanceFilterSelected)){
                     $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
                 }

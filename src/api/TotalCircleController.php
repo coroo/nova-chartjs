@@ -64,7 +64,7 @@ class TotalCircleController extends Controller
             } else {
                 $query = $model::selectRaw('SUM('.$calculation.') counted'.$seriesSql);
             }
-            
+                
             if(is_numeric($advanceFilterSelected)){
                 $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
             }
