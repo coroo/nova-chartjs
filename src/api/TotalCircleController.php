@@ -27,8 +27,9 @@ class TotalCircleController extends Controller
         $calculation = isset($request->options) ? json_decode($request->options, true)['sum'] ?? 1 : 1;
         $request->validate(['model'   => ['bail', 'required', 'min:1', 'string']]);
         $model = $request->input('model');
-        $tableName = (new $model)->getTable();
-        $xAxisColumn = $request->input('col_xaxis') ?? $tableName.'.created_at';
+		$modelInstance = new $model;
+		$tableName = $modelInstance->getConnection()->getTablePrefix() . $modelInstance->getTable();
+		$xAxisColumn = $request->input('col_xaxis') ?? DB::raw($tableName.'.created_at');
         $cacheKey = hash('md4', $model . (int)(bool)$request->input('expires'));
         $dataSet = Cache::get($cacheKey);
         if (!$dataSet) {
@@ -62,7 +63,7 @@ class TotalCircleController extends Controller
             } else {
                 $query = $model::selectRaw('SUM('.$calculation.') counted'.$seriesSql);
             }
-                
+
             if(is_numeric($advanceFilterSelected)){
                 $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
             }
@@ -78,7 +79,7 @@ class TotalCircleController extends Controller
             else if($dataForLast != '*') {
                 $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonth($dataForLast-1));
             }
-            
+
             if(isset(json_decode($request->options, true)['queryFilter'])){
                 $queryFilter = json_decode($request->options, true)['queryFilter'];
                 foreach($queryFilter as $qF){
