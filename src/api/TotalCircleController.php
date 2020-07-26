@@ -64,7 +64,7 @@ class TotalCircleController extends Controller
             } else {
                 $query = $model::selectRaw('SUM('.$calculation.') counted'.$seriesSql);
             }
-
+            
             if(is_numeric($advanceFilterSelected)){
                 $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
             }
@@ -80,7 +80,7 @@ class TotalCircleController extends Controller
             else if($dataForLast != '*') {
                 $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonth($dataForLast-1));
             }
-
+            
             if(isset(json_decode($request->options, true)['queryFilter'])){
                 $queryFilter = json_decode($request->options, true)['queryFilter'];
                 foreach($queryFilter as $qF){

@@ -141,7 +141,7 @@ class TotalRecordsController extends Controller
                 $query->groupBy('catorder', 'cat')
                     ->orderBy('catorder', 'asc');
             }
-
+            
             if(isset(json_decode($request->options, true)['queryFilter'])){
                 $queryFilter = json_decode($request->options, true)['queryFilter'];
                 foreach($queryFilter as $qF){
@@ -208,7 +208,7 @@ class TotalRecordsController extends Controller
             ]
         ]);
     }
-
+    
     private function counted($dataSet, $bgColor = "#111", $type = "bar")
     {
         $yAxis = [
