@@ -6,6 +6,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class TotalRecordsController extends Controller
@@ -32,8 +33,9 @@ class TotalRecordsController extends Controller
         $calculation = isset($request->options) ? json_decode($request->options, true)['sum'] ?? 1 : 1;
         $request->validate(['model'   => ['bail', 'required', 'min:1', 'string']]);
         $model = $request->input('model');
-        $tableName = (new $model)->getTable();
-        $xAxisColumn = $request->input('col_xaxis') ?? $tableName.'.created_at';
+        $modelInstance = new $model;
+        $tableName = $modelInstance->getConnection()->getTablePrefix() . $modelInstance->getTable();
+        $xAxisColumn = $request->input('col_xaxis') ?? DB::raw($tableName.'.created_at');
         $cacheKey = hash('md4', $model . (int)(bool)$request->input('expires'));
         $dataSet = Cache::get($cacheKey);
         if (!$dataSet) {
