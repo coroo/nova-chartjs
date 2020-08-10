@@ -47,10 +47,6 @@
     </svg>
     <br/>Please Wait ...
   </div>
-  <script
-      src="https://app.codefund.io/properties/865/funder.js"
-      async
-    ></script>
   <script>
     window.$docsify = {
       name: 'Chart JS Integration',
@@ -62,19 +58,6 @@
         placeholder: 'Search',
         noData: 'No Results.',
       },
-      plugins: [
-        function(hook, vm) {
-          hook.ready(function() {
-            if (document.getElementById("codefund") === null) {
-              let nav = document.getElementsByClassName('search');
-              let codefundContainer = document.createElement('div');
-              codefundContainer.id = 'codefund';
-              codefundContainer.style.cssText = 'background:#242F32;margin:0 -24px';
-              nav[0].insertBefore(codefundContainer, nav[0].firstChild);
-            }      
-          });
-        }
-      ],
       share: {
         reddit: true,
         linkedin: true,

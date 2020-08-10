@@ -117,7 +117,7 @@ img {
     background: var(--cover-button-primary-background, var(--cover-button-background)) !important;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.4) !important;
     position: absolute !important;
-    top: 175px !important;
+    top: 55px !important;
     left: -20px !important;
     cursor: pointer !important;
 }
