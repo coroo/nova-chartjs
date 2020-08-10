@@ -2,6 +2,10 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.2.7 - 2020-08-10
+
+- support Laravel DB connection table prefixes for models
+
 ## v0.2.6 - 2020-06-10
 
 - update dependencies in security vulnerability: 
