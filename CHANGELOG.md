@@ -2,6 +2,11 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.3.0 - 2020-08-11
+
+- add plugin datalabels
+- add roadmap for plugin
+
 ## v0.2.7 - 2020-08-10
 
 - support Laravel DB connection table prefixes for models
