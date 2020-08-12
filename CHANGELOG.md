@@ -4,6 +4,7 @@ All notable changes to `chart-js-integration` will be documented in this file
 
 ## v0.3.0 - 2020-08-11
 
+- :angel: new baby born
 - add plugin datalabels
 - add roadmap for plugin
 
