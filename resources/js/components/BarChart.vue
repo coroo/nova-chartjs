@@ -27,6 +27,8 @@
 
 <script>
   import LineChart from '../bar-chart.js'
+  import ChartDataLabels from 'chartjs-plugin-datalabels';
+  Chart.plugins.unregister(ChartDataLabels);
 
   export default {
     components: {
@@ -55,6 +57,7 @@
         externalLinkIn: this.card.options.extLinkIn != undefined ? this.card.options.extLinkIn : '_self',
         chartTooltips: this.card.options.tooltips != undefined ? this.card.options.tooltips : undefined,
         sweetAlert: this.card.options.sweetAlert2 != undefined ? this.card.options.sweetAlert2 : undefined,
+        chartPlugins: this.card.options.plugins != undefined ? this.card.options.plugins : false,
         chartLayout: this.card.options.layout != undefined ? this.card.options.layout :
           {
             padding: {
@@ -132,6 +135,7 @@
           },
           responsive: true,
           maintainAspectRatio: false,
+          plugins: this.chartPlugins,
         };
 
         if(this.chartTooltips !== undefined){

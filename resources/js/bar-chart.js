@@ -1,4 +1,6 @@
 import { Bar } from 'vue-chartjs'
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+Chart.plugins.unregister(ChartDataLabels);
 
 export default {
   extends: Bar,
@@ -26,6 +28,13 @@ export default {
   },
   watch: {
     chartData () {
+      if(this.options.plugins !== undefined){
+        if(this.options.plugins.datalabels !== undefined){
+          if(this.options.plugins.datalabels !== false){
+            this.addPlugin(ChartDataLabels);
+          }
+        }
+      }
       this.$data._chart.destroy()
       this.renderStackedChart()
     }
