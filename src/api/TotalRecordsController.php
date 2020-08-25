@@ -118,10 +118,10 @@ class TotalRecordsController extends Controller
                 if(isset($request->join)){
                     $joinInformation = json_decode($request->join, true);
                     if(env("DB_CONNECTION") == 'pgsql'){
-                        $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %Y") AS cat, DATE_FORMAT('.$xAxisColumn.', "%Y-%m") AS catorder, sum('.$calculation.') counted'.$seriesSql)
+                        $query = $model::selectRaw("to_char(".$xAxisColumn.", 'Mon YYYY') AS cat, to_char(".$xAxisColumn.", 'YYYY-MM') AS catorder, sum(".$calculation.") counted".$seriesSql)
                             ->join($joinInformation['joinTable'], $joinInformation['joinColumnFirst'], $joinInformation['joinEqual'], $joinInformation['joinColumnSecond']);
                     } else {
-                        $query = $model::selectRaw("to_char(".$xAxisColumn.", 'Mon YYYY') AS cat, to_char(".$xAxisColumn.", 'YYYY-MM') AS catorder, sum(".$calculation.") counted".$seriesSql)
+                        $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %Y") AS cat, DATE_FORMAT('.$xAxisColumn.', "%Y-%m") AS catorder, sum('.$calculation.') counted'.$seriesSql)
                             ->join($joinInformation['joinTable'], $joinInformation['joinColumnFirst'], $joinInformation['joinEqual'], $joinInformation['joinColumnSecond']);
                     }
                 } else {
