@@ -27,7 +27,7 @@ class TotalRecordsController extends Controller
         $dataForLast = isset($request->options) ? json_decode($request->options, true)['latestData'] ?? 3 : 3;
         $unitOfMeasurement = isset($request->options) ? json_decode($request->options, true)['uom'] ?? 'month' : 'month';
         $startWeek = isset($request->options) ? json_decode($request->options, true)['startWeek'] ?? '1' : '1';
-        if(!in_array($unitOfMeasurement, ['day', 'week', 'month'])){
+        if(!in_array($unitOfMeasurement, ['day', 'week', 'month', 'hour'])){
             throw new ThrowError('UOM not defined correctly. <br/>Check documentation: https://github.com/coroo/nova-chartjs');
         }
         $calculation = isset($request->options) ? json_decode($request->options, true)['sum'] ?? 1 : 1;
@@ -114,6 +114,33 @@ class TotalRecordsController extends Controller
                 }
                 $query->groupBy('catorder', 'cat')
                     ->orderBy('catorder', 'asc');
+            } else if($unitOfMeasurement=='hour'){
+                if(isset($request->join)){
+                    $joinInformation = json_decode($request->join, true);
+                    $query = $model::selectRaw('HOUR('.$xAxisColumn.') AS cat, HOUR('.$xAxisColumn.') AS catorder, sum('.$calculation.') counted'.$seriesSql)
+                        ->join($joinInformation['joinTable'], $joinInformation['joinColumnFirst'], $joinInformation['joinEqual'], $joinInformation['joinColumnSecond']);
+                } else {
+                    $query = $model::selectRaw('HOUR('.$xAxisColumn.') AS cat, HOUR('.$xAxisColumn.') AS catorder, sum('.$calculation.') counted'.$seriesSql);
+                }
+
+                if(is_numeric($advanceFilterSelected)){
+                    $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
+                }
+                else if($advanceFilterSelected=='YTD'){
+                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subYear(1));
+                }
+                else if($advanceFilterSelected=='QTD'){
+                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonths(2));
+                }
+                else if($advanceFilterSelected=='MTD'){
+                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth());
+                }
+                else if($dataForLast != '*') {
+                    $query->where($xAxisColumn, '>=', Carbon::now()->startOfDay());
+                }
+                $query->groupBy('catorder', 'cat')
+                    ->orderBy('catorder', 'asc');
+
             } else {
                 if(isset($request->join)){
                     $joinInformation = json_decode($request->join, true);
@@ -160,6 +187,8 @@ class TotalRecordsController extends Controller
                     }
                 }
             }
+
+            //dd($query->toSql());
             $dataSet = $query->get();
             $xAxis = collect($dataSet)->map(function ($item, $key) use ($unitOfMeasurement){
                 if($unitOfMeasurement=='week'){
