@@ -187,8 +187,6 @@ class TotalRecordsController extends Controller
                     }
                 }
             }
-
-            //dd($query->toSql());
             $dataSet = $query->get();
             $xAxis = collect($dataSet)->map(function ($item, $key) use ($unitOfMeasurement){
                 if($unitOfMeasurement=='week'){
