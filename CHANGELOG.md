@@ -2,6 +2,12 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.3.1 - 2020-09-15
+
+- :wrench: fix error for psql database connection
+- Add `hour` as UOM
+- ⬆️ Bump http-proxy from 1.18.0 to 1.18.1 dependencies
+
 ## v0.3.0 - 2020-08-11
 
 - :angel: new baby born
