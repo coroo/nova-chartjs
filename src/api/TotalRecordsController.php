@@ -34,6 +34,7 @@ class TotalRecordsController extends Controller
         $request->validate(['model'   => ['bail', 'required', 'min:1', 'string']]);
         $model = $request->input('model');
         $modelInstance = new $model;
+        $connectionName = $modelInstance->getConnection()->getDriverName();
         $tableName = $modelInstance->getConnection()->getTablePrefix() . $modelInstance->getTable();
         $xAxisColumn = $request->input('col_xaxis') ?? DB::raw($tableName.'.created_at');
         $cacheKey = hash('md4', $model . (int)(bool)$request->input('expires'));
@@ -91,10 +92,19 @@ class TotalRecordsController extends Controller
             } else if($unitOfMeasurement=='week'){
                 if(isset($request->join)){
                     $joinInformation = json_decode($request->join, true);
-                    $query = $model::selectRaw('YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS cat, YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS catorder, sum('.$calculation.') counted'.$seriesSql)
-                        ->join($joinInformation['joinTable'], $joinInformation['joinColumnFirst'], $joinInformation['joinEqual'], $joinInformation['joinColumnSecond']);
+                    if($connectionName == 'pgsql'){
+                        $query = $model::selectRaw("to_char(DATE_TRUNC('week', ".$xAxisColumn."), 'YYYYWW') AS cat, to_char(DATE_TRUNC('week', ".$xAxisColumn."), 'YYYYWW') AS catorder, sum(".$calculation.") counted".$seriesSql)
+                            ->join($joinInformation['joinTable'], $joinInformation['joinColumnFirst'], $joinInformation['joinEqual'], $joinInformation['joinColumnSecond']);
+                    } else {
+                        $query = $model::selectRaw('YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS cat, YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS catorder, sum('.$calculation.') counted'.$seriesSql)
+                            ->join($joinInformation['joinTable'], $joinInformation['joinColumnFirst'], $joinInformation['joinEqual'], $joinInformation['joinColumnSecond']);
+                    }
                 } else {
-                    $query = $model::selectRaw('YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS cat, YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS catorder, sum('.$calculation.') counted'.$seriesSql);
+                    if($connectionName == 'pgsql'){
+                        $query = $model::selectRaw("to_char(DATE_TRUNC('week', ".$xAxisColumn."), 'YYYYWW') AS cat, to_char(DATE_TRUNC('week', ".$xAxisColumn."), 'YYYYWW') AS catorder, sum(".$calculation.") counted".$seriesSql);
+                    } else {
+                        $query = $model::selectRaw('YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS cat, YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS catorder, sum('.$calculation.') counted'.$seriesSql);
+                    }
                 }
                 
                 if(is_numeric($advanceFilterSelected)){
@@ -144,10 +154,19 @@ class TotalRecordsController extends Controller
             } else {
                 if(isset($request->join)){
                     $joinInformation = json_decode($request->join, true);
-                    $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %Y") AS cat, DATE_FORMAT('.$xAxisColumn.', "%Y-%m") AS catorder, sum('.$calculation.') counted'.$seriesSql)
-                        ->join($joinInformation['joinTable'], $joinInformation['joinColumnFirst'], $joinInformation['joinEqual'], $joinInformation['joinColumnSecond']);
+                    if($connectionName == 'pgsql'){
+                        $query = $model::selectRaw("to_char(".$xAxisColumn.", 'Mon YYYY') AS cat, to_char(".$xAxisColumn.", 'YYYY-MM') AS catorder, sum(".$calculation.") counted".$seriesSql)
+                            ->join($joinInformation['joinTable'], $joinInformation['joinColumnFirst'], $joinInformation['joinEqual'], $joinInformation['joinColumnSecond']);
+                    } else {
+                        $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %Y") AS cat, DATE_FORMAT('.$xAxisColumn.', "%Y-%m") AS catorder, sum('.$calculation.') counted'.$seriesSql)
+                            ->join($joinInformation['joinTable'], $joinInformation['joinColumnFirst'], $joinInformation['joinEqual'], $joinInformation['joinColumnSecond']);
+                    }
                 } else {
-                    $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %Y") AS cat, DATE_FORMAT('.$xAxisColumn.', "%Y-%m") AS catorder, sum('.$calculation.') counted'.$seriesSql);
+                    if($connectionName == 'pgsql'){
+                        $query = $model::selectRaw("to_char(".$xAxisColumn.", 'Mon YYYY') AS cat, to_char(".$xAxisColumn.", 'YYYY-MM') AS catorder, sum(".$calculation.") counted".$seriesSql);
+                    } else {
+                        $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %Y") AS cat, DATE_FORMAT('.$xAxisColumn.', "%Y-%m") AS catorder, sum('.$calculation.') counted'.$seriesSql);
+                    }
                 }
                 
                 if(is_numeric($advanceFilterSelected)){
