@@ -34,7 +34,7 @@ class TotalRecordsController extends Controller
         $request->validate(['model'   => ['bail', 'required', 'min:1', 'string']]);
         $model = $request->input('model');
         $modelInstance = new $model;
-        $connectionName = $modelInstance->getConnectoion()->getDriverName();
+        $connectionName = $modelInstance->getConnection()->getDriverName();
         $tableName = $modelInstance->getConnection()->getTablePrefix() . $modelInstance->getTable();
         $xAxisColumn = $request->input('col_xaxis') ?? DB::raw($tableName.'.created_at');
         $cacheKey = hash('md4', $model . (int)(bool)$request->input('expires'));
