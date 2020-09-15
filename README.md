@@ -1176,7 +1176,7 @@ So your card should be like:
 By Default, if you using chart with data, the chart will only show your 3 latest month. If you want to use weekly base view, please use:
 ```php
 ->options([
-    'uom' => 'week', // available in 'day', 'week', 'month'
+    'uom' => 'week', // available in 'day', 'week', 'month', 'hour'
 ])
 ``` 
 
@@ -1222,7 +1222,7 @@ So your card should be like:
     ]))
     ->options([
         'latestData' => 6, // Show last 6 weeks data (optional)
-        'uom' => 'week' // available in 'day', 'week', 'month'
+        'uom' => 'week' // available in 'day', 'week', 'month', 'hour'
     ])
     ->width('2/3'),
 ```
@@ -1234,7 +1234,7 @@ So your card should be like:
 For daily base view, please use:
 ```php
 ->options([
-    'uom' => 'day', // available in 'day', 'week', 'month'
+    'uom' => 'day', // available in 'day', 'week', 'month', 'hour'
 ])
 ``` 
 
@@ -1263,7 +1263,46 @@ So your card should be like:
         ],
     ]))
     ->options([
-        'uom' => 'day' // available in 'day', 'week', 'month'
+        'uom' => 'day' // available in 'day', 'week', 'month', 'hour'
+    ])
+    ->width('2/3'),
+```
+
+### Latest Hourly Data
+
+For hourly base view, please use:
+```php
+->options([
+    'uom' => 'hour', // available in 'day', 'week', 'month', 'hour'
+])
+``` 
+
+So your card should be like:
+```php
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '1'
+        ],
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '3'
+        ],
+    ]))
+    ->options([
+        'uom' => 'hour' // available in 'day', 'week', 'month', 'hour'
     ])
     ->width('2/3'),
 ```
