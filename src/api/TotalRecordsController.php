@@ -23,7 +23,7 @@ class TotalRecordsController extends Controller
             $request->merge(['model' => urldecode($request->input('model'))]);
         }
         $showTotal = isset($request->options) ? json_decode($request->options, true)['showTotal'] ?? true : true;
-        $chartType = $request->type : 'bar';
+        $chartType = $request->type ?? 'bar';
         $advanceFilterSelected = isset($request->options) ? json_decode($request->options, true)['advanceFilterSelected'] ?? false : false;
         $dataForLast = isset($request->options) ? json_decode($request->options, true)['latestData'] ?? 3 : 3;
         $unitOfMeasurement = isset($request->options) ? json_decode($request->options, true)['uom'] ?? 'month' : 'month';
