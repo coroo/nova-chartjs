@@ -213,6 +213,7 @@
           // Use Model
           Nova.request().get("/coroowicaksono/check-data/endpoint/", {
             params: {
+                type: 'line',
                 model: this.card.model,
                 series: this.card.series,
                 options: this.card.options,

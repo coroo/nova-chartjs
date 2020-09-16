@@ -2,6 +2,10 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.3.2 - 2020-09-17
+
+- :wrench: fix bug for line chart using model
+
 ## v0.3.1 - 2020-09-15
 
 - :wrench: fix error for psql database connection
