@@ -261,11 +261,16 @@ class TotalRecordsController extends Controller
         $yAxis = [
             'type'  => $type,
             'label' => 'Total',
-            'backgroundColor' => $bgColor,
             'data' => collect($dataSet)->map(function ($item, $key) {
                 return $item->only(['counted'])['counted'];
             })
         ];
+        if($type=="line"){
+            $yAxis['fill'] = false;
+            $yAxis['borderColor'] = $bgColor;
+        } else {
+            $yAxis['backgroundColor'] = $bgColor;
+        }
         return $yAxis;
     }
 }
