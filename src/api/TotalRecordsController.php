@@ -23,6 +23,7 @@ class TotalRecordsController extends Controller
             $request->merge(['model' => urldecode($request->input('model'))]);
         }
         $showTotal = isset($request->options) ? json_decode($request->options, true)['showTotal'] ?? true : true;
+        $chartType = $request->type : 'bar';
         $advanceFilterSelected = isset($request->options) ? json_decode($request->options, true)['advanceFilterSelected'] ?? false : false;
         $dataForLast = isset($request->options) ? json_decode($request->options, true)['latestData'] ?? 3 : 3;
         $unitOfMeasurement = isset($request->options) ? json_decode($request->options, true)['uom'] ?? 'month' : 'month';
@@ -241,7 +242,7 @@ class TotalRecordsController extends Controller
                     $yAxis[$countKey] = $this->counted($dataSet, $defaultColor[$countKey], 'line');
                 }
             } else {
-                $yAxis[0] = $this->counted($dataSet, $defaultColor[0]);
+                $yAxis[0] = $this->counted($dataSet, $defaultColor[0], $chartType);
             }
             if ($request->input('expires')) {
                 Cache::put($cacheKey, $dataSet, Carbon::parse($request->input('expires')));
