@@ -23,6 +23,11 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
+**Dependencies Version (please complete the following information):**
+ - Laravel Version: [e.g. 7.27.0]
+ - Nova Version: [e.g. v3.8.4]
+ - Nova-ChartJS Version: [e.g. v0.3.2]
+
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]
  - Browser [e.g. chrome, safari]
