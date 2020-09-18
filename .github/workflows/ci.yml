@@ -29,3 +29,11 @@ jobs:
       # Runs a check spelling for php  
       - name: Check PHP Spelling
         uses: michaelw90/PHP-Lint@master
+        
+      # Runs a set of commands for build
+      - name: Build Application
+        run: |
+          npm install
+          npm update --depth 5 @babel/compat-data
+          npm run dev
+          npm run prod
