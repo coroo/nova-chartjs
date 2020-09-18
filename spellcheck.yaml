@@ -1,0 +1,52 @@
+matrix:
+- name: Vue
+  sources:
+  - '**/*.vue'
+  expect_match: false
+  aspell:
+    lang: en
+  dictionary:
+    wordlists:
+    - wordlist.txt
+    output: wordlist.dic
+    encoding: utf-8
+  pipeline:
+  - pyspelling.filters.javascript:
+      jsdocs: true
+      line_comments: true
+      block_comments: true
+      group_comments: false
+      decode_escapes: true
+      strings: false
+  - pyspelling.filters.html:
+      comments: true
+      attributes:
+      - title
+      - alt
+      ignores:
+      - ':matches(code, pre)'
+      - 'code'
+      - 'pre'
+  - pyspelling.filters.stylesheets:
+      group_comments: true
+- name: HTML
+  sources:
+  - '**/*.html'
+  expect_match: false
+  apsell:
+    mode: en
+  dictionary:
+    wordlists:
+    - wordlist.txt
+    output: wordlist.dic
+    encoding: utf-8
+  pipeline:
+  - pyspelling.filters.html:
+      comments: true
+      attributes:
+      - title
+      - alt
+      ignores:
+      - ':matches(code, pre)'
+      - 'code'
+      - 'pre'
