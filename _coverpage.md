@@ -6,6 +6,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/coroowicaksono/chart-js-integration)](https://packagist.org/packages/coroowicaksono/chart-js-integration)
 [![License](https://img.shields.io/github/languages/top/coroo/nova-chartjs)](https://packagist.org/packages/coroowicaksono/chart-js-integration)
 
+![Continues Integration](https://github.com/coroo/nova-chartjs/workflows/ci/badge.svg?branch=master)
 [![State Status](https://img.shields.io/github/deployments/coroo/nova-chartjs/github-pages)](https://packagist.org/packages/coroowicaksono/chart-js-integration)
 [![License](https://img.shields.io/packagist/l/coroowicaksono/chart-js-integration)](https://github.com/coroo/nova-chartjs/blob/master/LICENSE)
 
