@@ -101,9 +101,18 @@ img {
     right:0;
 }
 
+#click-me-to-darkness {
+    position: absolute;
+    right: 50px;
+    z-index: 21;
+    width: 300px;
+    box-shadow: none;
+}
+
 #docsify-darklight-theme {
     position: fixed;
-    right: 3%;
+    right: 50px;
+    z-index: 22;
 }
 
 .sidebar-toggle-button {
@@ -120,4 +129,10 @@ img {
     top: 55px !important;
     left: -20px !important;
     cursor: pointer !important;
+}
+
+@media only screen and (max-width: 800px) {
+    #click-me-to-darkness {
+      display: none;
+    }
 }
