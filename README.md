@@ -1465,6 +1465,7 @@ Please see [CHANGELOG](https://github.com/coroo/nova-chartjs/blob/master/CHANGEL
 ## Backers
 
 <a href="https://github.com/gmill20" target="_blank"><img src="https://avatars3.githubusercontent.com/u/11597797?s=400&v=4" alt="gmill20" style="width:50px"></a>
+<a href="https://github.com/niunaiyi" target="_blank"><img src="https://avatars1.githubusercontent.com/u/26132379?s=460&v=4" alt="gmill20" style="width:50px"></a>
 
 <a class="learn-more btn-learn" href="https://www.buymeacoffee.com/coroowicaksono">
     <span class="circle" aria-hidden="true">
