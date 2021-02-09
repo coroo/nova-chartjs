@@ -33,7 +33,7 @@ class CardServiceProvider extends ServiceProvider
     protected function routes()
     {
         Route::middleware(['nova'])
-                ->prefix('coroowicaksono/check-data')
+                ->prefix('/nova-vendor/coroowicaksono/check-data')
                 ->group(__DIR__.'/../routes/api.php');
     }
 
