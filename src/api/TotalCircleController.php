@@ -44,7 +44,9 @@ class TotalCircleController extends Controller
                     $seriesData = json_decode($serieslist);
                     $filter = $seriesData->filter;
                     $labelList[$seriesKey] = $seriesData->label;
-                    if(empty($filter->value)){
+                    if(empty($filter->value)&&($filter->operator=='IS NULL' || $filter->operator=='IS NOT NULL')) {
+                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".$filter->operator." then ".$calculation." else 0 end) as '".$labelList[$seriesKey]."'";
+                    } else if(empty($filter->value)){
                         $seriesSql .= ", SUM(CASE WHEN ";
                         $countFilter = count($filter);
                         foreach($filter as $keyFilter => $listFilter){
