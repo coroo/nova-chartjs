@@ -125,11 +125,12 @@
         // Use Model
           Nova.request().get("/nova-vendor/coroowicaksono/check-data/endpoint/", {
             params: {
-                model: this.card.model,
-                series: this.card.series,
-                options: this.card.options,
-                join: this.card.join,
-                expires: 0,
+              model: this.card.model,
+              series: this.card.series,
+              options: this.card.options,
+              join: this.card.join,
+              col_xaxis: this.card.col_xaxis,
+              expires: 0,
             },
           })
           .then(({ data }) => {

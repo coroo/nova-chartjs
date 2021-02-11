@@ -63,6 +63,11 @@ class LineChart extends Card
         return $this->withMeta([ 'model' => $model ]);
     }
 
+    public function col_xaxis(string $col_xaxis): self
+    {
+        return $this->withMeta([ 'col_xaxis' => $col_xaxis ]);
+    }
+
     public function join(string $joinTable, string $joinColumnFirst, string $joinEqual, string $joinColumnSecond): self
     {
         return $this->withMeta([ 'join' => ['joinTable' => $joinTable, 'joinColumnFirst' => $joinColumnFirst, 'joinEqual' => $joinEqual, 'joinColumnSecond' => $joinColumnSecond] ]);

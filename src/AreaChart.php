@@ -67,6 +67,11 @@ class AreaChart extends Card
         return $this->withMeta([ 'model' => $model ]);
     }
 
+    public function col_xaxis(string $col_xaxis): self
+    {
+        return $this->withMeta([ 'col_xaxis' => $col_xaxis ]);
+    }
+
     private function adjustBrightness($hex, $steps) {
         // Steps should be between -255 and 255. Negative = darker, positive = lighter
         $steps = max(-255, min(255, $steps));
