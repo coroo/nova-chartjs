@@ -1503,7 +1503,8 @@ Please see [CHANGELOG](https://github.com/coroo/nova-chartjs/blob/master/CHANGEL
 ## Backers
 
 <a href="https://github.com/gmill20" target="_blank"><img src="https://github.com/gmill20.png" alt="gmill20" style="width:50px;margin1px;"></a>
-<a href="https://github.com/niunaiyi" target="_blank"><img src="https://github.com/niunaiyi.png" alt="gmill20" style="width:50px;margin1px;"></a>
+<a href="https://github.com/niunaiyi" target="_blank"><img src="https://github.com/niunaiyi.png" alt="niunaiyi" style="width:50px;margin1px;"></a>
+<a href="https://github.com/msnegurski" target="_blank"><img src="https://github.com/msnegurski.png" alt="msnegurski" style="width:50px;margin1px;"></a>
 
 <a class="learn-more btn-learn" href="https://www.buymeacoffee.com/coroowicaksono">
     <span class="circle" aria-hidden="true">
