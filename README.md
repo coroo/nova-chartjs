@@ -382,6 +382,7 @@ Unlike previous another chart where xaxis suplied inside `options`, the scatter 
 # Use Laravel Model
 
 We use `created_at` to define the month and year name in categories. So make sure your data consist of this column.
+For use custom X-Axis, please follow [this step.](?id=custom-x--axis)
 
 ## Simple Chart With Data
 
@@ -1431,6 +1432,42 @@ So your card should be like:
     ->options([
         'showPercentage' => true
     ])
+    ->width('2/3'),
+```
+
+## Custom X-Axis
+
+By default, we use `created_at` to define the month and year name in categories.
+For use custom X-Axis column you need to add your custom date field to this x-axis column :
+```php
+->col_xaxis('another_date_column')
+```
+
+So your card should be like:
+```php
+(new StackedChart())
+    ->title('Revenue')
+    ->model('\App\Models\Sales') // Use Your Model Here
+    ->col_xaxis('another_date_column') // Add Your Custom X-Axis here
+    ->series(array([
+        'label' => 'Product A',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '1'
+        ],
+    ],[
+        'label' => 'Product B',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '2'
+        ],
+    ],[
+        'label' => 'Product C',
+        'filter' => [
+            'key' => 'product_id', // State Column for Count Calculation Here
+            'value' => '3'
+        ],
+    ]))
     ->width('2/3'),
 ```
 
