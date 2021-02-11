@@ -2,6 +2,14 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.3.4 - 2021-02-11
+
+- :sparkles: add new feature: custom x-axis
+
+## v0.3.3 - 2021-02-08
+
+- :wrench: change api request to /nova-vendor/
+
 ## v0.3.2 - 2020-09-17
 
 - :wrench: fix bug for line chart using model
