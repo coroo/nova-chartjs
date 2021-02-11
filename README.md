@@ -382,7 +382,8 @@ Unlike previous another chart where xaxis suplied inside `options`, the scatter 
 # Use Laravel Model
 
 We use `created_at` to define the month and year name in categories. So make sure your data consist of this column.
-For use custom X-Axis, please follow [this step.](?id=custom-x--axis)
+
+> For use custom X-Axis, please follow [this step.](?id=custom-x-axis)
 
 ## Simple Chart With Data
 
