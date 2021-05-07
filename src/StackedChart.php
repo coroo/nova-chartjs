@@ -18,7 +18,6 @@ class StackedChart extends Card
     {
 
         parent::__construct($component);
-
     }
 
     /**
@@ -33,41 +32,46 @@ class StackedChart extends Card
 
     public function series(array $series): self
     {
-        return $this->withMeta([ 'series' => $series ]);
+        return $this->withMeta(['series' => $series]);
     }
 
     public function type(string $type): self
     {
-        return $this->withMeta([ 'type' => $type ]);
+        return $this->withMeta(['type' => $type]);
     }
 
     public function options(array $options): self
     {
-        return $this->withMeta([ 'options' => (object) $options ]);
+        return $this->withMeta(['options' => (object) $options]);
     }
 
     public function animations(array $animations): self
     {
-        return $this->withMeta([ 'animations' => $animations ]);
+        return $this->withMeta(['animations' => $animations]);
     }
 
     public function title(string $title): self
     {
-        return $this->withMeta([ 'title' => $title, 'uriKey' => Str::slug($title)]);
+        return $this->withMeta(['title' => $title, 'uriKey' => Str::slug($title)]);
     }
 
     public function model(string $model): self
     {
-        return $this->withMeta([ 'model' => $model ]);
+        return $this->withMeta(['model' => $model]);
     }
 
     public function col_xaxis(string $col_xaxis): self
     {
-        return $this->withMeta([ 'col_xaxis' => $col_xaxis ]);
+        return $this->withMeta(['col_xaxis' => $col_xaxis]);
+    }
+
+    public function uriKey(string $uriKey)
+    {
+        return $this->withMeta(['uriKey' => $uriKey]);
     }
 
     public function join(string $joinTable, string $joinColumnFirst, string $joinEqual, string $joinColumnSecond): self
     {
-        return $this->withMeta([ 'join' => ['joinTable' => $joinTable, 'joinColumnFirst' => $joinColumnFirst, 'joinEqual' => $joinEqual, 'joinColumnSecond' => $joinColumnSecond] ]);
+        return $this->withMeta(['join' => ['joinTable' => $joinTable, 'joinColumnFirst' => $joinColumnFirst, 'joinEqual' => $joinEqual, 'joinColumnSecond' => $joinColumnSecond]]);
     }
 }
