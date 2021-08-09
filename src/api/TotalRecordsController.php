@@ -194,7 +194,7 @@ class TotalRecordsController extends Controller
             if(isset(json_decode($request->options, true)['queryFilter'])){
                 $queryFilter = json_decode($request->options, true)['queryFilter'];
                 foreach($queryFilter as $qF){
-                    if(isset($qF['value'])){
+                    if(isset($qF['value']) && !is_array($qF['value'])){
                         if(isset($qF['operator'])){
                             $query->where($qF['key'], $qF['operator'], $qF['value']);
                         } else {
@@ -205,6 +205,14 @@ class TotalRecordsController extends Controller
                             $query->whereNull($qF['key']);
                         } else if($qF['operator']=='IS NOT NULL'){
                             $query->whereNotNull($qF['key']);
+                        } else if($qF['operator']=='IN'){
+                            $query->whereIn($qF['key'], $qF['value']);
+                        } else if($qF['operator']=='NOT IN'){
+                            $query->whereIn($qF['key'], $qF['value']);
+                        } else if($qF['operator']=='BETWEEN') {
+                            $query->whereBetween($qF['key'], $qF['value']);
+                        } else if($qF['operator']=='NOT BETWEEN') {
+                            $query->whereNotBetween($qF['key'], $qF['value']);
                         }
                     }
                 }
