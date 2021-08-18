@@ -23,6 +23,7 @@ class TotalRecordsController extends Controller
             $request->merge(['model' => urldecode($request->input('model'))]);
         }
         $showTotal = isset($request->options) ? json_decode($request->options, true)['showTotal'] ?? true : true;
+        $totalLabel = isset($request->options) ? json_decode($request->options, true)['totalLabel'] ?? 'Total' : 'Total';
         $chartType = $request->type ?? 'bar';
         $advanceFilterSelected = isset($request->options) ? json_decode($request->options, true)['advanceFilterSelected'] ?? false : false;
         $dataForLast = isset($request->options) ? json_decode($request->options, true)['latestData'] ?? 3 : 3;
@@ -194,7 +195,7 @@ class TotalRecordsController extends Controller
             if(isset(json_decode($request->options, true)['queryFilter'])){
                 $queryFilter = json_decode($request->options, true)['queryFilter'];
                 foreach($queryFilter as $qF){
-                    if(isset($qF['value'])){
+                    if(isset($qF['value']) && !is_array($qF['value'])){
                         if(isset($qF['operator'])){
                             $query->where($qF['key'], $qF['operator'], $qF['value']);
                         } else {
@@ -205,6 +206,14 @@ class TotalRecordsController extends Controller
                             $query->whereNull($qF['key']);
                         } else if($qF['operator']=='IS NOT NULL'){
                             $query->whereNotNull($qF['key']);
+                        } else if($qF['operator']=='IN'){
+                            $query->whereIn($qF['key'], $qF['value']);
+                        } else if($qF['operator']=='NOT IN'){
+                            $query->whereIn($qF['key'], $qF['value']);
+                        } else if($qF['operator']=='BETWEEN') {
+                            $query->whereBetween($qF['key'], $qF['value']);
+                        } else if($qF['operator']=='NOT BETWEEN') {
+                            $query->whereNotBetween($qF['key'], $qF['value']);
                         }
                     }
                 }
@@ -241,10 +250,10 @@ class TotalRecordsController extends Controller
                     $countKey++;
                 }
                 if($showTotal == true){
-                    $yAxis[$countKey] = $this->counted($dataSet, $defaultColor[$countKey], 'line');
+                    $yAxis[$countKey] = $this->counted($dataSet, $defaultColor[$countKey], 'line', $totalLabel);
                 }
             } else {
-                $yAxis[0] = $this->counted($dataSet, $defaultColor[0], $chartType);
+                $yAxis[0] = $this->counted($dataSet, $defaultColor[0], $chartType, $totalLabel);
             }
             if ($request->input('expires')) {
                 Cache::put($cacheKey, $dataSet, Carbon::parse($request->input('expires')));
@@ -258,11 +267,11 @@ class TotalRecordsController extends Controller
         ]);
     }
     
-    private function counted($dataSet, $bgColor = "#111", $type = "bar")
+    private function counted($dataSet, $bgColor = "#111", $type = "bar", $label = "Total")
     {
         $yAxis = [
             'type'  => $type,
-            'label' => 'Total',
+            'label' => $label,
             'data' => collect($dataSet)->map(function ($item, $key) {
                 return $item->only(['counted'])['counted'];
             })
