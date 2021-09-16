@@ -50,6 +50,7 @@
       return {
         datacollection: {},
         options: {},
+        yAxesMin: this.card.options.yAxesMin != undefined ? this.card.options.yAxesMin : undefined,
         buttonRefresh: this.card.options.btnRefresh,
         buttonReload: this.card.options.btnReload,
         btnExtLink: this.card.options.extLink != undefined ? true : false,
@@ -110,6 +111,7 @@
           scales: {
             yAxes: [{
               ticks: {
+                min: yAxesMin,
                 maxTicksLimit: 5,
                 fontSize: 10,
                 callback: function(num, index, values) {
