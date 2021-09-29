@@ -53,7 +53,7 @@ class TotalRecordsController extends Controller
                     $filter = $seriesData->filter;
                     $labelList[$seriesKey] = $seriesData->label;
                     if(empty($filter->value)&&isset($filter->operator)&&($filter->operator=='IS NULL' || $filter->operator=='IS NOT NULL')) {
-                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".$filter->operator." then ".$calculation." else 0 end) as '".$labelList[$seriesKey]."'";
+                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".$filter->operator." then ".$calculation." else 0 end) as \"".$labelList[$seriesKey]."\"";
                     } else if(empty($filter->value)){
                         $seriesSql .= ", SUM(CASE WHEN ";
                         $countFilter = count($filter);
@@ -61,9 +61,9 @@ class TotalRecordsController extends Controller
                             $seriesSql .= " ".$listFilter->key." ".($listFilter->operator ?? "=")." '".$listFilter->value."' ";
                             $seriesSql .= $countFilter-1 != $keyFilter ? " AND " : "";
                         }
-                        $seriesSql .= "then ".$calculation." else 0 end) as '".$labelList[$seriesKey]."'";
+                        $seriesSql .= "then ".$calculation." else 0 end) as \"".$labelList[$seriesKey]."\"";
                     } else {
-                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".($filter->operator ?? "=")." '".$filter->value."' then ".$calculation." else 0 end) as '".$labelList[$seriesKey]."'";
+                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".($filter->operator ?? "=")." '".$filter->value."' then ".$calculation." else 0 end) as \"".$labelList[$seriesKey]."\"";
                     }
                 }
             }
@@ -75,7 +75,7 @@ class TotalRecordsController extends Controller
                 } else {
                     $query = $model::selectRaw('DATE('.$xAxisColumn.') AS cat, DATE('.$xAxisColumn.') AS catorder, sum('.$calculation.') counted'.$seriesSql);
                 }
-                
+
                 if(is_numeric($advanceFilterSelected)){
                     $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
                 }
@@ -110,7 +110,7 @@ class TotalRecordsController extends Controller
                         $query = $model::selectRaw('YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS cat, YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS catorder, sum('.$calculation.') counted'.$seriesSql);
                     }
                 }
-                
+
                 if(is_numeric($advanceFilterSelected)){
                     $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
                 }
@@ -172,7 +172,7 @@ class TotalRecordsController extends Controller
                         $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %Y") AS cat, DATE_FORMAT('.$xAxisColumn.', "%Y-%m") AS catorder, sum('.$calculation.') counted'.$seriesSql);
                     }
                 }
-                
+
                 if(is_numeric($advanceFilterSelected)){
                     $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
                 }
@@ -191,7 +191,7 @@ class TotalRecordsController extends Controller
                 $query->groupBy('catorder', 'cat')
                     ->orderBy('catorder', 'asc');
             }
-            
+
             if(isset(json_decode($request->options, true)['queryFilter'])){
                 $queryFilter = json_decode($request->options, true)['queryFilter'];
                 foreach($queryFilter as $qF){
@@ -264,9 +264,9 @@ class TotalRecordsController extends Controller
                 'xAxis'  => $xAxis,
                 'yAxis'  => $yAxis
             ]
-        ]);
+            ]);
     }
-    
+
     private function counted($dataSet, $bgColor = "#111", $type = "bar", $label = "Total")
     {
         $yAxis = [
