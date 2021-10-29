@@ -63,7 +63,7 @@ class TotalRecordsController extends Controller
                         }
                         $seriesSql .= "then ".$calculation." else 0 end) as '".$labelList[$seriesKey]."'";
                     } else {
-                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".($filter->operator ?? "=")." '".$filter->value."' then ".$calculation." else 0 end) as '".$labelList[$seriesKey]."'";
+                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".($filter->operator ?? "=")." '".$filter->value."' then ".$calculation." else 0 end) as \"".$labelList[$seriesKey]."\"";
                     }
                 }
             }
@@ -134,7 +134,15 @@ class TotalRecordsController extends Controller
                     $query = $model::selectRaw('HOUR('.$xAxisColumn.') AS cat, HOUR('.$xAxisColumn.') AS catorder, sum('.$calculation.') counted'.$seriesSql)
                         ->join($joinInformation['joinTable'], $joinInformation['joinColumnFirst'], $joinInformation['joinEqual'], $joinInformation['joinColumnSecond']);
                 } else {
-                    $query = $model::selectRaw('HOUR('.$xAxisColumn.') AS cat, HOUR('.$xAxisColumn.') AS catorder, sum('.$calculation.') counted'.$seriesSql);
+                    if($connectionName == 'pgsql'){
+                        //$query = $model::selectRaw('HOUR('.$xAxisColumn.') AS cat, HOUR('.$xAxisColumn.') AS catorder, sum('.$calculation.') counted'.$seriesSql);
+                        $query = $model::selectRaw("to_char(DATE_TRUNC('hour', ".$xAxisColumn."), 'HH24:MI:SS') AS cat, to_char(DATE_TRUNC('hour', ".$xAxisColumn."), 'HH24:MI:SS') AS catorder, sum(".$calculation.") counted".$seriesSql);
+
+                    }
+                    else{
+                        $query = $model::selectRaw('HOUR('.$xAxisColumn.') AS cat, HOUR('.$xAxisColumn.') AS catorder, sum('.$calculation.') counted'.$seriesSql);
+                
+                    }
                 }
 
                 if(is_numeric($advanceFilterSelected)){
