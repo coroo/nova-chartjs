@@ -123,7 +123,7 @@
           this.options = this.options;
         } else {
         // Use Model
-          Nova.request().get("/nova-vendor/coroowicaksono/check-data/endpoint/", {
+          Nova.request().get("/nova-vendor/coroowicaksono/check-data/endpoint", {
             params: {
               model: this.card.model,
               series: this.card.series,

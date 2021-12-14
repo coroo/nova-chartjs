@@ -204,7 +204,7 @@
           if(this.showAdvanceFilter == true) this.card.options.advanceFilterSelected = this.advanceFilterSelected != undefined ? this.advanceFilterSelected : false;
           
           // Use Model
-          Nova.request().get("/nova-vendor/coroowicaksono/check-data/circle-endpoint/", {
+          Nova.request().get("/nova-vendor/coroowicaksono/check-data/circle-endpoint", {
             params: {
               model: this.card.model,
               series: this.card.series,
