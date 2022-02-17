@@ -1,5 +1,5 @@
 <template>
-    <card class="p-10">
+    <card>
       <div class="stay-right">
         <a @click="fillData()" class="btn-refresh" v-show="buttonRefresh">
           <i class="fas fa-sync"></i>
@@ -46,7 +46,7 @@
         filledAdvancedList[i] = {value: index, text: btnFilterList[index]};
         i++;
       }
-      
+
       return {
         datacollection: {},
         options: {},

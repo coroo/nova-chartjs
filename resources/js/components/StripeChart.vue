@@ -1,5 +1,5 @@
 <template>
-    <card class="p-10">
+    <card>
       <div class="stay-right">
         <a @click="fillData()" class="btn-refresh" v-show="buttonRefresh">
           <i class="fas fa-sync"></i>
@@ -36,7 +36,7 @@
     },
     data () {
       this.card.options = this.card.options != undefined ? this.card.options : false;
-      
+
       // setup btn filter list
       const btnFilterList = this.card.options.btnFilterList;
       let filledAdvancedList = [];
@@ -46,7 +46,7 @@
         filledAdvancedList[i] = {value: index, text: btnFilterList[index]};
         i++;
       }
-      
+
       return {
         datacollection: {},
         options: {},
@@ -149,7 +149,7 @@
               }
             }
           }
-          
+
           if(this.chartTooltips.callbacks !== undefined){
             const callbacklist = ["beforeTitle", "title", "afterTitle", "beforeBody", "beforeLabel", "label", "labelColor", "labelTextColor", "afterLabel", "afterBody", "beforeFooter", "footer", "afterFooter"];
             var i;
@@ -184,7 +184,7 @@
 
               const toLink = sweetAlertWithLink.linkTo != undefined ? sweetAlertWithLink.linkTo : "https://coroo.github.io/nova-chartjs/";
               const { linkTo, ...sweetAlert } = sweetAlertWithLink;
-              
+
               const Swal = require('sweetalert2')
               Swal.fire({
                 title: sweetAlert.title != undefined ? sweetAlert.title : '<strong>'+value+'</strong>',
@@ -263,7 +263,7 @@
               };
             };
             // END == SETUP POPUP
-            
+
           })
           .catch(({ response }) => {
             this.$set(this, "errors", response.data.errors)

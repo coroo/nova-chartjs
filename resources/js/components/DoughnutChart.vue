@@ -1,5 +1,5 @@
 <template>
-    <card class="p-10">
+    <card>
       <div class="stay-right">
         <a @click="fillData()" class="btn-refresh" v-show="buttonRefresh">
           <i class="fas fa-sync"></i>
@@ -123,7 +123,7 @@
               }
             }
           }
-          
+
           if(this.chartTooltips.callbacks !== undefined){
             const callbacklist = ["beforeTitle", "title", "afterTitle", "beforeBody", "beforeLabel", "label", "labelColor", "labelTextColor", "afterLabel", "afterBody", "beforeFooter", "footer", "afterFooter"];
             var i;
@@ -144,7 +144,7 @@
             labels: this.card.options.xaxis.categories,
             datasets: this.card.series,
           }
-          
+
           // START == SETUP POPUP
           const sweetAlertWithLink = this.sweetAlert;
           if(sweetAlertWithLink != undefined) {
@@ -219,7 +219,7 @@
               labels: data.dataset.xAxis,
               datasets: data.dataset.yAxis,
             };
-          
+
             // START == SETUP POPUP
             const sweetAlertWithLink = this.sweetAlert;
             if(sweetAlertWithLink != undefined) {
@@ -260,7 +260,7 @@
               };
             };
             // END == SETUP POPUP
-            
+
             if( this.card.options.showPercentage != undefined ) {
               if( this.card.options.showPercentage == true ) {
                 let dataArr = data.dataset.yAxis[0].data;

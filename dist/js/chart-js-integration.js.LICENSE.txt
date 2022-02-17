@@ -11,3 +11,7 @@
  * (c) 2019 Chart.js Contributors
  * Released under the MIT license
  */
+
+//! moment.js
+
+//! moment.js locale configuration
