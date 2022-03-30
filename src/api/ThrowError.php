@@ -2,9 +2,9 @@
 
 namespace Coroowicaksono\ChartJsIntegration\Api;
 
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;  
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
-class ThrowError extends \Exception implements HttpExceptionInterface 
+class ThrowError extends \Exception implements HttpExceptionInterface
 {
     
     public function getStatusCode(): int
