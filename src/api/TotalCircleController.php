@@ -66,23 +66,23 @@ class TotalCircleController extends Controller
             } else {
                 $query = $model::selectRaw('SUM('.$calculation.') counted'.$seriesSql);
             }
-                
+
             if(is_numeric($advanceFilterSelected)){
                 $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
             }
             else if($advanceFilterSelected=='YTD'){
-                $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subYear(1));
+                $query->whereBetween($xAxisColumn, [Carbon::now()->firstOfYear()->startOfDay(), Carbon::now()]);
             }
             else if($advanceFilterSelected=='QTD'){
-                $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonths(2));
+                $query->whereBetween($xAxisColumn, [Carbon::now()->firstOfQuarter()->startOfDay(), Carbon::now()]);
             }
             else if($advanceFilterSelected=='MTD'){
-                $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth());
+                $query->whereBetween($xAxisColumn, [Carbon::now()->firstOfMonth()->startOfDay(), Carbon::now()]);
             }
             else if($dataForLast != '*') {
                 $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonth($dataForLast-1));
             }
-            
+
             if(isset(json_decode($request->options, true)['queryFilter'])){
                 $queryFilter = json_decode($request->options, true)['queryFilter'];
                 foreach($queryFilter as $qF){
