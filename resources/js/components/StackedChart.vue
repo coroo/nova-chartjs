@@ -115,8 +115,8 @@
           layout: this.chartLayout,
           scales: {
             yAxes: {
-              ...this.card.options.scales?.yAxes || {},
               stacked: true,
+              ...this.card.options.scales?.yAxes || {},
               ticks: {
                 maxTicksLimit: 5,
                 ...this.card.options.scales?.yAxes?.ticks || {},
@@ -139,8 +139,8 @@
               }
             },
             xAxes: {
-              ...this.card.options.scales?.xAxes || {},
               stacked: true,
+              ...this.card.options.scales?.xAxes || {},
               ticks: {
                 ...this.card.options.scales?.xAxes?.ticks || {},
                 font: {

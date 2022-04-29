@@ -139,7 +139,6 @@
             },
             xAxes: {
               ...this.card.options.scales?.xAxes || {},
-              stacked: true,
               ticks: {
                 ...this.card.options.scales?.xAxes?.ticks || {},
                 font: {

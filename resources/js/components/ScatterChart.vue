@@ -84,10 +84,10 @@
           scales: {
             ...this.card.options.scales || {},
             xAxes: {
-              ...this.card.options.scales?.xAxes || {},
               type: 'linear',
               position: 'bottom',
               stacked: true,
+              ...this.card.options.scales?.xAxes || {},
               ticks: {
                 ...this.card.options.scales?.xAxes?.ticks || {},
                 font: {
