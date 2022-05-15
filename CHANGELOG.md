@@ -2,6 +2,10 @@
 
 All notable changes to `chart-js-integration` will be documented in this file
 
+## v0.4.0 - 2022-05-15
+
+- :sparkles: add new support for nova v4.x
+
 ## v0.3.4 - 2021-02-11
 
 - :sparkles: add new feature: custom x-axis
