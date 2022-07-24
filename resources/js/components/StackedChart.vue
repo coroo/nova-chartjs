@@ -3,7 +3,7 @@
     <div class="h-6 flex items-center px-6 mt-4">
       <h4 class="mr-3 leading-tight text-sm font-bold">{{ checkTitle }}</h4>
       <div class="flex relative ml-auto flex-shrink-0">
-        <default-button size="xs" class="mr-2" @click="fillData()" v-show="buttonRefresh">
+        <default-button size="xs" class="mr-2" @click="fetch()" v-show="buttonRefresh">
           <icon-refresh />
         </default-button>
         <default-button size="xs" class="mr-2" @click="reloadPage()" v-show="buttonReload">
@@ -27,6 +27,7 @@
   import LineChart from '../bar-chart';
   import IconRefresh from './Icons/IconRefresh';
   import IconExternalLink from './Icons/IconExternalLink';
+  import {Minimum} from "laravel-nova";
 
   export default {
     components: {
@@ -35,51 +36,38 @@
       LineChart,
     },
     data () {
-      this.card.options = this.card.options != undefined ? this.card.options : false;
-
-      // setup btn filter list
-      const btnFilterList = this.card.options.btnFilterList;
-      let filledAdvancedList = [];
-      let i = 0;
-
-      for ( let index in btnFilterList ) {
-        filledAdvancedList[i] = {value: index, text: btnFilterList[index]};
-        i++;
-      }
+      this.card.options = false;
 
       return {
         datacollection: {},
         options: {},
-        loading: false,
-        buttonRefresh: this.card.options.btnRefresh,
-        buttonReload: this.card.options.btnReload,
-        btnExtLink: this.card.options.extLink != undefined ? true : false,
-        externalLink: this.card.options.extLink,
-        externalLinkIn: this.card.options.extLinkIn != undefined ? this.card.options.extLinkIn : '_self',
-        chartTooltips: this.card.options.tooltips != undefined ? this.card.options.tooltips : undefined,
-        sweetAlert: this.card.options.sweetAlert2 != undefined ? this.card.options.sweetAlert2 : undefined,
-        chartPlugins: this.card.options.plugins != undefined ? this.card.options.plugins : false,
-        chartLayout: this.card.options.layout != undefined ? this.card.options.layout :
-          {
-            padding: {
-              left: 20,
-              right: 20,
-              top: 0,
-              bottom: 10
-            }
-          },
-        chartLegend: this.card.options.legend != undefined ? this.card.options.legend :
-          {
-            display: true,
-            position: 'left',
-            labels: {
-              fontColor: '#7c858e',
-              fontFamily: "'Nunito'"
-            }
-          },
-        showAdvanceFilter: this.card.model == 'custom' || this.card.model == undefined ? false : this.card.options.btnFilter == true ? true : false ,
-        advanceFilterSelected: this.card.options.btnFilterDefault != undefined ? this.card.options.btnFilterDefault : 'QTD',
-        advanceFilter: this.card.options.btnFilterList != undefined ? filledAdvancedList : [
+        buttonRefresh: undefined,
+        buttonReload: undefined,
+        btnExtLink: false,
+        externalLink: undefined,
+        externalLinkIn: '_self',
+        chartTooltips: undefined,
+        sweetAlert: undefined,
+        chartPlugins: false,
+        chartLayout: {
+          padding: {
+            left: 20,
+            right: 20,
+            top: 0,
+            bottom: 10
+          }
+        },
+        chartLegend: {
+          display: true,
+          position: 'left',
+          labels: {
+            fontColor: '#7c858e',
+            fontFamily: "'Nunito'"
+          }
+        },
+        showAdvanceFilter: false ,
+        advanceFilterSelected: 'QTD',
+        advanceFilter: [
           { text: 'Year to Date', value: 'YTD' },
           { text: 'Quarter to Date', value: 'QTD' },
           { text: 'Month to Date', value: 'MTD' },
@@ -92,21 +80,38 @@
     computed: {
       checkTitle() {
         return this.card.title !== undefined ? this.card.title : 'Chart JS Integration';
-      }
+      },
+      metricEndpoint() {
+        return `/nova-api/metrics/${this.card.uriKey}`;
+      },
     },
     props: [
         'card'
     ],
     mounted () {
-      this.fillData();
+      this.fetch();
     },
     methods: {
+      fetch() {
+        this.loading = true;
+        Minimum(Nova.request().get(`${this.metricEndpoint}`)).then(
+            ({
+               data: {
+                 value,
+               }
+             }) => {
+              this.card = value;
+              this.loading = false;
+              this.fillData();
+            }
+        );
+      },
       reloadPage(){
         window.location.reload()
       },
       handleFilterChanged(value) {
         this.advanceFilterSelected = value;
-        this.fillData();
+        this.fetch();
       },
       fillData () {
 
