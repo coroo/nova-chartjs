@@ -1,5 +1,6 @@
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Chart, registerables } from 'chart.js';
+import 'chartjs-adapter-moment';
 
 import StackedChart from './components/StackedChart'
 import BarChart from './components/BarChart'
