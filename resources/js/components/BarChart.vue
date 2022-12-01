@@ -91,7 +91,7 @@
     },
     computed: {
         chartCanvasHeight() {
-          return this.options.hasOwnProperty('height') ? this.options.height : 400;
+          return this.card.options.hasOwnProperty('height') ? this.card.options.height : 400;
         },
       checkTitle() {
         return this.card.title !== undefined ? this.card.title : 'Chart JS Integration';
