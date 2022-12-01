@@ -19,7 +19,7 @@
         </select-control>
       </div>
     </div>
-    <line-chart v-if="!loading" :chart-data="datacollection" :options="options"></line-chart>
+    <line-chart v-if="!loading" :chart-data="datacollection" :options="options" :height="chartCanvasHeight"></line-chart>
   </loading-card>
 </template>
 
@@ -90,6 +90,9 @@
       }
     },
     computed: {
+        chartCanvasHeight() {
+            return this.options.hasOwnProperty('height') ? this.options.height : 400;
+        },
       checkTitle() {
         return this.card.title !== undefined ? this.card.title : 'Chart JS Integration';
       }
