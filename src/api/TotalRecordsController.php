@@ -54,7 +54,9 @@ class TotalRecordsController extends Controller
                     $seriesData = json_decode($serieslist);
                     $filter = $seriesData->filter;
                     $labelList[$seriesKey] = $seriesData->label;
-                    if(empty($filter->value)&&isset($filter->operator)&&($filter->operator=='IS NULL' || $filter->operator=='IS NOT NULL')) {
+                    if(!isset($filter->operator)&&!isset($filter->value)) {
+                        $seriesSql .= ", SUM(".$filter->key.") as '".$labelList[$seriesKey]."'";
+                    } else if(empty($filter->value)&&isset($filter->operator)&&($filter->operator=='IS NULL' || $filter->operator=='IS NOT NULL')) {
                         $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".$filter->operator." then ".$calculation." else 0 end) as '".$labelList[$seriesKey]."'";
                     } else if(empty($filter->value)){
                         $seriesSql .= ", SUM(CASE WHEN ";
