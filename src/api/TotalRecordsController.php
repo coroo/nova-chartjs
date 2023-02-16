@@ -2,6 +2,7 @@
 
 namespace Coroowicaksono\ChartJsIntegration\Api;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
@@ -46,14 +47,15 @@ class TotalRecordsController extends Controller
             $xAxis = [];
             $yAxis = [];
             $seriesSql = "";
-            $defaultColor = array("#ffcc5c","#91e8e1","#ff6f69","#88d8b0","#b088d8","#d8b088", "#88b0d8", "#6f69ff","#7cb5ec","#434348","#90ed7d","#8085e9","#f7a35c","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1","#E27D60","#85DCB","#E8A87C","#C38D9E","#41B3A3","#67c4a7","#992667","#ff4040","#ff7373","#d2d2d2");
+            $brandColor = config('nova.brand.colors.500') ?: '14,165,233';
+            $defaultColor = array("rgba($brandColor, 1)", "#ffcc5c","#91e8e1","#ff6f69","#88d8b0","#b088d8","#d8b088", "#88b0d8", "#6f69ff","#7cb5ec","#434348","#90ed7d","#8085e9","#f7a35c","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1","#E27D60","#85DCB","#E8A87C","#C38D9E","#41B3A3","#67c4a7","#992667","#ff4040","#ff7373","#d2d2d2");
             if(isset($request->series)){
                 foreach($request->series as $seriesKey => $serieslist){
                     $seriesData = json_decode($serieslist);
                     $filter = $seriesData->filter;
                     $labelList[$seriesKey] = $seriesData->label;
                     if(empty($filter->value)&&isset($filter->operator)&&($filter->operator=='IS NULL' || $filter->operator=='IS NOT NULL')) {
-                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".$filter->operator." then ".$calculation." else 0 end) as '".$labelList[$seriesKey]."'";
+                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".$filter->operator." then ".$calculation." else 0 end) as \"".$labelList[$seriesKey]."\"";
                     } else if(empty($filter->value)){
                         $seriesSql .= ", SUM(CASE WHEN ";
                         $countFilter = count($filter);
@@ -61,9 +63,9 @@ class TotalRecordsController extends Controller
                             $seriesSql .= " ".$listFilter->key." ".($listFilter->operator ?? "=")." '".$listFilter->value."' ";
                             $seriesSql .= $countFilter-1 != $keyFilter ? " AND " : "";
                         }
-                        $seriesSql .= "then ".$calculation." else 0 end) as '".$labelList[$seriesKey]."'";
+                        $seriesSql .= "then ".$calculation." else 0 end) as \"".$labelList[$seriesKey]."\"";
                     } else {
-                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".($filter->operator ?? "=")." '".$filter->value."' then ".$calculation." else 0 end) as '".$labelList[$seriesKey]."'";
+                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".($filter->operator ?? "=")." '".$filter->value."' then ".$calculation." else 0 end) as \"".$labelList[$seriesKey]."\"";
                     }
                 }
             }
@@ -75,18 +77,18 @@ class TotalRecordsController extends Controller
                 } else {
                     $query = $model::selectRaw('DATE('.$xAxisColumn.') AS cat, DATE('.$xAxisColumn.') AS catorder, sum('.$calculation.') counted'.$seriesSql);
                 }
-                
+
                 if(is_numeric($advanceFilterSelected)){
                     $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
                 }
                 else if($advanceFilterSelected=='YTD'){
-                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subYear(1));
+                    $query->whereBetween($xAxisColumn, [Carbon::now()->firstOfYear()->startOfDay(), Carbon::now()]);
                 }
                 else if($advanceFilterSelected=='QTD'){
-                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonths(2));
+                    $query->whereBetween($xAxisColumn, [Carbon::now()->firstOfQuarter()->startOfDay(), Carbon::now()]);
                 }
                 else if($advanceFilterSelected=='MTD'){
-                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth());
+                    $query->whereBetween($xAxisColumn, [Carbon::now()->firstOfMonth()->startOfDay(), Carbon::now()]);
                 }
                 else if($dataForLast != '*') {
                     $query->where($xAxisColumn, '>=', Carbon::now()->subDay($dataForLast+1));
@@ -110,18 +112,18 @@ class TotalRecordsController extends Controller
                         $query = $model::selectRaw('YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS cat, YEARWEEK('.$xAxisColumn.', '.$startWeek.') AS catorder, sum('.$calculation.') counted'.$seriesSql);
                     }
                 }
-                
+
                 if(is_numeric($advanceFilterSelected)){
                     $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
                 }
                 else if($advanceFilterSelected=='YTD'){
-                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subYear(1));
+                    $query->whereBetween($xAxisColumn, [Carbon::now()->firstOfYear()->startOfDay(), Carbon::now()]);
                 }
                 else if($advanceFilterSelected=='QTD'){
-                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonths(2));
+                    $query->whereBetween($xAxisColumn, [Carbon::now()->firstOfQuarter()->startOfDay(), Carbon::now()]);
                 }
                 else if($advanceFilterSelected=='MTD'){
-                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth());
+                    $query->whereBetween($xAxisColumn, [Carbon::now()->firstOfMonth()->startOfDay(), Carbon::now()]);
                 }
                 else if($dataForLast != '*') {
                     $query->where($xAxisColumn, '>=', Carbon::now()->startOfWeek()->subWeek($dataForLast));
@@ -141,13 +143,13 @@ class TotalRecordsController extends Controller
                     $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
                 }
                 else if($advanceFilterSelected=='YTD'){
-                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subYear(1));
+                    $query->whereBetween($xAxisColumn, [Carbon::now()->firstOfYear()->startOfDay(), Carbon::now()]);
                 }
                 else if($advanceFilterSelected=='QTD'){
-                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonths(2));
+                    $query->whereBetween($xAxisColumn, [Carbon::now()->firstOfQuarter()->startOfDay(), Carbon::now()]);
                 }
                 else if($advanceFilterSelected=='MTD'){
-                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth());
+                    $query->whereBetween($xAxisColumn, [Carbon::now()->firstOfMonth()->startOfDay(), Carbon::now()]);
                 }
                 else if($dataForLast != '*') {
                     $query->where($xAxisColumn, '>=', Carbon::now()->startOfDay());
@@ -172,18 +174,18 @@ class TotalRecordsController extends Controller
                         $query = $model::selectRaw('DATE_FORMAT('.$xAxisColumn.', "%b %Y") AS cat, DATE_FORMAT('.$xAxisColumn.', "%Y-%m") AS catorder, sum('.$calculation.') counted'.$seriesSql);
                     }
                 }
-                
+
                 if(is_numeric($advanceFilterSelected)){
                     $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
                 }
                 else if($advanceFilterSelected=='YTD'){
-                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subYear(1));
+                    $query->whereBetween($xAxisColumn, [Carbon::now()->firstOfYear()->startOfDay(), Carbon::now()]);
                 }
                 else if($advanceFilterSelected=='QTD'){
-                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonths(2));
+                    $query->whereBetween($xAxisColumn, [Carbon::now()->firstOfQuarter()->startOfDay(), Carbon::now()]);
                 }
                 else if($advanceFilterSelected=='MTD'){
-                    $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth());
+                    $query->whereBetween($xAxisColumn, [Carbon::now()->firstOfMonth()->startOfDay(), Carbon::now()]);
                 }
                 else if($dataForLast != '*') {
                     $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonth($dataForLast-1));
@@ -191,7 +193,7 @@ class TotalRecordsController extends Controller
                 $query->groupBy('catorder', 'cat')
                     ->orderBy('catorder', 'asc');
             }
-            
+
             if(isset(json_decode($request->options, true)['queryFilter'])){
                 $queryFilter = json_decode($request->options, true)['queryFilter'];
                 foreach($queryFilter as $qF){
@@ -264,9 +266,9 @@ class TotalRecordsController extends Controller
                 'xAxis'  => $xAxis,
                 'yAxis'  => $yAxis
             ]
-        ]);
+            ]);
     }
-    
+
     private function counted($dataSet, $bgColor = "#111", $type = "bar", $label = "Total")
     {
         $yAxis = [

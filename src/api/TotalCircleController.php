@@ -28,9 +28,9 @@ class TotalCircleController extends Controller
         $calculation = isset($request->options) ? json_decode($request->options, true)['sum'] ?? 1 : 1;
         $request->validate(['model'   => ['bail', 'required', 'min:1', 'string']]);
         $model = $request->input('model');
-		$modelInstance = new $model;
-		$tableName = $modelInstance->getConnection()->getTablePrefix() . $modelInstance->getTable();
-		$xAxisColumn = $request->input('col_xaxis') ?? DB::raw($tableName.'.created_at');
+        $modelInstance = new $model;
+        $tableName = $modelInstance->getConnection()->getTablePrefix() . $modelInstance->getTable();
+        $xAxisColumn = $request->input('col_xaxis') ?? DB::raw($tableName.'.created_at');
         $cacheKey = hash('md4', $model . (int)(bool)$request->input('expires'));
         $dataSet = Cache::get($cacheKey);
         if (!$dataSet) {
@@ -45,7 +45,7 @@ class TotalCircleController extends Controller
                     $filter = $seriesData->filter;
                     $labelList[$seriesKey] = $seriesData->label;
                     if(empty($filter->value)&&isset($filter->operator)&&($filter->operator=='IS NULL' || $filter->operator=='IS NOT NULL')) {
-                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".$filter->operator." then ".$calculation." else 0 end) as '".$labelList[$seriesKey]."'";
+                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".$filter->operator." then ".$calculation." else 0 end) as \"".$labelList[$seriesKey]."\"";
                     } else if(empty($filter->value)){
                         $seriesSql .= ", SUM(CASE WHEN ";
                         $countFilter = count($filter);
@@ -53,9 +53,9 @@ class TotalCircleController extends Controller
                             $seriesSql .= " ".$listFilter->key." ".($listFilter->operator ?? "=")." '".$listFilter->value."' ";
                             $seriesSql .= $countFilter-1 != $keyFilter ? " AND " : "";
                         }
-                        $seriesSql .= "then ".$calculation." else 0 end) as '".$labelList[$seriesKey]."'";
+                        $seriesSql .= "then ".$calculation." else 0 end) as \"".$labelList[$seriesKey]."\"";
                     } else {
-                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".($filter->operator ?? "=")." '".$filter->value."' then ".$calculation." else 0 end) as '".$labelList[$seriesKey]."'";
+                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".($filter->operator ?? "=")." '".$filter->value."' then ".$calculation." else 0 end) as \"".$labelList[$seriesKey]."\"";
                     }
                 }
             }
@@ -66,23 +66,23 @@ class TotalCircleController extends Controller
             } else {
                 $query = $model::selectRaw('SUM('.$calculation.') counted'.$seriesSql);
             }
-                
+
             if(is_numeric($advanceFilterSelected)){
                 $query->where($xAxisColumn, '>=', Carbon::now()->subDays($advanceFilterSelected));
             }
             else if($advanceFilterSelected=='YTD'){
-                $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subYear(1));
+                $query->whereBetween($xAxisColumn, [Carbon::now()->firstOfYear()->startOfDay(), Carbon::now()]);
             }
             else if($advanceFilterSelected=='QTD'){
-                $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonths(2));
+                $query->whereBetween($xAxisColumn, [Carbon::now()->firstOfQuarter()->startOfDay(), Carbon::now()]);
             }
             else if($advanceFilterSelected=='MTD'){
-                $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth());
+                $query->whereBetween($xAxisColumn, [Carbon::now()->firstOfMonth()->startOfDay(), Carbon::now()]);
             }
             else if($dataForLast != '*') {
                 $query->where($xAxisColumn, '>=', Carbon::now()->firstOfMonth()->subMonth($dataForLast-1));
             }
-            
+
             if(isset(json_decode($request->options, true)['queryFilter'])){
                 $queryFilter = json_decode($request->options, true)['queryFilter'];
                 foreach($queryFilter as $qF){
@@ -134,6 +134,6 @@ class TotalCircleController extends Controller
                 'xAxis'  => $xAxis,
                 'yAxis'  => $yAxis
             ]
-        ]);
+            ]);
     }
 }

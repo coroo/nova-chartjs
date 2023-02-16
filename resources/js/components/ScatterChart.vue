@@ -1,30 +1,32 @@
 <template>
-    <card class="p-10">
-      <div class="stay-right">
-        <a @click="fillData()" class="btn-refresh" v-show="buttonRefresh">
-          <i class="fas fa-sync"></i>
-        </a>
-        <a @click="reloadPage()" class="btn-refresh" v-show="buttonReload">
-          <i class="fas fa-sync"></i>
-        </a>
-        <a :href="externalLink" :target="externalLinkIn" class="btn-external" v-show="btnExtLink">
-          <i class="fas fa-external-link-alt"></i>
-        </a>
+  <loading-card :loading="loading" class="min-h-40">
+    <div class="h-6 flex items-center px-6 mt-4 pb-0">
+      <h4 class="mr-3 leading-tight text-sm font-bold">{{ checkTitle }}</h4>
+      <div class="flex relative ml-auto flex-shrink-0">
+        <default-button size="xs" class="mr-2" @click="fillData()" v-show="buttonRefresh">
+          <icon-refresh />
+        </default-button>
+        <default-button size="xs" class="mr-2" @click="reloadPage()" v-show="buttonReload">
+          <icon-refresh />
+        </default-button>
+        <default-button size="xs" class="mr-2" component="a" :href="externalLink" :target="externalLinkIn" v-show="btnExtLink">
+          <icon-external-link />
+        </default-button>
       </div>
-      <h4 class="chart-js-dashboard-title">{{ checkTitle }}</h4>
-      <line-chart :chart-data="datacollection" :options="options"></line-chart>
-    </card>
+    </div>
+    <line-chart v-if="!loading" :chart-data="datacollection" :options="options"></line-chart>
+  </loading-card>
 </template>
 
-<style>
-  @import '../../css/main.css';
-</style>
-
 <script>
-  import LineChart from '../scatter-chart.js'
+  import LineChart from '../scatter-chart.vue';
+  import IconRefresh from './Icons/IconRefresh';
+  import IconExternalLink from './Icons/IconExternalLink';
 
   export default {
     components: {
+      IconExternalLink,
+      IconRefresh,
       LineChart
     },
     data () {
@@ -32,12 +34,14 @@
       return {
         datacollection: {},
         options: {},
+        loading: false,
         buttonRefresh: (this.card.options != undefined) ? this.card.options.btnRefresh : false,
         buttonReload: this.card.options.btnReload,
         btnExtLink: this.card.options.extLink != undefined ? true : false,
         externalLink: this.card.options.extLink,
         externalLinkIn: this.card.options.extLinkIn != undefined ? this.card.options.extLinkIn : '_self',
         chartTooltips: this.card.options.tooltips != undefined ? this.card.options.tooltips : undefined,
+        chartPlugins: this.card.options.plugins != undefined ? this.card.options.plugins : false,
         chartLayout: this.card.options.layout != undefined ? this.card.options.layout :
           {
             padding: {
@@ -75,39 +79,50 @@
       },
       fillData () {
         this.options = {
+          ...this.card.options,
           layout: this.chartLayout,
-          legend: this.chartLegend,
           scales: {
-            xAxes: [ {
+            ...this.card.options.scales || {},
+            xAxes: {
               type: 'linear',
               position: 'bottom',
+              stacked: true,
+              ...this.card.options.scales?.xAxes || {},
               ticks: {
-                lineHeight: 0.8,
-                fontSize: 10,
+                ...this.card.options.scales?.xAxes?.ticks || {},
+                font: {
+                  lineHeight: 0.8,
+                  size: 10,
+                  ...this.card.options.scales?.xAxes?.ticks?.font || {},
+                }
               }
-            }]
+            }
+          },
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: this.chartLegend,
+            ...this.chartPlugins,
           },
         };
 
         if(this.chartTooltips !== undefined){
-          this.options.tooltips = this.chartTooltips;
+          this.options.plugins.tooltip = this.chartTooltips;
           const tooltiplist = ["custom", "itemSort", "filter"];
-          var z;
-          for (z = 0; z < tooltiplist.length; z++) {
-            if(this.options.tooltips[tooltiplist[z]] != undefined){
-              if(this.options.tooltips[tooltiplist[z]].search("function") != -1){
-                eval("this.options.tooltips." + tooltiplist[z] + " = " + this.options.tooltips[tooltiplist[z]]);
+          for (let z = 0; z < tooltiplist.length; z++) {
+            if(this.options.plugins.tooltip[tooltiplist[z]] != undefined){
+              if(this.options.plugins.tooltip[tooltiplist[z]].search("function") != -1){
+                eval("this.options.plugins.tooltip." + tooltiplist[z] + " = " + this.options.plugins.tooltip[tooltiplist[z]]);
               }
             }
           }
-          
+
           if(this.chartTooltips.callbacks !== undefined){
             const callbacklist = ["beforeTitle", "title", "afterTitle", "beforeBody", "beforeLabel", "label", "labelColor", "labelTextColor", "afterLabel", "afterBody", "beforeFooter", "footer", "afterFooter"];
-            var i;
-            for (i = 0; i < callbacklist.length; i++) {
-              if(this.options.tooltips.callbacks[callbacklist[i]] != undefined){
-                if(this.options.tooltips.callbacks[callbacklist[i]].search("function") != -1){
-                  eval("this.options.tooltips.callbacks." + callbacklist[i] + " = " + this.options.tooltips.callbacks[callbacklist[i]]);
+            for (let i = 0; i < callbacklist.length; i++) {
+              if(this.options.plugins?.tooltip?.callbacks?.[callbacklist[i]] != undefined){
+                if(this.options.plugins.tooltip.callbacks[callbacklist[i]].search("function") != -1){
+                  eval("this.options.plugins.tooltip.callbacks." + callbacklist[i] + " = " + this.options.plugins.tooltip.callbacks[callbacklist[i]]);
                 }
               }
             }
@@ -116,13 +131,14 @@
 
         if(this.card.model == 'custom' || this.card.model == undefined){
         // Custom Data
-          this.title = this.card.title,
+          this.title = this.card.title;
           this.datacollection = {
             datasets: this.card.series,
           }
           this.options = this.options;
         } else {
         // Use Model
+          this.loading = true;
           Nova.request().get("/nova-vendor/coroowicaksono/check-data/endpoint", {
             params: {
               model: this.card.model,
@@ -138,10 +154,11 @@
               labels: data.dataset.xAxis,
               datasets: data.dataset.yAxis,
             };
-            this.options = this.options;
+            this.loading = false;
           })
           .catch(({ response }) => {
-            this.$set(this, "errors", response.data.errors)
+            this.errors = response.data.errors;
+            this.loading = false;
           })
         }
       },
