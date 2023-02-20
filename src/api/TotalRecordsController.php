@@ -135,7 +135,6 @@ class TotalRecordsController extends Controller
                         ->join($joinInformation['joinTable'], $joinInformation['joinColumnFirst'], $joinInformation['joinEqual'], $joinInformation['joinColumnSecond']);
                 } else {
                     if($connectionName == 'pgsql'){
-                        //$query = $model::selectRaw('HOUR('.$xAxisColumn.') AS cat, HOUR('.$xAxisColumn.') AS catorder, sum('.$calculation.') counted'.$seriesSql);
                         $query = $model::selectRaw("to_char(DATE_TRUNC('hour', ".$xAxisColumn."), 'HH24:MI:SS') AS cat, to_char(DATE_TRUNC('hour', ".$xAxisColumn."), 'HH24:MI:SS') AS catorder, sum(".$calculation.") counted".$seriesSql);
 
                     }
