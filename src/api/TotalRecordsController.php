@@ -55,17 +55,17 @@ class TotalRecordsController extends Controller
                     $filter = $seriesData->filter;
                     $labelList[$seriesKey] = $seriesData->label;
                     if(empty($filter->value)&&isset($filter->operator)&&($filter->operator=='IS NULL' || $filter->operator=='IS NOT NULL')) {
-                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".$filter->operator." then ".$calculation." else 0 end) as \"".$labelList[$seriesKey]."\"";
+                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".$filter->operator." then ".$calculation." else 0 end) as \"".addslashes($labelList[$seriesKey])."\"";
                     } else if(empty($filter->value)){
                         $seriesSql .= ", SUM(CASE WHEN ";
                         $countFilter = count($filter);
                         foreach($filter as $keyFilter => $listFilter){
-                            $seriesSql .= " ".$listFilter->key." ".($listFilter->operator ?? "=")." '".$listFilter->value."' ";
+                            $seriesSql .= " ".$listFilter->key." ".($listFilter->operator ?? "=")." '".addslashes($listFilter->value)."' ";
                             $seriesSql .= $countFilter-1 != $keyFilter ? " AND " : "";
                         }
-                        $seriesSql .= "then ".$calculation." else 0 end) as \"".$labelList[$seriesKey]."\"";
+                        $seriesSql .= "then ".$calculation." else 0 end) as \"".addslashes($labelList[$seriesKey])."\"";
                     } else {
-                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".($filter->operator ?? "=")." '".$filter->value."' then ".$calculation." else 0 end) as \"".$labelList[$seriesKey]."\"";
+                        $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".($filter->operator ?? "=")." '".addslashes($filter->value)."' then ".$calculation." else 0 end) as \"".addslashes($labelList[$seriesKey])."\"";
                     }
                 }
             }
