@@ -1,4 +1,5 @@
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import DownloadDataPackage from 'chartjs-plugin-downloaddata';
 import { Chart, registerables } from 'chart.js';
 
 import StackedChart from './components/StackedChart'
@@ -16,6 +17,7 @@ Nova.booting((Vue) => {
     Chart.unregister(ChartDataLabels);
     Chart.register(...registerables);
     Chart.defaults.color = `rgba(${textColor}, 1)`;
+    Chart.register(DownloadDataPackage);
 
     Vue.component('stacked-chart', StackedChart);
     Vue.component('bar-chart', BarChart);

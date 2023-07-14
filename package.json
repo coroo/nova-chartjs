@@ -18,6 +18,7 @@
         "serialize-javascript": "^4.0.0",
         "sweetalert2": "^9.17.1",
         "vue": "^3.2.31",
-        "vue-chartjs": "^4.0.0"
+        "vue-chartjs": "^4.0.0",
+        "chartjs-plugin-downloaddata": "^1.0"
     }
 }
