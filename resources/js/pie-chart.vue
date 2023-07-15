@@ -9,7 +9,7 @@
 
 <script>
 import { Pie } from 'vue-chartjs'
-import HandlesDataLabelsPlugin from './mixins/HandlesDataLabelsPlugin';
+import HandlesPlugins from './mixins/HandlesPlugins';
 
 export default {
   components: {Pie},
@@ -19,6 +19,6 @@ export default {
       type: Number
     }
   },
-  mixins: [HandlesDataLabelsPlugin],
+  mixins: [HandlesPlugins],
 }
 </script>

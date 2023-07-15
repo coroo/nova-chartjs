@@ -8,7 +8,7 @@
 </template>
 <script>
   import { PolarArea } from 'vue-chartjs'
-  import HandlesDataLabelsPlugin from './mixins/HandlesDataLabelsPlugin';
+  import HandlesPlugins from './mixins/HandlesPlugins';
 
   export default {
     components: {PolarArea},
@@ -18,6 +18,6 @@
         type: Number
       }
     },
-    mixins: [HandlesDataLabelsPlugin],
+    mixins: [HandlesPlugins],
   }
 </script>
