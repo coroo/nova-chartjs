@@ -142,7 +142,7 @@
         } else {
         // Use Model
           this.loading = true;
-          Nova.request().get("/nova-vendor/coroowicaksono/check-data/endpoint/", {
+          Nova.request().get("/nova-vendor/coroowicaksono/check-data/endpoint", {
             params: {
               model: this.card.model,
               series: this.card.series,
