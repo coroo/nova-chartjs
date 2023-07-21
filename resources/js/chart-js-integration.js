@@ -1,5 +1,5 @@
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import DownloadDataPackage from 'chartjs-plugin-downloaddata';
+import DownloadDataPackage from '@razvanaldo/chart-js-plugin-for-downloading-data';
 import { Chart, registerables } from 'chart.js';
 
 import StackedChart from './components/StackedChart'

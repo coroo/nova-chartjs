@@ -13,12 +13,12 @@
         "vue-template-compiler": "^2.6.14"
     },
     "dependencies": {
+        "@razvanaldo/chart-js-plugin-for-downloading-data": "git+ssh://git@github.com/razvanaldo/Chart-JS-Download-Data.git",
         "chart.js": "^3.7.0",
         "chartjs-plugin-datalabels": "^2.0.0",
         "serialize-javascript": "^4.0.0",
         "sweetalert2": "^9.17.1",
         "vue": "^3.2.31",
-        "vue-chartjs": "^4.0.0",
-        "chartjs-plugin-downloaddata": "^1.0"
+        "vue-chartjs": "^4.0.0"
     }
 }
