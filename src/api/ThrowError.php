@@ -4,10 +4,10 @@ namespace Coroowicaksono\ChartJsIntegration\Api;
 
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
-class ThrowError extends \Exception implements HttpExceptionInterface 
+class ThrowError extends \Exception implements HttpExceptionInterface
 {
     
-    public function getStatusCode()
+    public function getStatusCode(): int
    {
        return 500;
    }
@@ -17,7 +17,7 @@ class ThrowError extends \Exception implements HttpExceptionInterface
     *
     * @return array Response headers
     */
-   public function getHeaders()
+   public function getHeaders(): array
    {
        return [];
    }
