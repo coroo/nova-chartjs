@@ -22,34 +22,28 @@ When requesting or submitting new features, first consider whether it might be u
 source projects are used by many developers, who may have entirely different needs to your own. Think about
 whether or not your feature is likely to be used by other users of the project.
 
-## Procedure
+It's great that you're looking to involve others in your open source project! To encourage collaboration and contributions, you can include a section in your README that invites people to join and contribute. Here's a suggested message:
 
-Before filing an issue:
+## How to Contribute
 
-- Attempt to replicate the problem, to ensure that it wasn't a coincidental incident.
-- Check to make sure your feature suggestion isn't already present within the project.
-- Check the pull requests tab to ensure that the bug doesn't have a fix in progress.
-- Check the pull requests tab to ensure that the feature isn't already in progress.
+1. **Fork the repository:** Start by forking this repository to your own GitHub account.
+2. **Clone the repository:** Clone the forked repository to your local machine using `git clone`.
+3. **Create a new branch:** Before making any changes, create a new branch for your feature, bug fix, or enhancement.
+4. **Make your changes:** Work on your contribution in the newly created branch. Be sure to follow the project's coding guidelines.
+5. **Test your changes:** Run tests if available and ensure that your changes don't introduce new issues.
+6. **Submit a pull request:** Once you're satisfied with your changes, submit a pull request from your branch to this repository.
+7. **Join the discussion:** Participate in the pull request discussion, addressing any feedback or questions.
 
-Before submitting a pull request:
+## What Can I Contribute?
 
-- Check the codebase to ensure that your feature doesn't already exist.
-- Check the pull requests to ensure that another person hasn't already submitted the feature or fix.
+- **Code:** Implement new features, fix bugs, improve performance, or refactor code.
+- **Documentation:** Enhance the project's documentation, including adding usage examples or clarifying explanations.
+- **Design:** Improve the user interface, create icons, or suggest visual enhancements.
+- **Testing:** Write unit tests, integration tests, or provide test coverage.
+- **Ideas:** Share your thoughts and ideas in the issues section. We're open to new concepts and improvements!
 
-## Requirements
+### Getting Help
 
-If the project maintainer has any additional requirements, you will find them listed here.
-
-- **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** - The easiest way to apply the conventions is to install [PHP Code Sniffer](http://pear.php.net/package/PHP_CodeSniffer).
-
-- **Add tests!** - Your patch won't be accepted if it doesn't have tests.
-
-- **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
-
-- **Consider our release cycle** - We try to follow [SemVer v2.0.0](http://semver.org/). Randomly breaking public APIs is not an option.
-
-- **One pull request per feature** - If you want to do more than one thing, send multiple pull requests.
-
-- **Send coherent history** - Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please [squash them](http://www.git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages) before submitting.
+If you need assistance, have questions, or want to discuss your contribution ideas, don't hesitate to open an issue or reach out to us.
 
 **Happy coding**!
