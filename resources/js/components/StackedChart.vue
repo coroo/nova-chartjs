@@ -161,7 +161,7 @@
 
         if(this.chartTooltips !== undefined){
           this.options.plugins.tooltip = this.chartTooltips;
-          const tooltiplist = ["custom", "itemSort", "filter"];
+          const tooltiplist = ["external", "itemSort", "filter"];
           for (let z = 0; z < tooltiplist.length; z++) {
             if(this.options.plugins.tooltip[tooltiplist[z]] != undefined){
               if(this.options.plugins.tooltip[tooltiplist[z]].search("function") != -1){
