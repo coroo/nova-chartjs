@@ -1,6 +1,6 @@
 <template>
-  <loading-card :loading="loading" class="min-h-40">
-    <div class="h-6 flex items-center px-6 mt-4 pb-0">
+  <loading-card :loading="loading" class="min-h-40 px-6 py-4">
+    <div class="h-6 flex items-center mb-4">
       <h4 class="mr-3 leading-tight text-sm font-bold">{{ checkTitle }}</h4>
       <div class="flex relative ml-auto flex-shrink-0">
         <default-button size="xs" class="mr-2" @click="fillData()" v-show="buttonRefresh">
