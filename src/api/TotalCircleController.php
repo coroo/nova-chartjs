@@ -26,7 +26,6 @@ class TotalCircleController extends Controller
         $options = is_string($request->options) ? json_decode($request->options, true) : $request->input('options', []);
         $join = is_string($request->join) ? json_decode($request->join, true) : $request->input('join', []);
 
-        $showTotal = $options['showTotal'] ?? true;
         $advanceFilterSelected = $options['advanceFilterSelected'] ?? false;
         $dataForLast = $options['latestData'] ?? 3;
         $calculation = $options['sum'] ?? 1;
@@ -52,8 +51,9 @@ class TotalCircleController extends Controller
                         $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".$filter->operator." then ".$calculation." else 0 end) as \"".$labelList[$seriesKey]."\"";
                     } else if(empty($filter->value)){
                         $seriesSql .= ", SUM(CASE WHEN ";
-                        $countFilter = count($filter);
+                        $countFilter = count((array) $filter);
                         foreach($filter as $keyFilter => $listFilter){
+                            $listFilter = (object) $listFilter;
                             $seriesSql .= " ".$listFilter->key." ".($listFilter->operator ?? "=")." '".$listFilter->value."' ";
                             $seriesSql .= $countFilter-1 != $keyFilter ? " AND " : "";
                         }

@@ -27,7 +27,7 @@ class TotalRecordsController extends Controller
         $options = is_string($request->options) ? json_decode($request->options, true) : $request->input('options', []);
         $join = is_string($request->join) ? json_decode($request->join, true) : $request->input('join', []);
 
-        $showTotal = $options['showTotal'] ?? true;
+        $showTotal = (bool) json_decode($options['showTotal'] ?? true);
         $totalLabel = $options['totalLabel'] ?? 'Total';
         $chartType = $request->type ?? 'bar';
         $advanceFilterSelected = $options['advanceFilterSelected'] ?? false;
@@ -62,8 +62,9 @@ class TotalRecordsController extends Controller
                         $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".$filter->operator." then ".$calculation." else 0 end) as \"".$labelList[$seriesKey]."\"";
                     } else if(empty($filter->value)){
                         $seriesSql .= ", SUM(CASE WHEN ";
-                        $countFilter = count($filter);
+                        $countFilter = count((array) $filter);
                         foreach($filter as $keyFilter => $listFilter){
+                            $listFilter = (object) $listFilter;
                             $seriesSql .= " ".$listFilter->key." ".($listFilter->operator ?? "=")." '".$listFilter->value."' ";
                             $seriesSql .= $countFilter-1 != $keyFilter ? " AND " : "";
                         }
@@ -255,7 +256,7 @@ class TotalRecordsController extends Controller
                     });
                     $countKey++;
                 }
-                if($showTotal == true){
+                if($showTotal){
                     $yAxis[$countKey] = $this->counted($dataSet, $defaultColor[$countKey], 'line', $totalLabel);
                 }
             } else {
