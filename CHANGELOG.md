@@ -8,11 +8,11 @@ git push origin v0.4.2
 
 All notable changes to `chart-js-integration` will be documented in this file
 
-## v0.4.0 - 2023-11-21
+## v0.4.2 - 2023-11-21
 
 - :sparkles: add new support for nova v4.31.x
 
-## v0.4.0 - 2023-09-16
+## v0.4.1 - 2023-09-16
 
 - :sparkles: add new support for laravel version 10.x
 
