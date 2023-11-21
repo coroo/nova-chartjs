@@ -2,13 +2,13 @@
 
 ```
 # create tag & push
-git tag -a v0.4.2 -m "Release version 0.4.2 to support laravel nova to 4.31"
-git push origin v0.4.2
+git tag -a v0.4.3 -m "Release version 0.4.3 to support laravel nova to 4.31"
+git push origin v0.4.3
 ```
 
 All notable changes to `chart-js-integration` will be documented in this file
 
-## v0.4.2 - 2023-11-21
+## v0.4.3 - 2023-11-21
 
 - :sparkles: add new support for nova v4.31.x
 
