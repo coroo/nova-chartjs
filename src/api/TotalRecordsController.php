@@ -55,8 +55,8 @@ class TotalRecordsController extends Controller
             $defaultColor = array("rgba($brandColor, 1)", "#ffcc5c","#91e8e1","#ff6f69","#88d8b0","#b088d8","#d8b088", "#88b0d8", "#6f69ff","#7cb5ec","#434348","#90ed7d","#8085e9","#f7a35c","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1","#E27D60","#85DCB","#E8A87C","#C38D9E","#41B3A3","#67c4a7","#992667","#ff4040","#ff7373","#d2d2d2");
             if(isset($request->series)){
                 foreach($request->series as $seriesKey => $serieslist){
-                    $seriesData = (object) $serieslist;
-                    $filter = (object) $seriesData->filter;
+                    $seriesData = json_decode($serieslist);
+                    $filter = $seriesData->filter;
                     $labelList[$seriesKey] = $seriesData->label;
                     if(empty($filter->value)&&isset($filter->operator)&&($filter->operator=='IS NULL' || $filter->operator=='IS NOT NULL')) {
                         $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".$filter->operator." then ".$calculation." else 0 end) as \"".$labelList[$seriesKey]."\"";
@@ -238,8 +238,8 @@ class TotalRecordsController extends Controller
             if(isset($request->series)){
                 $countKey = 0;
                 foreach($request->series as $sKey => $sData){
-                    $dataSeries = (object) $sData;
-                    $filter = (object) $dataSeries->filter;
+                    $dataSeries = json_decode($sData);
+                    $filter =  $dataSeries->filter;
                     $yAxis[$sKey]['label'] = $dataSeries->label;
                     if(isset($dataSeries->fill)){
                         if($dataSeries->fill==false){
