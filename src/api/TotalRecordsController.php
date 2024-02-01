@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
+use app\Nova\Services\ChartService;
+
+
+use Illuminate\Http\Request;
+
 class TotalRecordsController extends Controller
 {
     use ValidatesRequests;
@@ -18,7 +23,8 @@ class TotalRecordsController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function handle(NovaRequest $request)
+    //public function handle(NovaRequest $request)
+    public function handle(Request $request)
     {
         if ($request->input('model')) {
             $request->merge(['model' => urldecode($request->input('model'))]);
@@ -27,7 +33,8 @@ class TotalRecordsController extends Controller
         $options = is_string($request->options) ? json_decode($request->options, true) : $request->input('options', []);
         $join = is_string($request->join) ? json_decode($request->join, true) : $request->input('join', []);
 
-        $showTotal = (bool) json_decode($options['showTotal'] ?? true);
+        //$showTotal = (bool) json_decode($options['showTotal'] ?? true);
+        $showTotal = false;
         $totalLabel = $options['totalLabel'] ?? 'Total';
         $chartType = $request->type ?? 'bar';
         $advanceFilterSelected = $options['advanceFilterSelected'] ?? false;
@@ -38,25 +45,112 @@ class TotalRecordsController extends Controller
             throw new ThrowError('UOM not defined correctly. <br/>Check documentation: https://github.com/coroo/nova-chartjs');
         }
         $calculation = $options['sum'] ?? 1;
-        $request->validate(['model'   => ['bail', 'required', 'min:1', 'string']]);
+
+        // выкинем нахуй проверку
+        //$request->validate(['model'   => ['bail', 'required', 'min:1', 'string']]);
         $model = $request->input('model');
-        $modelInstance = new $model;
-        $connectionName = $modelInstance->getConnection()->getDriverName();
-        $tableName = $modelInstance->getConnection()->getTablePrefix() . $modelInstance->getTable();
-        $xAxisColumn = $request->input('col_xaxis') ?? $tableName.'.created_at';
-        $cacheKey = hash('md4', $model . (int)(bool)$request->input('expires'));
-        $dataSet = Cache::get($cacheKey);
+
+        // custom Hell #start#
+
+        if ($model == 'App\Custom') {
+
+            // $advanceFilterSelected это и есть фильтры (отслеживаемых дней - 1 ) ,
+            // ипользуем только numeric чтобы не путаться
+
+            $days = $advanceFilterSelected - 1;
+            $datesX = ChartService::rangeDates($days);
+            $xAxis = $datesX;
+
+
+            if(isset($request->series)){
+                $countKey = 0;
+                foreach($request->series as $sKey => $sData){
+                    $dataSeries = json_decode($sData);
+
+                    $yAxis[$sKey]['label'] = $dataSeries->label;
+                    $yAxis[$sKey]['backgroundColor'] = $dataSeries->backgroundColor ?? ChartService::PURPLE;
+
+                    // TODO 0
+                    if(isset($dataSeries->metricAmount) &&  isset($dataSeries->metricCount))
+                    {
+                        $method = $dataSeries->method;
+                        $metricAmount = $dataSeries->metricAmount;
+                        $metricCount = $dataSeries->metricCount;
+
+                        $yAxis[$sKey]['data'] = ChartService::$method($days, $metricAmount, $metricCount);
+                    }
+
+                    // TODO 1
+                    if($dataSeries->method == 'getMetricData') {
+                        $method = $dataSeries->method;
+                        $metricKey = $dataSeries->metricKey;
+                        $yAxis[$sKey]['data'] = ChartService::$method($metricKey, $days);
+
+                    }
+
+                    // TODO 2
+
+                    if($dataSeries->method == 'metricDataRegisteredUserAll' ||  $dataSeries->method == 'metricDataSuccessfullPayment')
+                    {
+                        $method = $dataSeries->method;
+                        $yAxis[$sKey]['data'] = match ($method) {
+                            'metricDataRegisteredUserAll' => ChartService::$method()['values'],
+                            'metricDataSuccessfullPayment' => ChartService::metricDataSuccessfullPayment($days),
+                            default => [],
+                        };
+                    }
+                }
+
+                // Проблемы с тоталом оставим на потом если надо TODO
+                // if($showTotal){
+                //   $yAxis[$countKey] = $this->counted($dataSet, $defaultColor[$countKey], 'line', $totalLabel);
+                //  }
+
+            }
+
+            return response()->json([
+                'dataset' => [
+                    'xAxis'  => $xAxis,
+                    'yAxis'  => $yAxis
+                ]
+            ]);
+
+        // custom Hell #end#
+        } else {
+            $modelInstance = new $model;
+            $connectionName = $modelInstance->getConnection()->getDriverName();
+            $tableName = $modelInstance->getConnection()->getTablePrefix() . $modelInstance->getTable();
+
+            $xAxisColumn = $request->input('col_xaxis') ?? $tableName.'.created_at';
+            $cacheKey = hash('md4', $model . (int)(bool)$request->input('expires'));
+            $dataSet = Cache::get($cacheKey);
+
+            \Log::debug( $dataSet);
+        }
+
         if (!$dataSet) {
+            // TODO конфиги отдельно
             $labelList = [];
             $xAxis = [];
             $yAxis = [];
             $seriesSql = "";
             $brandColor = config('nova.brand.colors.500') ?: '14,165,233';
             $defaultColor = array("rgba($brandColor, 1)", "#ffcc5c","#91e8e1","#ff6f69","#88d8b0","#b088d8","#d8b088", "#88b0d8", "#6f69ff","#7cb5ec","#434348","#90ed7d","#8085e9","#f7a35c","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1","#E27D60","#85DCB","#E8A87C","#C38D9E","#41B3A3","#67c4a7","#992667","#ff4040","#ff7373","#d2d2d2");
+
             if(isset($request->series)){
                 foreach($request->series as $seriesKey => $serieslist){
-                    $seriesData = (object) $serieslist;
-                    $filter = (object) $seriesData->filter;
+                    //\Log::debug($request->series);
+
+                    /*
+                    0 => '{"barPercentage":0.5,"label":"G2A","borderColor":"#ffb366","filter":{"key":"k","value":"g2a_payments_amount"}}',
+                    1 => '{"barPercentage":0.5,"label":"ZEN","borderColor":"#90ed7d","filter":{"key":"k","value":"zen_payments_amount"}}',
+                    2 => '{"barPercentage":0.5,"label":"COINBASE","borderColor":"#8b572a","filter":{"key":"k","value":"coinbase_payments_amount"}}',
+                    3 => '{"barPercentage":0.5,"label":"ALIPAY","borderColor":"#6e8bc8","filter":{"key":"k","value":"alipay_payments_amount"}}',
+                    )
+                    */
+
+                    $seriesData = json_decode($serieslist);
+                    $filter = $seriesData->filter;
                     $labelList[$seriesKey] = $seriesData->label;
                     if(empty($filter->value)&&isset($filter->operator)&&($filter->operator=='IS NULL' || $filter->operator=='IS NOT NULL')) {
                         $seriesSql .= ", SUM(CASE WHEN ".$filter->key." ".$filter->operator." then ".$calculation." else 0 end) as \"".$labelList[$seriesKey]."\"";
@@ -100,6 +194,7 @@ class TotalRecordsController extends Controller
                 }
                 $query->groupBy('catorder', 'cat')
                     ->orderBy('catorder', 'asc');
+
             } else if($unitOfMeasurement=='week'){
                 if(count($join)){
                     $joinInformation = $join;
@@ -197,6 +292,7 @@ class TotalRecordsController extends Controller
                 }
                 $query->groupBy('catorder', 'cat')
                     ->orderBy('catorder', 'asc');
+
             }
 
             if($options['queryFilter'] ?? false){
@@ -238,8 +334,12 @@ class TotalRecordsController extends Controller
             if(isset($request->series)){
                 $countKey = 0;
                 foreach($request->series as $sKey => $sData){
-                    $dataSeries = (object) $sData;
-                    $filter = (object) $dataSeries->filter;
+                    //$dataSeries = (object) $sData;
+
+                    $dataSeries = json_decode($sData);
+
+                    //$filter = (object) $dataSeries->filter;
+                    $filter = $dataSeries->filter;
                     $yAxis[$sKey]['label'] = $dataSeries->label;
                     if(isset($dataSeries->fill)){
                         if($dataSeries->fill==false){
@@ -254,11 +354,11 @@ class TotalRecordsController extends Controller
                     $yAxis[$sKey]['data'] = collect($dataSet)->map(function ($item, $key) use ($dataSeries){
                         return $item->only([$dataSeries->label])[$dataSeries->label];
                     });
-                    $countKey++;
                 }
                 if($showTotal){
-                    $yAxis[$countKey] = $this->counted($dataSet, $defaultColor[$countKey], 'line', $totalLabel);
+                    //$yAxis[$countKey] = $this->counted($dataSet, $defaultColor[$countKey], 'line', $totalLabel);
                 }
+
             } else {
                 $yAxis[0] = $this->counted($dataSet, $defaultColor[0], $chartType, $totalLabel);
             }
@@ -266,12 +366,15 @@ class TotalRecordsController extends Controller
                 Cache::put($cacheKey, $dataSet, Carbon::parse($request->input('expires')));
             }
         }
-        return response()->json(
-            ['dataset' => [
+
+        //\Log::debug($yAxis);
+
+        return response()->json([
+            'dataset' => [
                 'xAxis'  => $xAxis,
                 'yAxis'  => $yAxis
             ]
-            ]);
+        ]);
     }
 
     private function counted($dataSet, $bgColor = "#111", $type = "bar", $label = "Total")
