@@ -14,7 +14,9 @@
     },
     "dependencies": {
         "chart.js": "^3.7.0",
+        "chartjs-adapter-date-fns": "^3.0.0",
         "chartjs-plugin-datalabels": "^2.0.0",
+        "date-fns": "^3.6.0",
         "serialize-javascript": "^4.0.0",
         "sweetalert2": "^9.17.1",
         "vue": "^3.2.31",
